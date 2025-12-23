@@ -251,6 +251,37 @@ input[type=range]::-webkit-slider-runnable-track {
     box-shadow: 0 0 10px var(--accent-glow);
 }
 
+/* Selector de Objetivo (1% vs 100%) */
+.target-selector {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.target-btn {
+    flex: 1;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #334155;
+    color: var(--text-sec);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.target-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.target-btn.active {
+    background: var(--accent); /* Cyan */
+    color: #090a0f; /* Texto oscuro */
+    border-color: var(--accent);
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
 /* Ajuste móvil */
 @media (max-width: 600px) {
     .lang-switcher {
@@ -259,3 +290,4 @@ input[type=range]::-webkit-slider-runnable-track {
         justify-content: center;
     }
 }
+

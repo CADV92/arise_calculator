@@ -44,7 +44,7 @@
         <hr style="border:0; border-top:1px solid #334155; margin: 25px 0;">
 
         <div class="control-group">
-            <label id="lbl_dmg">Tu Daño Estimado (Ej: 1.5 Td, 100 E51)</label>
+            <label id="lbl_dmg">Tu Daño Estimado</label>
             <input type="text" id="userDmg" placeholder="E51...">
         </div>
         <div class="control-group">
@@ -52,11 +52,19 @@
             <input type="number" id="timeRound" value="25">
         </div>
 
+        <div class="control-group">
+            <label id="lbl_target">Objetivo de Cálculo</label>
+            <div class="target-selector">
+                <button class="target-btn active" onclick="setTarget(0.01, this)" id="btn_target_1">1% (Reward)</button>
+                <button class="target-btn" onclick="setTarget(1, this)" id="btn_target_100">100% (Kill)</button>
+            </div>
+        </div>
+
         <button class="btn-calc" onclick="calculate()" id="btn_calc">Calcular Progreso</button>
 
         <div class="results-box" id="results">
             <div class="res-item">
-                <span id="res_lbl_goal">Objetivo 1% HP:</span>
+                <span id="res_lbl_goal">Daño Objetivo:</span>
                 <span class="res-value" id="out1Pct">0</span>
             </div>
             <div class="res-item">
@@ -64,7 +72,7 @@
                 <span class="res-value" id="outRounds">0</span>
             </div>
             <div class="res-item">
-                <span id="res_lbl_time">Tiempo total estimado:</span>
+                <span id="res_lbl_time">Tiempo estimado:</span>
                 <span class="res-value time-val" id="outTime">0m 0s</span>
             </div>
         </div>

@@ -1,16 +1,18 @@
 // --- 1. CONFIGURACIÓN Y TRADUCCIONES ---
 
-// Diccionario de Idiomas
 const TRANSLATIONS = {
     es: {
         title: "Calculadora de Ascensión",
         subtitle: "Calculadora de Héroe Mítico",
         lbl_boss: "Jefe / Héroe Mítico (1-15)",
         lbl_hp: "Vida del Jefe (HP)",
-        lbl_dmg: "Tu Daño Estimado (Ej: 100 E51)",
+        lbl_dmg: "Tu Daño Estimado",
         lbl_time: "Tiempo por Ronda (Segundos)",
+        lbl_target: "Objetivo de Cálculo",
+        btn_target_1: "1% (Recompensa)",
+        btn_target_100: "100% (Matar)",
         btn_calc: "CALCULAR PROGRESO",
-        res_goal: "Objetivo 1% HP:",
+        res_goal: "Daño Objetivo:",
         res_rounds: "Rondas necesarias:",
         res_time: "Tiempo estimado:",
         btn_show: "Mostrar Tabla de Datos ▼",
@@ -20,7 +22,10 @@ const TRANSLATIONS = {
         th_name: "Nombre",
         err_data: "Error: No hay datos de vida para este nivel.",
         err_dmg: "Error: Ingresa un daño válido mayor a 0.",
-        time_d: "d", // Día
+        // Unidades de tiempo
+        time_y: "a",   // Año
+        time_mo: "mes",// Mes
+        time_d: "d",   // Día
         time_h: "h",
         time_m: "m",
         time_s: "s",
@@ -31,10 +36,13 @@ const TRANSLATIONS = {
         subtitle: "Mythic Hero Calculator",
         lbl_boss: "Boss / Mythic Hero (1-15)",
         lbl_hp: "Boss Health (HP)",
-        lbl_dmg: "Estimated Damage (Ex: 100 E51)",
+        lbl_dmg: "Estimated Damage",
         lbl_time: "Time per Round (Seconds)",
+        lbl_target: "Calculation Target",
+        btn_target_1: "1% (Reward)",
+        btn_target_100: "100% (Kill)",
         btn_calc: "CALCULATE PROGRESS",
-        res_goal: "Goal 1% HP:",
+        res_goal: "Target Damage:",
         res_rounds: "Rounds needed:",
         res_time: "Estimated Time:",
         btn_show: "Show Data Table ▼",
@@ -44,7 +52,9 @@ const TRANSLATIONS = {
         th_name: "Name",
         err_data: "Error: No HP data available for this level.",
         err_dmg: "Error: Please enter a valid damage > 0.",
-        time_d: "d", // Day
+        time_y: "y",
+        time_mo: "mo",
+        time_d: "d",
         time_h: "h",
         time_m: "m",
         time_s: "s",
@@ -55,10 +65,13 @@ const TRANSLATIONS = {
         subtitle: "Calcolatrice Eroe Mitico",
         lbl_boss: "Boss / Eroe Mitico (1-15)",
         lbl_hp: "Vita del Boss (HP)",
-        lbl_dmg: "Danno Stimato (Es: 100 E51)",
+        lbl_dmg: "Danno Stimato",
         lbl_time: "Tempo per Round (Secondi)",
+        lbl_target: "Obiettivo di Calcolo",
+        btn_target_1: "1% (Ricompensa)",
+        btn_target_100: "100% (Uccidere)",
         btn_calc: "CALCOLA PROGRESSO",
-        res_goal: "Obiettivo 1% HP:",
+        res_goal: "Danno Obiettivo:",
         res_rounds: "Round necessari:",
         res_time: "Tempo stimato:",
         btn_show: "Mostra Tabella Dati ▼",
@@ -68,7 +81,9 @@ const TRANSLATIONS = {
         th_name: "Nome",
         err_data: "Errore: Nessun dato HP disponibile.",
         err_dmg: "Errore: Inserisci un danno valido > 0.",
-        time_d: "g", // Giorno
+        time_y: "a",   // Anno
+        time_mo: "mese",
+        time_d: "g",   // Giorno
         time_h: "h",
         time_m: "m",
         time_s: "s",
@@ -76,7 +91,8 @@ const TRANSLATIONS = {
     }
 };
 
-let currentLang = 'es'; // Idioma por defecto
+let currentLang = 'es';
+let targetPercentage = 0.01; // Por defecto 1%
 
 const RANKS = ["E", "D", "C", "B", "A", "S", "SS", "G", "N"];
 const RANK_NAMES = ["M+", "GM", "MM", "M++", "XM", "GOD", "ULT", "OMG", "ARC"];
@@ -98,20 +114,22 @@ const slider = document.getElementById('rankSlider');
 const displayHP = document.getElementById('bossHP');
 const tableBody = document.getElementById('tableBody');
 
-// --- 2. SISTEMA DE IDIOMAS ---
+// --- 2. SISTEMA DE IDIOMAS Y OBJETIVO ---
 
 function changeLanguage(lang) {
     if (!TRANSLATIONS[lang]) return;
     currentLang = lang;
     const t = TRANSLATIONS[lang];
 
-    // Actualizar Textos Estáticos por ID
     document.getElementById('lbl_title').innerText = t.title;
     document.getElementById('lbl_subtitle').innerText = t.subtitle;
     document.getElementById('lbl_boss').innerText = t.lbl_boss;
     document.getElementById('lbl_hp').innerText = t.lbl_hp;
     document.getElementById('lbl_dmg').innerText = t.lbl_dmg;
     document.getElementById('lbl_time').innerText = t.lbl_time;
+    document.getElementById('lbl_target').innerText = t.lbl_target;
+    document.getElementById('btn_target_1').innerText = t.btn_target_1;
+    document.getElementById('btn_target_100').innerText = t.btn_target_100;
     document.getElementById('btn_calc').innerText = t.btn_calc;
     document.getElementById('res_lbl_goal').innerText = t.res_goal;
     document.getElementById('res_lbl_rounds').innerText = t.res_rounds;
@@ -130,8 +148,21 @@ function changeLanguage(lang) {
     document.getElementById(`btn-${lang}`).classList.add('active');
 }
 
-// --- 3. CARGA DE DATOS ---
+// Función para cambiar el objetivo (1% o 100%)
+function setTarget(pct, btnElement) {
+    targetPercentage = pct;
+    
+    // Actualizar visual de botones
+    document.querySelectorAll('.target-btn').forEach(b => b.classList.remove('active'));
+    btnElement.classList.add('active');
+    
+    // Si ya hay resultados, recalcular automáticamente
+    if(document.getElementById('results').style.display === "block") {
+        calculate();
+    }
+}
 
+// --- 3. CARGA DE DATOS ---
 async function loadData() {
     try {
         const response = await fetch('monsters.json');
@@ -140,7 +171,7 @@ async function loadData() {
         initUI();
     } catch (error) {
         console.error("Error loading JSON:", error);
-        alert("Error loading monsters.json. Use a local server.");
+        alert("Error loading monsters.json.");
     }
 }
 
@@ -156,7 +187,6 @@ function initUI() {
 }
 
 // --- 4. LÓGICA MATEMÁTICA ---
-
 function parseBig(str) {
     if(!str) return 0;
     str = str.toString().trim().toUpperCase();
@@ -186,7 +216,6 @@ function formatBig(num) {
     if (exp < 21) return num.toLocaleString('en-US', {maximumFractionDigits: 2});
 
     let mantissa = num / Math.pow(10, exp);
-
     if(exp >= 45) return `${mantissa.toFixed(2)} E${exp}`;
 
     let unit = UNITS.find(u => u.p === exp);
@@ -196,7 +225,6 @@ function formatBig(num) {
 }
 
 // --- 5. FUNCIONES UI ---
-
 function updateUI() {
     if (Object.keys(DB).length === 0) return;
     let idx = parseInt(slider.value);
@@ -233,34 +261,48 @@ function calculate() {
         return;
     }
 
-    let onePct = totalHP * 0.01;
-    let rounds = Math.ceil(onePct / userDmg);
-    let totalSeconds = rounds * time; // Total de segundos
+    // AQUI USAMOS LA VARIABLE DE PORCENTAJE (0.01 o 1.0)
+    let targetAmount = totalHP * targetPercentage;
+    let rounds = Math.ceil(targetAmount / userDmg);
+    let totalSeconds = rounds * time;
 
     document.getElementById('results').style.display = "block";
-    document.getElementById('out1Pct').innerText = formatBig(onePct);
+    document.getElementById('out1Pct').innerText = formatBig(targetAmount);
     document.getElementById('outRounds').innerText = rounds.toLocaleString();
     
-    // --- LÓGICA DE TIEMPO (Días, Horas, Minutos, Segundos) ---
-    // 1 día = 86400 segundos
-    let d = Math.floor(totalSeconds / 86400);
-    // El resto se usa para calcular horas
-    let remainder = totalSeconds % 86400;
+    // --- LÓGICA DE TIEMPO EXTENDIDA (Años, Meses, Días...) ---
+    // Aproximaciones estándar: 1 Año = 365 días, 1 Mes = 30 días
+    const SEC_MIN = 60;
+    const SEC_HOUR = 3600;
+    const SEC_DAY = 86400;
+    const SEC_MONTH = 2592000; // 30 días
+    const SEC_YEAR = 31536000; // 365 días
+
+    let years = Math.floor(totalSeconds / SEC_YEAR);
+    let remainder = totalSeconds % SEC_YEAR;
+
+    let months = Math.floor(remainder / SEC_MONTH);
+    remainder = remainder % SEC_MONTH;
+
+    let days = Math.floor(remainder / SEC_DAY);
+    remainder = remainder % SEC_DAY;
     
-    let h = Math.floor(remainder / 3600);
-    let m = Math.floor((remainder % 3600) / 60);
-    let s = Math.ceil(remainder % 60);
+    let h = Math.floor(remainder / SEC_HOUR);
+    let m = Math.floor((remainder % SEC_HOUR) / SEC_MIN);
+    let s = Math.ceil(remainder % SEC_MIN);
     
     let timeString = "";
     
-    // Construcción del string (Solo muestra si es mayor a 0)
-    if(d > 0) timeString += `${d}${t.time_d} `;
+    // Construcción inteligente del string
+    if(years > 0) timeString += `${years}${t.time_y} `;
+    if(months > 0 || years > 0) timeString += `${months}${t.time_mo} `;
+    if(days > 0 || months > 0 || years > 0) timeString += `${days}${t.time_d} `;
     
-    // Si hay días, mostrar horas aunque sean 0 (ej: 1d 0h 15m)
-    if(h > 0 || d > 0) timeString += `${h}${t.time_h} `;
+    // Si hay días/meses/años, mostrar horas aunque sean 0
+    if(h > 0 || days > 0 || months > 0 || years > 0) timeString += `${h}${t.time_h} `;
+    if(m > 0 || h > 0 || days > 0 || months > 0 || years > 0) timeString += `${m}${t.time_m} `;
     
-    if(m > 0 || h > 0 || d > 0) timeString += `${m}${t.time_m} `;
-    
+    // Segundos siempre al final (o solos si todo lo demás es 0)
     timeString += `${s}${t.time_s}`;
     
     document.getElementById('outTime').innerText = timeString;
