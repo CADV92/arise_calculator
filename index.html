@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ascension Tower Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="lang-switcher">
+        <button onclick="changeLanguage('es')" class="lang-btn active" id="btn-es">ES</button>
+        <button onclick="changeLanguage('en')" class="lang-btn" id="btn-en">EN</button>
+        <button onclick="changeLanguage('it')" class="lang-btn" id="btn-it">IT</button>
+    </div>
+
+    <div class="card">
+        <h1 id="lbl_title">Ascension Calc</h1>
+        <div class="subtitle" id="lbl_subtitle">Mythic Hero Calculator</div>
+
+        <div class="control-group">
+            <label id="lbl_boss">Jefe / Héroe Mítico (1-15)</label>
+            <select id="monsterSelect" onchange="updateUI()"></select>
+        </div>
+
+        <div class="control-group">
+            <div class="rank-badge" id="rankBadge">E</div>
+            <div class="rank-sub" id="rankName">M+</div>
+            
+            <div class="slider-wrapper">
+                <input type="range" id="rankSlider" min="0" max="8" step="1" value="0" oninput="updateUI()">
+                <div class="rank-labels">
+                    <span>E</span><span>D</span><span>C</span><span>B</span><span>A</span>
+                    <span>S</span><span>SS</span><span>G</span><span>N</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label id="lbl_hp">Vida del Jefe (HP)</label>
+            <input type="text" id="bossHP" readonly style="color:#aaa; cursor:not-allowed; font-weight:bold;">
+        </div>
+
+        <hr style="border:0; border-top:1px solid #334155; margin: 25px 0;">
+
+        <div class="control-group">
+            <label id="lbl_dmg">Tu Daño Estimado (Ej: 1.5 Td, 100 E51)</label>
+            <input type="text" id="userDmg" placeholder="E51...">
+        </div>
+        <div class="control-group">
+            <label id="lbl_time">Tiempo por Ronda (Segundos)</label>
+            <input type="number" id="timeRound" value="25">
+        </div>
+
+        <button class="btn-calc" onclick="calculate()" id="btn_calc">Calcular Progreso</button>
+
+        <div class="results-box" id="results">
+            <div class="res-item">
+                <span id="res_lbl_goal">Objetivo 1% HP:</span>
+                <span class="res-value" id="out1Pct">0</span>
+            </div>
+            <div class="res-item">
+                <span id="res_lbl_rounds">Rondas necesarias:</span>
+                <span class="res-value" id="outRounds">0</span>
+            </div>
+            <div class="res-item">
+                <span id="res_lbl_time">Tiempo total estimado:</span>
+                <span class="res-value time-val" id="outTime">0m 0s</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="details-container">
+        <button class="toggle-btn" onclick="toggleTable()" id="btn_toggle_table">Mostrar Tabla de Datos ▼</button>
+        <table class="data-table" id="dataTable">
+            <thead>
+                <tr>
+                    <th id="th_rank">Rango</th>
+                    <th id="th_hp">Vida (HP)</th>
+                    <th id="th_name">Nombre</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
