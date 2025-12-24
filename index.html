@@ -86,21 +86,51 @@
                 <span class="res-value time-val" id="outTime">0m 0s</span>
             </div>
         </div>
+        
+        <div class="action-buttons">
+            <button class="toggle-btn" onclick="openDetails()" id="btn_toggle_table">Ver Tabla Detallada</button>
+            <button class="toggle-btn btn-summary" onclick="openSummary()" id="btn_summary">Ver Matriz (Resumen)</button>
+        </div>
     </div>
 
-    <div class="details-container">
-        <button class="toggle-btn" onclick="toggleTable()" id="btn_toggle_table">Mostrar Tabla de Datos ▼</button>
-        <table class="data-table" id="dataTable">
-            <thead>
-                <tr>
-                    <th id="th_col1">Rango</th>
-                    <th id="th_col2">Vida (HP)</th>
-                    <th id="th_col3">Info</th>
-                    <th id="th_col4">Extra</th>
-                </tr>
-            </thead>
-            <tbody id="tableBody"></tbody>
-        </table>
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeDetails()">&times;</span>
+            <div class="modal-header">
+                <h2 id="modalTitleDetails">Detalles del Nivel</h2>
+            </div>
+            <div class="matrix-container">
+                <table class="data-table" id="dataTable" style="display: table;">
+                    <thead>
+                        <tr>
+                            <th id="th_col1">Rango</th>
+                            <th id="th_col2">Vida (HP)</th>
+                            <th id="th_col3">Info</th>
+                            <th id="th_col4">Extra</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="summaryModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeSummary()">&times;</span>
+            
+            <div class="modal-header">
+                <h2 id="modalTitle">Resumen de Vidas</h2>
+                <button class="toggle-btn btn-summary" id="btn_matrix_switch" onclick="toggleMatrixMode()" style="width: auto; margin: 0;">
+                    Cambiar a 1%
+                </button>
+            </div>
+
+            <div class="matrix-container">
+                <table id="matrixTable">
+                    </table>
+            </div>
+        </div>
     </div>
 
     <script src="monsters.js"></script>

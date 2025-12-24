@@ -20,10 +20,15 @@ const TRANSLATIONS = {
         res_goal: "Daño Objetivo:",
         res_rounds: "Rondas:",
         res_time: "Tiempo:",
-        btn_show: "Ver Tabla ▼",
-        btn_hide: "Ocultar Tabla ▲",
         
-        // Headers Genéricos
+        // Botonera
+        btn_toggle_table: "Ver Tabla Detallada",
+        btn_summary: "Ver Matriz (Resumen)",
+        
+        // Modales
+        modalTitleDetails: "Detalles del Nivel",
+        
+        // Headers
         th_rank: "Rango",
         th_hp: "Vida",
         th_name: "Subtítulo",
@@ -56,8 +61,11 @@ const TRANSLATIONS = {
         res_goal: "Target Dmg:",
         res_rounds: "Rounds:",
         res_time: "Time:",
-        btn_show: "Show Table ▼",
-        btn_hide: "Hide Table ▲",
+        
+        btn_toggle_table: "View Detailed Table",
+        btn_summary: "View Matrix (Summary)",
+        modalTitleDetails: "Level Details",
+
         th_rank: "Rank",
         th_hp: "HP",
         th_name: "Subtitle",
@@ -65,6 +73,7 @@ const TRANSLATIONS = {
         th_total: "Total HP",
         th_reward: "Reward (1%)",
         th_time: "Est. Time",
+        
         err_data: "No data.",
         err_dmg: "Invalid damage.",
         time_y: "y", time_mo: "mo", time_d: "d", time_h: "h", time_m: "m", time_s: "s",
@@ -89,8 +98,11 @@ const TRANSLATIONS = {
         res_goal: "Danno Obiettivo:",
         res_rounds: "Round:",
         res_time: "Tempo:",
-        btn_show: "Mostra Tabella ▼",
-        btn_hide: "Nascondi Tabella ▲",
+        
+        btn_toggle_table: "Vedi Tabella Dettagliata",
+        btn_summary: "Vedi Matrice (Riepilogo)",
+        modalTitleDetails: "Dettagli Livello",
+
         th_rank: "Rango",
         th_hp: "Vita",
         th_name: "Sottotitolo",
@@ -98,6 +110,7 @@ const TRANSLATIONS = {
         th_total: "HP Totale",
         th_reward: "1% (Ricompensa)",
         th_time: "Tempo Stim.",
+        
         err_data: "Nessun dato.",
         err_dmg: "Danno non valido.",
         time_y: "a", time_mo: "mese", time_d: "g", time_h: "h", time_m: "m", time_s: "s",
@@ -143,7 +156,7 @@ function changeLanguage(lang) {
     const ids = ['btn_mode_tower','btn_mode_maps','lbl_select_map',
                  'lbl_boss','lbl_hp','lbl_dmg','lbl_time','lbl_target',
                  'btn_target_1','btn_target_100','btn_calc','res_goal',
-                 'res_rounds','res_time'];
+                 'res_rounds','res_time', 'btn_summary', 'btn_toggle_table', 'modalTitleDetails'];
                  
     ids.forEach(id => {
         const el = document.getElementById(id);
@@ -155,11 +168,13 @@ function changeLanguage(lang) {
     
     document.getElementById('userDmg').placeholder = t.placeholder_dmg;
     
-    const tableDisplay = document.getElementById('dataTable').style.display;
-    document.getElementById('btn_toggle_table').innerText = (tableDisplay === 'table') ? t.btn_hide : t.btn_show;
-
     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
     document.getElementById(`btn-${lang}`).classList.add('active');
+    
+    // Si la matriz está abierta, refrescarla para traducir el botón interno
+    if(document.getElementById('summaryModal').style.display === "flex") {
+        renderMatrixTable();
+    }
 }
 
 function updateTitles() {
@@ -176,7 +191,6 @@ function updateTitles() {
     }
 }
 
-// Actualiza las columnas usando los IDs genéricos
 function updateTableHeaders() {
     const t = TRANSLATIONS[currentLang];
     const col1 = document.getElementById('th_col1');
@@ -185,18 +199,16 @@ function updateTableHeaders() {
     const col4 = document.getElementById('th_col4');
 
     if (currentMode === 'tower') {
-        // Modo Torre: 3 Columnas
         col1.innerText = t.th_rank;
         col2.innerText = t.th_hp;
         col3.innerText = t.th_name;
-        col4.style.display = 'none'; // Ocultar 4ta columna
+        col4.style.display = 'none'; 
     } else {
-        // Modo Mapas: 4 Columnas
         col1.innerText = t.th_mob;
         col2.innerText = t.th_total;
         col3.innerText = t.th_reward;
         col4.innerText = t.th_time;
-        col4.style.display = 'table-cell'; // Mostrar 4ta columna
+        col4.style.display = 'table-cell'; 
     }
 }
 
@@ -232,28 +244,120 @@ function setTarget(pct, btnElement) {
     if(isCalculated) calculate();
 }
 
-// --- 3. CARGA DE DATOS (VARIABLE EXTERNA) ---
+// --- 3. MODALES Y MATRIZ ---
+
+// Modal 1: Tabla Detallada
+function openDetails() {
+    renderTableRows(selectMonster.value, parseInt(slider.value)); // Refrescar tabla
+    document.getElementById('detailsModal').style.display = "flex"; // FLEX para centrar
+}
+
+function closeDetails() {
+    document.getElementById('detailsModal').style.display = "none";
+}
+
+// Modal 2: Matriz Resumen
+let showRewardMode = false;
+
+function openSummary() {
+    showRewardMode = false; // Reset a modo HP
+    renderMatrixTable();
+    document.getElementById('summaryModal').style.display = "flex"; // FLEX para centrar
+}
+
+function closeSummary() {
+    document.getElementById('summaryModal').style.display = "none";
+}
+
+function toggleMatrixMode() {
+    showRewardMode = !showRewardMode;
+    renderMatrixTable();
+}
+
+function renderMatrixTable() {
+    const matrixTable = document.getElementById('matrixTable');
+    const modalTitle = document.getElementById('modalTitle');
+    const btnSwitch = document.getElementById('btn_matrix_switch');
+    
+    if (!CURRENT_MONSTER_LIST) return;
+
+    // Actualizar Textos
+    if (showRewardMode) {
+        modalTitle.innerText = (currentLang === 'es') ? "Matriz: Recompensa 1%" : 
+                               (currentLang === 'it') ? "Matrice: 1% Ricompensa" : "Matrix: 1% Reward";
+        
+        btnSwitch.innerText = (currentLang === 'es') ? "Ver Vida Total (HP)" : 
+                              (currentLang === 'it') ? "Vedi Vita Totale" : "Show Total HP";
+        btnSwitch.style.borderColor = "var(--success)";
+        btnSwitch.style.color = "var(--success)";
+    } else {
+        modalTitle.innerText = (currentLang === 'es') ? "Matriz: Vida Total (HP)" : 
+                               (currentLang === 'it') ? "Matrice: Vita Totale" : "Matrix: Total HP";
+        
+        btnSwitch.innerText = (currentLang === 'es') ? "Ver 1% (Reward)" : 
+                              (currentLang === 'it') ? "Vedi 1% (Reward)" : "Show 1% (Reward)";
+        btnSwitch.style.borderColor = "var(--gold)";
+        btnSwitch.style.color = "var(--gold)";
+    }
+
+    // Dibujar Tabla
+    let html = `<thead><tr><th style="background:#1e293b; color:#fff;">Monster</th>`;
+    RANKS.forEach(r => html += `<th>${r}</th>`);
+    html += `</tr></thead><tbody>`;
+
+    Object.keys(CURRENT_MONSTER_LIST).forEach(mobName => {
+        let hpList = CURRENT_MONSTER_LIST[mobName];
+        html += `<tr><td>${mobName}</td>`;
+        
+        for (let i = 0; i < RANKS.length; i++) {
+            let valRaw = hpList[i];
+            
+            if (!valRaw || valRaw.trim() === "") {
+                html += `<td class="missing-cell">---</td>`;
+            } else {
+                let displayVal = valRaw;
+                if (showRewardMode) {
+                    let num = parseBig(valRaw);
+                    let onePct = num * 0.01;
+                    displayVal = formatBig(onePct);
+                }
+                let colorClass = showRewardMode ? "style='color:var(--success)'" : "style='color:#fff'";
+                html += `<td ${colorClass}>${displayVal}</td>`;
+            }
+        }
+        html += `</tr>`;
+    });
+    html += `</tbody>`;
+    matrixTable.innerHTML = html;
+}
+
+// Cierre al click fuera
+window.onclick = function(event) {
+    const modal1 = document.getElementById('detailsModal');
+    const modal2 = document.getElementById('summaryModal');
+    if (event.target == modal1) modal1.style.display = "none";
+    if (event.target == modal2) modal2.style.display = "none";
+}
+
+
+// --- 4. CARGA DE DATOS ---
 
 function init() {
-    // 1. Buscamos la variable MONSTERS_DATA que está en el archivo monsters.js
     if (typeof MONSTERS_DATA !== 'undefined') {
         FULL_DB = MONSTERS_DATA;
-        
-        // Inicializar lógica
         CURRENT_MONSTER_LIST = FULL_DB.tower;
         populateMonsterSelect();
 
-        // 2. Detección automática de idioma
         const userLang = navigator.language || navigator.userLanguage; 
         const langCode = userLang.split('-')[0]; 
 
         if (TRANSLATIONS[langCode]) {
             changeLanguage(langCode);
         } else {
-            changeLanguage('en'); // Idioma por defecto
+            changeLanguage('en'); 
         }
     } else {
-        alert("Error: No se encontró la variable MONSTERS_DATA. Asegúrate de que 'monsters.js' se carga ANTES que 'script.js' en el HTML.");
+        alert("Error: MONSTERS_DATA no encontrada.");
     }
 }
 
@@ -284,7 +388,7 @@ function populateMonsterSelect() {
     updateUI(false); 
 }
 
-// --- 4. LÓGICA MATEMÁTICA ---
+// --- 5. LÓGICA MATEMÁTICA ---
 function parseBig(str) {
     if(!str) return 0;
     str = str.toString().trim().toUpperCase();
@@ -340,7 +444,7 @@ function formatTime(totalSeconds) {
     return timeString;
 }
 
-// --- 5. UI UPDATES ---
+// --- 6. UI UPDATES ---
 
 function updateUI() {
     if (!CURRENT_MONSTER_LIST) return;
@@ -369,8 +473,6 @@ function updateUI() {
     
     if(isCalculated) {
         calculate();
-    } else {
-        renderTableRows(key, idx);
     }
 }
 
@@ -405,23 +507,14 @@ function calculate() {
     document.getElementById('outRounds').innerText = rounds.toLocaleString();
     document.getElementById('outTime').innerText = formatTime(totalSeconds);
 
-    renderTableRows(key, idx);
-}
-
-function toggleTable() {
-    let t = TRANSLATIONS[currentLang];
-    let tbl = document.getElementById('dataTable');
-    let btn = document.getElementById('btn_toggle_table');
-    if (tbl.style.display === "table") {
-        tbl.style.display = "none";
-        btn.innerText = t.btn_show;
-    } else {
-        tbl.style.display = "table";
-        btn.innerText = t.btn_hide;
+    // Actualizar tabla si está abierta
+    if(document.getElementById('detailsModal').style.display === "flex") {
+        renderTableRows(key, idx);
     }
 }
 
 function renderTableRows(selectedKey, activeIdx) {
+    const tableBody = document.getElementById('tableBody');
     tableBody.innerHTML = "";
     
     if (currentMode === 'tower') {
@@ -455,12 +548,9 @@ function renderTableRows(selectedKey, activeIdx) {
             let rawHp = parseBig(hpAtRank);
             let onePct = rawHp * 0.01;
             
-            // Columna 2: Total HP
             let colTotal = (rawHp > 0) ? formatBig(rawHp) : "-";
-            // Columna 3: 1% Reward
             let colReward = (rawHp > 0) ? formatBig(onePct) : "-";
-
-            // Columna 4: Tiempo
+            
             let colTime = "";
             if (isCalculated && rawHp > 0) {
                 let userDmg = parseBig(document.getElementById('userDmg').value);
