@@ -2,13 +2,10 @@
 
 const TRANSLATIONS = {
     es: {
-        // Títulos Torre
-        title_tower: "Ascension Calculator",
-        sub_tower: "Mythic Hero Calculator",
-        // Títulos Mapas
-        title_maps: "Arise Map Calculator",
-        sub_maps: "Hero Calculator",
-        
+        title_tower: "Calculadora de Ascensión",
+        sub_tower: "Calculadora Héroe Mítico",
+        title_maps: "Calculadora de Mapas",
+        sub_maps: "Calculadora de Héroes",
         btn_mode_tower: "Torre Ascensión",
         btn_mode_maps: "Mapas Campaña",
         lbl_select_map: "Selecciona el Mapa",
@@ -25,11 +22,14 @@ const TRANSLATIONS = {
         res_time: "Tiempo:",
         btn_show: "Ver Tabla ▼",
         btn_hide: "Ocultar Tabla ▲",
+        
+        // Headers Genéricos
         th_rank: "Rango",
         th_hp: "Vida",
         th_name: "Subtítulo",
         th_mob: "Monstruo",
-        th_reward: "Recompensa (1%)",
+        th_total: "HP Total",
+        th_reward: "1% (Reward)",
         th_time: "Tiempo Est.",
         
         err_data: "Sin datos.",
@@ -42,7 +42,6 @@ const TRANSLATIONS = {
         sub_tower: "Mythic Hero Calculator",
         title_maps: "Arise Map Calculator",
         sub_maps: "Hero Calculator",
-
         btn_mode_tower: "Ascension Tower",
         btn_mode_maps: "Campaign Maps",
         lbl_select_map: "Select Map",
@@ -63,20 +62,19 @@ const TRANSLATIONS = {
         th_hp: "HP",
         th_name: "Subtitle",
         th_mob: "Monster",
+        th_total: "Total HP",
         th_reward: "Reward (1%)",
         th_time: "Est. Time",
-
         err_data: "No data.",
         err_dmg: "Invalid damage.",
         time_y: "y", time_mo: "mo", time_d: "d", time_h: "h", time_m: "m", time_s: "s",
         placeholder_dmg: "Ex: 1.5 B, 100 Sx..."
     },
     it: {
-        title_tower: "Ascension Calculator",
+        title_tower: "Calcolatrice Ascensione",
         sub_tower: "Calcolatrice Eroe Mitico",
         title_maps: "Arise Map Calculator",
         sub_maps: "Calcolatrice Eroe",
-
         btn_mode_tower: "Torre Ascensione",
         btn_mode_maps: "Mappe Campagna",
         lbl_select_map: "Seleziona Mappa",
@@ -97,9 +95,9 @@ const TRANSLATIONS = {
         th_hp: "Vita",
         th_name: "Sottotitolo",
         th_mob: "Mostro",
-        th_reward: "Ricompensa (1%)",
+        th_total: "HP Totale",
+        th_reward: "1% (Ricompensa)",
         th_time: "Tempo Stim.",
-
         err_data: "Nessun dato.",
         err_dmg: "Danno non valido.",
         time_y: "a", time_mo: "mese", time_d: "g", time_h: "h", time_m: "m", time_s: "s",
@@ -109,7 +107,7 @@ const TRANSLATIONS = {
 
 let currentLang = 'es';
 let targetPercentage = 0.01;
-let currentMode = 'tower'; // 'tower' | 'maps'
+let currentMode = 'tower'; 
 let isCalculated = false;
 
 const RANKS = ["E", "D", "C", "B", "A", "S", "SS", "G", "N"];
@@ -142,9 +140,6 @@ function changeLanguage(lang) {
     currentLang = lang;
     const t = TRANSLATIONS[lang];
 
-    // Actualizar Títulos según el modo actual
-    updateTitles();
-
     const ids = ['btn_mode_tower','btn_mode_maps','lbl_select_map',
                  'lbl_boss','lbl_hp','lbl_dmg','lbl_time','lbl_target',
                  'btn_target_1','btn_target_100','btn_calc','res_goal',
@@ -155,7 +150,9 @@ function changeLanguage(lang) {
         if(el) el.innerText = t[id];
     });
 
+    updateTitles();
     updateTableHeaders();
+    
     document.getElementById('userDmg').placeholder = t.placeholder_dmg;
     
     const tableDisplay = document.getElementById('dataTable').style.display;
@@ -165,12 +162,11 @@ function changeLanguage(lang) {
     document.getElementById(`btn-${lang}`).classList.add('active');
 }
 
-// Nueva función para manejar Título/Subtítulo dinámico
 function updateTitles() {
     const t = TRANSLATIONS[currentLang];
     const lblTitle = document.getElementById('lbl_title');
     const lblSubtitle = document.getElementById('lbl_subtitle');
-
+    
     if (currentMode === 'tower') {
         lblTitle.innerText = t.title_tower;
         lblSubtitle.innerText = t.sub_tower;
@@ -180,28 +176,38 @@ function updateTitles() {
     }
 }
 
+// Actualiza las columnas usando los IDs genéricos
 function updateTableHeaders() {
     const t = TRANSLATIONS[currentLang];
+    const col1 = document.getElementById('th_col1');
+    const col2 = document.getElementById('th_col2');
+    const col3 = document.getElementById('th_col3');
+    const col4 = document.getElementById('th_col4');
+
     if (currentMode === 'tower') {
-        document.getElementById('th_rank').innerText = t.th_rank;
-        document.getElementById('th_hp').innerText = t.th_hp;
-        document.getElementById('th_name').innerText = t.th_name;
+        // Modo Torre: 3 Columnas
+        col1.innerText = t.th_rank;
+        col2.innerText = t.th_hp;
+        col3.innerText = t.th_name;
+        col4.style.display = 'none'; // Ocultar 4ta columna
     } else {
-        document.getElementById('th_rank').innerText = t.th_mob; 
-        document.getElementById('th_hp').innerText = t.th_reward; 
-        document.getElementById('th_name').innerText = t.th_time; 
+        // Modo Mapas: 4 Columnas
+        col1.innerText = t.th_mob;
+        col2.innerText = t.th_total;
+        col3.innerText = t.th_reward;
+        col4.innerText = t.th_time;
+        col4.style.display = 'table-cell'; // Mostrar 4ta columna
     }
 }
 
 function setMode(mode, btnElement) {
     currentMode = mode;
-    isCalculated = false; 
+    isCalculated = false;
     document.getElementById('results').style.display = "none";
     
     document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
     btnElement.classList.add('active');
 
-    // Actualizar Títulos Inmediatamente
     updateTitles();
 
     const mapGroup = document.getElementById('groupMapSelect');
@@ -226,27 +232,28 @@ function setTarget(pct, btnElement) {
     if(isCalculated) calculate();
 }
 
-// --- 3. CARGA DE DATOS ---
+// --- 3. CARGA DE DATOS (VARIABLE EXTERNA) ---
 
-async function loadData() {
-    try {
-        const response = await fetch('monsters.json');
-        const data = await response.json();
-        FULL_DB = data;
+function init() {
+    // 1. Buscamos la variable MONSTERS_DATA que está en el archivo monsters.js
+    if (typeof MONSTERS_DATA !== 'undefined') {
+        FULL_DB = MONSTERS_DATA;
         
+        // Inicializar lógica
         CURRENT_MONSTER_LIST = FULL_DB.tower;
         populateMonsterSelect();
-        const userLang = navigator.language || navigator.userLanguage;
-        const langCode = userLang.split('-')[0];
+
+        // 2. Detección automática de idioma
+        const userLang = navigator.language || navigator.userLanguage; 
+        const langCode = userLang.split('-')[0]; 
+
         if (TRANSLATIONS[langCode]) {
             changeLanguage(langCode);
         } else {
-            changeLanguage('en'); 
+            changeLanguage('en'); // Idioma por defecto
         }
-        
-    } catch (error) {
-        console.error(error);
-        alert("Error cargando JSON.");
+    } else {
+        alert("Error: No se encontró la variable MONSTERS_DATA. Asegúrate de que 'monsters.js' se carga ANTES que 'script.js' en el HTML.");
     }
 }
 
@@ -418,6 +425,7 @@ function renderTableRows(selectedKey, activeIdx) {
     tableBody.innerHTML = "";
     
     if (currentMode === 'tower') {
+        // MODO TORRE (3 Columnas)
         if (!CURRENT_MONSTER_LIST[selectedKey]) return;
         let data = CURRENT_MONSTER_LIST[selectedKey];
         data.forEach((val, i) => {
@@ -434,6 +442,7 @@ function renderTableRows(selectedKey, activeIdx) {
             tableBody.appendChild(row);
         });
     } else {
+        // MODO MAPAS (4 Columnas)
         Object.keys(CURRENT_MONSTER_LIST).forEach(mobName => {
             let hpAtRank = CURRENT_MONSTER_LIST[mobName][activeIdx];
             let row = document.createElement('tr');
@@ -445,24 +454,29 @@ function renderTableRows(selectedKey, activeIdx) {
 
             let rawHp = parseBig(hpAtRank);
             let onePct = rawHp * 0.01;
-            let col2 = (rawHp > 0) ? formatBig(onePct) : "-";
+            
+            // Columna 2: Total HP
+            let colTotal = (rawHp > 0) ? formatBig(rawHp) : "-";
+            // Columna 3: 1% Reward
+            let colReward = (rawHp > 0) ? formatBig(onePct) : "-";
 
-            let col3 = "";
+            // Columna 4: Tiempo
+            let colTime = "";
             if (isCalculated && rawHp > 0) {
                 let userDmg = parseBig(document.getElementById('userDmg').value);
                 let timeRound = parseFloat(document.getElementById('timeRound').value) || 25;
                 if (userDmg > 0) {
                     let r = Math.ceil(onePct / userDmg);
                     let sec = r * timeRound;
-                    col3 = formatTime(sec);
+                    colTime = formatTime(sec);
                 }
             }
-
-            let displayTime = (isCalculated && col3) ? `<span style="color:var(--danger); font-size:0.85em">${col3}</span>` : `<span style="color:#555">--</span>`;
+            let displayTime = (isCalculated && colTime) ? `<span style="color:var(--danger); font-size:0.85em">${colTime}</span>` : `<span style="color:#555">--</span>`;
 
             row.innerHTML = `
                 <td style="font-weight:bold; color: #fff; font-size:0.9em">${mobName}</td>
-                <td style="color: var(--success); font-family:'Courier New'">${col2}</td>
+                <td style="color: #ccc; font-family:'Courier New'; font-size:0.9em">${colTotal}</td>
+                <td style="color: var(--success); font-family:'Courier New'; font-size:0.9em">${colReward}</td>
                 <td>${displayTime}</td>
             `;
             tableBody.appendChild(row);
@@ -470,4 +484,4 @@ function renderTableRows(selectedKey, activeIdx) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', loadData);
+document.addEventListener('DOMContentLoaded', init);
