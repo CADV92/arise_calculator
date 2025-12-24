@@ -18,12 +18,12 @@ const MONSTERS_DATA = {
   },
   "maps": {
     "Map 12: Kamish's Demise": {
-      "1. Desert Wanderer": ["311 Oc", "", "", "", "", "", "68.8Dd", "", ""],
-      "2. Scorched Sands Sentinel": ["1.1 No", "", "", "", "", "", "267.6Dd", "", ""],
-      "3. Mana Devourer": ["3.3 No", "", "", "", "", "", "791.3Dd", "", ""],
-      "4. DragonBlood Berserker": ["11.5 No", "", "", "", "", "", "2.7Td", "", ""],
-      "5. Shattered Armor Knight": ["53.8 No", "", "", "", "", "", "13.3Td", "", ""],
-      "6. BOSS: Monarca": ["", "", "", "", "", "", "215.7Td", "", ""]
+    "1. Desert Wanderer": ["311 Oc", "", "", "683 Dc", "", "", "68.8 Dd", "", ""],
+    "2. Scorched Sands Sentinel": ["1.1 No", "", "", "2.6 Ud", "", "", "267.6 Dd", "", ""],
+    "3. Mana Devourer": ["3.3 No", "", "", "7.8 Ud", "", "", "791.3 Dd", "", ""],
+    "4. DragonBlood Berserker": ["11.5 No", "", "", "27.4 Ud", "", "", "2.7 Td", "", ""],
+    "5. Shattered Armor Knight": ["53.8 No", "", "", "133 Ud", "", "", "13.3 Td", "", ""],
+    "6. BOSS: Monarca": ["", "", "", "2.1 Dd", "", "", "215.7 Td", "", ""]
     },
     "Map 13: Lava Hell": {
       "1. Ashen Walker": ["", "1.2 Ud", "24.5 Ud", "", "30.4 Dd", "1.5 Td", "", "6.9 E45", ""],
@@ -34,12 +34,12 @@ const MONSTERS_DATA = {
       "6. BOSS: Monarca": ["", "4.3 Dd", "89.2 Dd", "", "110.9 Td", "5.6 E45", "", "25.3 E48", ""]
     },
     "Map 14: Illusory World": {
-      "1. TomeReaver": ["", "", "", "", "", "", "156.1 E45", "", ""],
-      "2. Necrotic marrowweaver": ["", "", "", "", "", "", "645.8E45", "", ""],
-      "3. Violet mistmystic": ["", "", "", "", "", "", "645.8 E45", "", ""],
-      "4. Abyssal Thornmlrd": ["", "", "", "", "", "", "7.5 E48", "", ""],
-      "5. Umbral RiftBresker": ["", "", "", "", "", "", "38.5 E48", "", ""],
-      "6. BOSS: Monarca": ["", "", "", "", "", "", "", "52.2 E51", ""]
+    "1. TomeReaver": ["", "", "", "880 Dd", "43 Td", "", "156.1 E45", "12.3 E48", ""],
+    "2. Necrotic marrowweaver": ["", "", "", "12.6 Td", "558.5 Td", "", "645.8 E45", "160.3 E48", ""],
+    "3. Violet mistmystic": ["", "", "", "4 Td", "178 Td", "", "645.8 E45", "", ""],
+    "4. Abyssal Thornmlrd": ["", "", "", "47 Td", "2 E45", "", "7.5 E48", "594.5 E48", ""],
+    "5. Umbral RiftBresker": ["", "", "", "241.5 Td", "10.6 E45", "", "38.5 E48", "", ""],
+    "6. BOSS: Monarca": ["", "", "", "", "181.7 E45", "", "", "52.2 E51", ""]
     },
     "Map 15: Inferno Altar": {
       "1. Dragon": ["", "", "42.8 Td", "", "72.5 E45", "4.3 E48", "306.9 E48", "26.2 E51", ""],
