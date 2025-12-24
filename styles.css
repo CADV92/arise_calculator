@@ -195,7 +195,7 @@ input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; bac
 
 /* --- MODALES (Centrado Vertical Flexbox) --- */
 .modal {
-    display: none; /* JS lo cambia a FLEX */
+    display: none; /* Se cambia a FLEX con JS */
     position: fixed; 
     z-index: 1000; 
     left: 0; top: 0;
@@ -220,6 +220,7 @@ input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; bac
     box-shadow: 0 0 40px rgba(0,0,0,0.9);
     position: relative;
     color: #fff;
+    margin: 0; /* Importante: Sin márgenes externos */
     animation: zoomIn 0.3s ease;
 }
 
@@ -249,7 +250,7 @@ input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; bac
 }
 .modal-header h2 { margin: 0; font-size: 1.4rem; color: var(--accent); }
 
-/* Tablas dentro de modales */
+/* --- ESTILOS DE TABLAS --- */
 .matrix-container { overflow-x: auto; }
 
 .data-table, #matrixTable {
@@ -280,8 +281,31 @@ input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; bac
     border-right: 2px solid #334155;
 }
 
-.missing-cell { background: rgba(255, 0, 85, 0.15); color: #ff5555; }
-.filled-cell { color: var(--success); }
+/* --- ESTADOS DE VIABILIDAD (14 MINUTOS) --- */
+
+/* Posible (Menos de 14 min) - Verde suave */
+.possible-cell {
+    background-color: rgba(0, 255, 157, 0.15) !important;
+    color: #00ff9d !important;
+    border: 1px solid rgba(0, 255, 157, 0.3);
+}
+
+/* Imposible (Más de 14 min) - Rojo suave */
+.impossible-cell {
+    background-color: rgba(255, 0, 85, 0.15) !important;
+    color: #ff5555 !important;
+}
+
+/* Celda vacía (Sin datos) */
+.missing-cell {
+    background-color: rgba(100, 100, 100, 0.1) !important;
+    color: #555 !important;
+    font-style: italic;
+}
+
+/* Texto de tiempo en la tabla detallada */
+.time-ok { color: #00ff9d; font-weight: bold; }
+.time-bad { color: #ff5555; font-weight: bold; }
 
 @media (max-width: 600px) {
     .modal-header { flex-direction: column; align-items: flex-start; gap: 10px; }
