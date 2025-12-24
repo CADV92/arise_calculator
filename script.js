@@ -236,7 +236,13 @@ async function loadData() {
         
         CURRENT_MONSTER_LIST = FULL_DB.tower;
         populateMonsterSelect();
-        changeLanguage('es');
+        const userLang = navigator.language || navigator.userLanguage;
+        const langCode = userLang.split('-')[0];
+        if (TRANSLATIONS[langCode]) {
+            changeLanguage(langCode);
+        } else {
+            changeLanguage('en'); 
+        }
         
     } catch (error) {
         console.error(error);

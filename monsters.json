@@ -18,11 +18,11 @@
   },
   "maps": {
     "Map 12: Kamish's Demise": {
-      "1. Desert Wanderer": ["", "", "", "", "", "", "68.8Dd", "", ""],
-      "2. Scorched Sands Sentinel": ["", "", "", "", "", "", "267.6Dd", "", ""],
-      "3. Mana Devourer": ["", "", "", "", "", "", "791.3Dd", "", ""],
-      "4. DragonBlood Berserker": ["", "", "", "", "", "", "2.7Td", "", ""],
-      "5. Shattered Armor Knight": ["", "", "", "", "", "", "13.3Td", "", ""],
+      "1. Desert Wanderer": ["311 Oc", "", "", "", "", "", "68.8Dd", "", ""],
+      "2. Scorched Sands Sentinel": ["1.1 No", "", "", "", "", "", "267.6Dd", "", ""],
+      "3. Mana Devourer": ["3.3 No", "", "", "", "", "", "791.3Dd", "", ""],
+      "4. DragonBlood Berserker": ["11.5 No", "", "", "", "", "", "2.7Td", "", ""],
+      "5. Shattered Armor Knight": ["53.8 No", "", "", "", "", "", "13.3Td", "", ""],
       "6. BOSS: Monarca": ["", "", "", "", "", "", "215.7Td", "", ""]
     },
     "Map 13: Lava Hell": {
