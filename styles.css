@@ -282,6 +282,41 @@ input[type=range]::-webkit-slider-runnable-track {
     box-shadow: 0 0 15px var(--accent-glow);
 }
 
+.mode-selector {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    justify-content: center;
+}
+
+.mode-btn {
+    flex: 1;
+    padding: 15px;
+    background: transparent;
+    border: 2px solid #334155;
+    color: var(--text-sec);
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 800;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    transition: all 0.3s;
+}
+
+.mode-btn:hover {
+    border-color: var(--accent);
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.mode-btn.active {
+    background: linear-gradient(135deg, var(--accent) 0%, #0080ff 100%);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3);
+    transform: translateY(-2px);
+}
+
 /* Ajuste móvil */
 @media (max-width: 600px) {
     .lang-switcher {

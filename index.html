@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ascension Tower Calculator</title>
+    <title>Ascension & Maps Calculator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,11 +15,21 @@
     </div>
 
     <div class="card">
-        <h1 id="lbl_title">Ascension Calc</h1>
+        <h1 id="lbl_title">Ascension Calculator</h1>
         <div class="subtitle" id="lbl_subtitle">Mythic Hero Calculator</div>
+        
+        <div class="mode-selector">
+            <button class="mode-btn active" onclick="setMode('tower', this)" id="btn_mode_tower">Ascension Tower</button>
+            <button class="mode-btn" onclick="setMode('maps', this)" id="btn_mode_maps">Campaign Maps</button>
+        </div>
+
+        <div class="control-group" id="groupMapSelect" style="display: none;">
+            <label id="lbl_select_map">Selecciona Mapa</label>
+            <select id="mapSelect" onchange="onMapChange()"></select>
+        </div>
 
         <div class="control-group">
-            <label id="lbl_boss">Jefe / Héroe Mítico (1-15)</label>
+            <label id="lbl_boss">Monstruo / Jefe</label>
             <select id="monsterSelect" onchange="updateUI()"></select>
         </div>
 
@@ -37,7 +47,7 @@
         </div>
 
         <div class="control-group">
-            <label id="lbl_hp">Vida del Jefe (HP)</label>
+            <label id="lbl_hp">Vida (HP)</label>
             <input type="text" id="bossHP" readonly style="color:#aaa; cursor:not-allowed; font-weight:bold;">
         </div>
 
@@ -60,7 +70,7 @@
             </div>
         </div>
 
-        <button class="btn-calc" onclick="calculate()" id="btn_calc">Calcular Progreso</button>
+        <button class="btn-calc" onclick="calculate()" id="btn_calc">Calcular</button>
 
         <div class="results-box" id="results">
             <div class="res-item">

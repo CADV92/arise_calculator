@@ -2,188 +2,273 @@
 
 const TRANSLATIONS = {
     es: {
-        title: "Calculadora de Ascensión",
-        subtitle: "Calculadora de Héroe Mítico",
-        lbl_boss: "Jefe / Héroe Mítico (1-15)",
-        lbl_hp: "Vida del Jefe (HP)",
+        // Títulos Torre
+        title_tower: "Ascension Calculator",
+        sub_tower: "Mythic Hero Calculator",
+        // Títulos Mapas
+        title_maps: "Arise Map Calculator",
+        sub_maps: "Hero Calculator",
+        
+        btn_mode_tower: "Torre Ascensión",
+        btn_mode_maps: "Mapas Campaña",
+        lbl_select_map: "Selecciona el Mapa",
+        lbl_boss: "Monstruo / Jefe",
+        lbl_hp: "Vida (HP)",
         lbl_dmg: "Tu Daño Estimado",
-        lbl_time: "Tiempo por Ronda (Segundos)",
-        lbl_target: "Objetivo de Cálculo",
+        lbl_time: "Tiempo por Ronda (s)",
+        lbl_target: "Objetivo",
         btn_target_1: "1% (Recompensa)",
         btn_target_100: "100% (Matar)",
-        btn_calc: "CALCULAR PROGRESO",
+        btn_calc: "CALCULAR",
         res_goal: "Daño Objetivo:",
-        res_rounds: "Rondas necesarias:",
-        res_time: "Tiempo estimado:",
-        btn_show: "Mostrar Tabla de Datos ▼",
+        res_rounds: "Rondas:",
+        res_time: "Tiempo:",
+        btn_show: "Ver Tabla ▼",
         btn_hide: "Ocultar Tabla ▲",
         th_rank: "Rango",
-        th_hp: "Vida (HP)",
-        th_name: "Nombre",
-        err_data: "Error: No hay datos de vida para este nivel.",
-        err_dmg: "Error: Ingresa un daño válido mayor a 0.",
-        // Unidades de tiempo
-        time_y: "a",   // Año
-        time_mo: "mes",// Mes
-        time_d: "d",   // Día
-        time_h: "h",
-        time_m: "m",
-        time_s: "s",
-        placeholder_dmg: "Ingresa tu daño..."
+        th_hp: "Vida",
+        th_name: "Subtítulo",
+        th_mob: "Monstruo",
+        th_reward: "Recompensa (1%)",
+        th_time: "Tiempo Est.",
+        
+        err_data: "Sin datos.",
+        err_dmg: "Daño inválido.",
+        time_y: "a", time_mo: "mes", time_d: "d", time_h: "h", time_m: "m", time_s: "s",
+        placeholder_dmg: "Ej: 1.5 B, 100 Sx..."
     },
     en: {
-        title: "Ascension Calculator",
-        subtitle: "Mythic Hero Calculator",
-        lbl_boss: "Boss / Mythic Hero (1-15)",
-        lbl_hp: "Boss Health (HP)",
+        title_tower: "Ascension Calculator",
+        sub_tower: "Mythic Hero Calculator",
+        title_maps: "Arise Map Calculator",
+        sub_maps: "Hero Calculator",
+
+        btn_mode_tower: "Ascension Tower",
+        btn_mode_maps: "Campaign Maps",
+        lbl_select_map: "Select Map",
+        lbl_boss: "Monster / Boss",
+        lbl_hp: "Health (HP)",
         lbl_dmg: "Estimated Damage",
-        lbl_time: "Time per Round (Seconds)",
-        lbl_target: "Calculation Target",
+        lbl_time: "Time per Round (s)",
+        lbl_target: "Target",
         btn_target_1: "1% (Reward)",
         btn_target_100: "100% (Kill)",
-        btn_calc: "CALCULATE PROGRESS",
-        res_goal: "Target Damage:",
-        res_rounds: "Rounds needed:",
-        res_time: "Estimated Time:",
-        btn_show: "Show Data Table ▼",
+        btn_calc: "CALCULATE",
+        res_goal: "Target Dmg:",
+        res_rounds: "Rounds:",
+        res_time: "Time:",
+        btn_show: "Show Table ▼",
         btn_hide: "Hide Table ▲",
         th_rank: "Rank",
-        th_hp: "Health (HP)",
-        th_name: "Name",
-        err_data: "Error: No HP data available for this level.",
-        err_dmg: "Error: Please enter a valid damage > 0.",
-        time_y: "y",
-        time_mo: "mo",
-        time_d: "d",
-        time_h: "h",
-        time_m: "m",
-        time_s: "s",
-        placeholder_dmg: "Enter damage..."
+        th_hp: "HP",
+        th_name: "Subtitle",
+        th_mob: "Monster",
+        th_reward: "Reward (1%)",
+        th_time: "Est. Time",
+
+        err_data: "No data.",
+        err_dmg: "Invalid damage.",
+        time_y: "y", time_mo: "mo", time_d: "d", time_h: "h", time_m: "m", time_s: "s",
+        placeholder_dmg: "Ex: 1.5 B, 100 Sx..."
     },
     it: {
-        title: "Calcolatrice Ascensione",
-        subtitle: "Calcolatrice Eroe Mitico",
-        lbl_boss: "Boss / Eroe Mitico (1-15)",
-        lbl_hp: "Vita del Boss (HP)",
+        title_tower: "Ascension Calculator",
+        sub_tower: "Calcolatrice Eroe Mitico",
+        title_maps: "Arise Map Calculator",
+        sub_maps: "Calcolatrice Eroe",
+
+        btn_mode_tower: "Torre Ascensione",
+        btn_mode_maps: "Mappe Campagna",
+        lbl_select_map: "Seleziona Mappa",
+        lbl_boss: "Mostro / Boss",
+        lbl_hp: "Vita (HP)",
         lbl_dmg: "Danno Stimato",
-        lbl_time: "Tempo per Round (Secondi)",
-        lbl_target: "Obiettivo di Calcolo",
+        lbl_time: "Tempo per Round (s)",
+        lbl_target: "Obiettivo",
         btn_target_1: "1% (Ricompensa)",
         btn_target_100: "100% (Uccidere)",
-        btn_calc: "CALCOLA PROGRESSO",
+        btn_calc: "CALCOLA",
         res_goal: "Danno Obiettivo:",
-        res_rounds: "Round necessari:",
-        res_time: "Tempo stimato:",
-        btn_show: "Mostra Tabella Dati ▼",
+        res_rounds: "Round:",
+        res_time: "Tempo:",
+        btn_show: "Mostra Tabella ▼",
         btn_hide: "Nascondi Tabella ▲",
         th_rank: "Rango",
-        th_hp: "Vita (HP)",
-        th_name: "Nome",
-        err_data: "Errore: Nessun dato HP disponibile.",
-        err_dmg: "Errore: Inserisci un danno valido > 0.",
-        time_y: "a",   // Anno
-        time_mo: "mese",
-        time_d: "g",   // Giorno
-        time_h: "h",
-        time_m: "m",
-        time_s: "s",
-        placeholder_dmg: "Inserisci danno..."
+        th_hp: "Vita",
+        th_name: "Sottotitolo",
+        th_mob: "Mostro",
+        th_reward: "Ricompensa (1%)",
+        th_time: "Tempo Stim.",
+
+        err_data: "Nessun dato.",
+        err_dmg: "Danno non valido.",
+        time_y: "a", time_mo: "mese", time_d: "g", time_h: "h", time_m: "m", time_s: "s",
+        placeholder_dmg: "Es: 1.5 B, 100 Sx..."
     }
 };
 
 let currentLang = 'es';
-let targetPercentage = 0.01; // Por defecto 1%
+let targetPercentage = 0.01;
+let currentMode = 'tower'; // 'tower' | 'maps'
+let isCalculated = false;
 
 const RANKS = ["E", "D", "C", "B", "A", "S", "SS", "G", "N"];
 const RANK_NAMES = ["M+", "GM", "MM", "M++", "XM", "GOD", "ULT", "OMG", "ARC"];
 
 const UNITS = [
-    {s:"Sx", p:21}, {s:"Sp", p:24}, {s:"Oc", p:27}, {s:"No", p:30},
-    {s:"Dc", p:33}, {s:"Ud", p:36}, {s:"Dd", p:39}, {s:"Td", p:42},
-    {s:"E45", p:45}, {s:"E48", p:48}, {s:"E51", p:51}, {s:"E54", p:54},
-    {s:"E57", p:57}, {s:"E60", p:60}, {s:"E63", p:63}, {s:"E66", p:66},
-    {s:"E69", p:69}, {s:"E72", p:72}, {s:"E75", p:75}, {s:"E78", p:78},
-    {s:"E81", p:81}, {s:"E84", p:84}
+    {s:"K",  p:3}, {s:"M",  p:6}, {s:"B",  p:9}, {s:"T",  p:12}, 
+    {s:"Qa", p:15}, {s:"Qi", p:18}, {s:"Sx", p:21}, {s:"Sp", p:24}, 
+    {s:"Oc", p:27}, {s:"No", p:30}, {s:"Dc", p:33}, {s:"Ud", p:36}, 
+    {s:"Dd", p:39}, {s:"Td", p:42}, {s:"E45", p:45}, {s:"E48", p:48}, 
+    {s:"E51", p:51}, {s:"E54", p:54}, {s:"E57", p:57}, {s:"E60", p:60}, 
+    {s:"E63", p:63}, {s:"E66", p:66}, {s:"E69", p:69}, {s:"E72", p:72}, 
+    {s:"E75", p:75}, {s:"E78", p:78}, {s:"E81", p:81}, {s:"E84", p:84}
 ];
 
-let DB = {};
+let FULL_DB = {}; 
+let CURRENT_MONSTER_LIST = {}; 
 
 // Elementos DOM
-const select = document.getElementById('monsterSelect');
+const selectMap = document.getElementById('mapSelect');
+const selectMonster = document.getElementById('monsterSelect');
 const slider = document.getElementById('rankSlider');
 const displayHP = document.getElementById('bossHP');
 const tableBody = document.getElementById('tableBody');
 
-// --- 2. SISTEMA DE IDIOMAS Y OBJETIVO ---
+// --- 2. SISTEMA DE IDIOMAS Y MODOS ---
 
 function changeLanguage(lang) {
     if (!TRANSLATIONS[lang]) return;
     currentLang = lang;
     const t = TRANSLATIONS[lang];
 
-    document.getElementById('lbl_title').innerText = t.title;
-    document.getElementById('lbl_subtitle').innerText = t.subtitle;
-    document.getElementById('lbl_boss').innerText = t.lbl_boss;
-    document.getElementById('lbl_hp').innerText = t.lbl_hp;
-    document.getElementById('lbl_dmg').innerText = t.lbl_dmg;
-    document.getElementById('lbl_time').innerText = t.lbl_time;
-    document.getElementById('lbl_target').innerText = t.lbl_target;
-    document.getElementById('btn_target_1').innerText = t.btn_target_1;
-    document.getElementById('btn_target_100').innerText = t.btn_target_100;
-    document.getElementById('btn_calc').innerText = t.btn_calc;
-    document.getElementById('res_lbl_goal').innerText = t.res_goal;
-    document.getElementById('res_lbl_rounds').innerText = t.res_rounds;
-    document.getElementById('res_lbl_time').innerText = t.res_time;
-    document.getElementById('th_rank').innerText = t.th_rank;
-    document.getElementById('th_hp').innerText = t.th_hp;
-    document.getElementById('th_name').innerText = t.th_name;
-    
-    document.getElementById('userDmg').placeholder = t.placeholder_dmg;
+    // Actualizar Títulos según el modo actual
+    updateTitles();
 
+    const ids = ['btn_mode_tower','btn_mode_maps','lbl_select_map',
+                 'lbl_boss','lbl_hp','lbl_dmg','lbl_time','lbl_target',
+                 'btn_target_1','btn_target_100','btn_calc','res_goal',
+                 'res_rounds','res_time'];
+                 
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.innerText = t[id];
+    });
+
+    updateTableHeaders();
+    document.getElementById('userDmg').placeholder = t.placeholder_dmg;
+    
     const tableDisplay = document.getElementById('dataTable').style.display;
-    const btnTable = document.getElementById('btn_toggle_table');
-    btnTable.innerText = (tableDisplay === 'table') ? t.btn_hide : t.btn_show;
+    document.getElementById('btn_toggle_table').innerText = (tableDisplay === 'table') ? t.btn_hide : t.btn_show;
 
     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
     document.getElementById(`btn-${lang}`).classList.add('active');
 }
 
-// Función para cambiar el objetivo (1% o 100%)
-function setTarget(pct, btnElement) {
-    targetPercentage = pct;
-    
-    // Actualizar visual de botones
-    document.querySelectorAll('.target-btn').forEach(b => b.classList.remove('active'));
-    btnElement.classList.add('active');
-    
-    // Si ya hay resultados, recalcular automáticamente
-    if(document.getElementById('results').style.display === "block") {
-        calculate();
+// Nueva función para manejar Título/Subtítulo dinámico
+function updateTitles() {
+    const t = TRANSLATIONS[currentLang];
+    const lblTitle = document.getElementById('lbl_title');
+    const lblSubtitle = document.getElementById('lbl_subtitle');
+
+    if (currentMode === 'tower') {
+        lblTitle.innerText = t.title_tower;
+        lblSubtitle.innerText = t.sub_tower;
+    } else {
+        lblTitle.innerText = t.title_maps;
+        lblSubtitle.innerText = t.sub_maps;
     }
 }
 
+function updateTableHeaders() {
+    const t = TRANSLATIONS[currentLang];
+    if (currentMode === 'tower') {
+        document.getElementById('th_rank').innerText = t.th_rank;
+        document.getElementById('th_hp').innerText = t.th_hp;
+        document.getElementById('th_name').innerText = t.th_name;
+    } else {
+        document.getElementById('th_rank').innerText = t.th_mob; 
+        document.getElementById('th_hp').innerText = t.th_reward; 
+        document.getElementById('th_name').innerText = t.th_time; 
+    }
+}
+
+function setMode(mode, btnElement) {
+    currentMode = mode;
+    isCalculated = false; 
+    document.getElementById('results').style.display = "none";
+    
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+    btnElement.classList.add('active');
+
+    // Actualizar Títulos Inmediatamente
+    updateTitles();
+
+    const mapGroup = document.getElementById('groupMapSelect');
+    
+    if (mode === 'tower') {
+        mapGroup.style.display = 'none';
+        CURRENT_MONSTER_LIST = FULL_DB.tower;
+        populateMonsterSelect();
+    } else {
+        mapGroup.style.display = 'block';
+        populateMapSelect();
+        onMapChange();
+    }
+    updateTableHeaders();
+    updateUI();
+}
+
+function setTarget(pct, btnElement) {
+    targetPercentage = pct;
+    document.querySelectorAll('.target-btn').forEach(b => b.classList.remove('active'));
+    btnElement.classList.add('active');
+    if(isCalculated) calculate();
+}
+
 // --- 3. CARGA DE DATOS ---
+
 async function loadData() {
     try {
         const response = await fetch('monsters.json');
         const data = await response.json();
-        DB = data.monsters;
-        initUI();
+        FULL_DB = data;
+        
+        CURRENT_MONSTER_LIST = FULL_DB.tower;
+        populateMonsterSelect();
+        changeLanguage('es');
+        
     } catch (error) {
-        console.error("Error loading JSON:", error);
-        alert("Error loading monsters.json.");
+        console.error(error);
+        alert("Error cargando JSON.");
     }
 }
 
-function initUI() {
-    Object.keys(DB).forEach(k => {
+function populateMapSelect() {
+    selectMap.innerHTML = "";
+    Object.keys(FULL_DB.maps).forEach(mapName => {
+        let opt = document.createElement('option');
+        opt.value = mapName;
+        opt.innerText = mapName;
+        selectMap.appendChild(opt);
+    });
+}
+
+function onMapChange() {
+    const mapName = selectMap.value;
+    CURRENT_MONSTER_LIST = FULL_DB.maps[mapName];
+    populateMonsterSelect();
+}
+
+function populateMonsterSelect() {
+    selectMonster.innerHTML = "";
+    Object.keys(CURRENT_MONSTER_LIST).forEach(k => {
         let opt = document.createElement('option');
         opt.value = k;
         opt.innerText = k;
-        select.appendChild(opt);
+        selectMonster.appendChild(opt);
     });
-    updateUI();
-    changeLanguage('es'); 
+    updateUI(false); 
 }
 
 // --- 4. LÓGICA MATEMÁTICA ---
@@ -198,10 +283,8 @@ function parseBig(str) {
     }
     let sortedUnits = [...UNITS].sort((a,b) => b.s.length - a.s.length);
     for(let u of sortedUnits) {
-        let suffix = u.s.toUpperCase();
-        if(str.endsWith(suffix)) {
-            let valStr = str.replace(suffix, "").trim();
-            let val = valStr === "" ? 1 : parseFloat(valStr);
+        if(str.endsWith(u.s.toUpperCase())) {
+            let val = parseFloat(str.replace(u.s.toUpperCase(), ""));
             return val * Math.pow(10, u.p);
         }
     }
@@ -212,56 +295,94 @@ function formatBig(num) {
     if(num <= 0) return "0";
     let log = Math.log10(num);
     let exp = Math.floor(log / 3) * 3; 
-    
-    if (exp < 21) return num.toLocaleString('en-US', {maximumFractionDigits: 2});
-
+    if (exp < 3) return num.toLocaleString('en-US', {maximumFractionDigits: 2});
     let mantissa = num / Math.pow(10, exp);
     if(exp >= 45) return `${mantissa.toFixed(2)} E${exp}`;
-
     let unit = UNITS.find(u => u.p === exp);
     if (unit) return `${mantissa.toFixed(2)} ${unit.s}`;
-
     return num.toExponential(2);
 }
 
-// --- 5. FUNCIONES UI ---
-function updateUI() {
-    if (Object.keys(DB).length === 0) return;
-    let idx = parseInt(slider.value);
-    let key = select.value;
+function formatTime(totalSeconds) {
+    const t = TRANSLATIONS[currentLang];
+    const SEC_MIN = 60, SEC_HOUR = 3600, SEC_DAY = 86400, SEC_MONTH = 2592000, SEC_YEAR = 31536000;
     
-    if (!DB[key]) return;
-    let hpVal = DB[key][idx];
+    let years = Math.floor(totalSeconds / SEC_YEAR);
+    let rem = totalSeconds % SEC_YEAR;
+    let months = Math.floor(rem / SEC_MONTH);
+    rem = rem % SEC_MONTH;
+    let days = Math.floor(rem / SEC_DAY);
+    rem = rem % SEC_DAY;
+    let h = Math.floor(rem / SEC_HOUR);
+    let m = Math.floor((rem % SEC_HOUR) / SEC_MIN);
+    let s = Math.ceil(rem % SEC_MIN);
+    
+    let timeString = "";
+    if(years > 0) timeString += `${years}${t.time_y} `;
+    if(months > 0 || years > 0) timeString += `${months}${t.time_mo} `;
+    if(days > 0 || months > 0 || years > 0) timeString += `${days}${t.time_d} `;
+    if(h > 0 || days > 0 || months > 0 || years > 0) timeString += `${h}${t.time_h} `;
+    if(m > 0 || h > 0 || days > 0 || months > 0 || years > 0) timeString += `${m}${t.time_m} `;
+    timeString += `${s}${t.time_s}`;
+    return timeString;
+}
+
+// --- 5. UI UPDATES ---
+
+function updateUI() {
+    if (!CURRENT_MONSTER_LIST) return;
+    let idx = parseInt(slider.value);
+    let key = selectMonster.value;
+    
+    if (!CURRENT_MONSTER_LIST[key]) {
+        key = Object.keys(CURRENT_MONSTER_LIST)[0];
+        selectMonster.value = key;
+    }
+
+    let hpVal = CURRENT_MONSTER_LIST[key][idx];
 
     document.getElementById('rankBadge').innerText = RANKS[idx];
-    document.getElementById('rankName').innerText = RANK_NAMES[idx];
+    const rankSub = document.getElementById('rankName');
+    
+    if (currentMode === 'tower') {
+        rankSub.innerText = RANK_NAMES[idx];
+        rankSub.style.display = 'block'; 
+    } else {
+        rankSub.innerText = "";
+        rankSub.style.display = 'none'; 
+    }
+
     displayHP.value = hpVal ? hpVal : "---";
     
-    document.getElementById('results').style.display = "none";
-    renderTableRows(key, idx);
+    if(isCalculated) {
+        calculate();
+    } else {
+        renderTableRows(key, idx);
+    }
 }
 
 function calculate() {
     let t = TRANSLATIONS[currentLang];
-    let key = select.value;
+    let key = selectMonster.value;
     let idx = parseInt(slider.value);
-    let hpStr = DB[key][idx];
+    let hpStr = CURRENT_MONSTER_LIST[key][idx];
 
-    if(!hpStr) {
-        alert(t.err_data);
-        return;
+    if(!hpStr) { 
+        if(!isCalculated) alert(t.err_data); 
+        return; 
     }
 
     let totalHP = parseBig(hpStr);
     let userDmg = parseBig(document.getElementById('userDmg').value);
     let time = parseFloat(document.getElementById('timeRound').value) || 25;
 
-    if(userDmg <= 0) {
-        alert(t.err_dmg);
-        return;
+    if(userDmg <= 0) { 
+        if(!isCalculated) alert(t.err_dmg); 
+        return; 
     }
 
-    // AQUI USAMOS LA VARIABLE DE PORCENTAJE (0.01 o 1.0)
+    isCalculated = true;
+
     let targetAmount = totalHP * targetPercentage;
     let rounds = Math.ceil(targetAmount / userDmg);
     let totalSeconds = rounds * time;
@@ -269,50 +390,15 @@ function calculate() {
     document.getElementById('results').style.display = "block";
     document.getElementById('out1Pct').innerText = formatBig(targetAmount);
     document.getElementById('outRounds').innerText = rounds.toLocaleString();
-    
-    // --- LÓGICA DE TIEMPO EXTENDIDA (Años, Meses, Días...) ---
-    // Aproximaciones estándar: 1 Año = 365 días, 1 Mes = 30 días
-    const SEC_MIN = 60;
-    const SEC_HOUR = 3600;
-    const SEC_DAY = 86400;
-    const SEC_MONTH = 2592000; // 30 días
-    const SEC_YEAR = 31536000; // 365 días
+    document.getElementById('outTime').innerText = formatTime(totalSeconds);
 
-    let years = Math.floor(totalSeconds / SEC_YEAR);
-    let remainder = totalSeconds % SEC_YEAR;
-
-    let months = Math.floor(remainder / SEC_MONTH);
-    remainder = remainder % SEC_MONTH;
-
-    let days = Math.floor(remainder / SEC_DAY);
-    remainder = remainder % SEC_DAY;
-    
-    let h = Math.floor(remainder / SEC_HOUR);
-    let m = Math.floor((remainder % SEC_HOUR) / SEC_MIN);
-    let s = Math.ceil(remainder % SEC_MIN);
-    
-    let timeString = "";
-    
-    // Construcción inteligente del string
-    if(years > 0) timeString += `${years}${t.time_y} `;
-    if(months > 0 || years > 0) timeString += `${months}${t.time_mo} `;
-    if(days > 0 || months > 0 || years > 0) timeString += `${days}${t.time_d} `;
-    
-    // Si hay días/meses/años, mostrar horas aunque sean 0
-    if(h > 0 || days > 0 || months > 0 || years > 0) timeString += `${h}${t.time_h} `;
-    if(m > 0 || h > 0 || days > 0 || months > 0 || years > 0) timeString += `${m}${t.time_m} `;
-    
-    // Segundos siempre al final (o solos si todo lo demás es 0)
-    timeString += `${s}${t.time_s}`;
-    
-    document.getElementById('outTime').innerText = timeString;
+    renderTableRows(key, idx);
 }
 
 function toggleTable() {
     let t = TRANSLATIONS[currentLang];
     let tbl = document.getElementById('dataTable');
     let btn = document.getElementById('btn_toggle_table');
-    
     if (tbl.style.display === "table") {
         tbl.style.display = "none";
         btn.innerText = t.btn_show;
@@ -322,23 +408,60 @@ function toggleTable() {
     }
 }
 
-function renderTableRows(key, activeIdx) {
-    if (!DB[key]) return;
+function renderTableRows(selectedKey, activeIdx) {
     tableBody.innerHTML = "";
-    let data = DB[key];
-    data.forEach((val, i) => {
-        let row = document.createElement('tr');
-        if(i === activeIdx) {
-            row.style.background = "rgba(0, 242, 234, 0.15)";
-            row.style.borderLeft = "4px solid var(--accent)";
-        }
-        row.innerHTML = `
-            <td style="font-weight:bold; color: ${i===activeIdx?'var(--accent)':'#aaa'}">${RANKS[i]}</td>
-            <td style="color: #fff; font-weight: 500;">${val ? val : '-'}</td>
-            <td style="font-size:0.8em; color:#ffd700">${RANK_NAMES[i]}</td>
-        `;
-        tableBody.appendChild(row);
-    });
+    
+    if (currentMode === 'tower') {
+        if (!CURRENT_MONSTER_LIST[selectedKey]) return;
+        let data = CURRENT_MONSTER_LIST[selectedKey];
+        data.forEach((val, i) => {
+            let row = document.createElement('tr');
+            if(i === activeIdx) {
+                row.style.background = "rgba(0, 242, 234, 0.15)";
+                row.style.borderLeft = "4px solid var(--accent)";
+            }
+            row.innerHTML = `
+                <td style="font-weight:bold; color: ${i===activeIdx?'var(--accent)':'#aaa'}">${RANKS[i]}</td>
+                <td style="color: #fff; font-weight: 500;">${val ? val : '-'}</td>
+                <td style="font-size:0.8em; color:#ffd700">${RANK_NAMES[i]}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+    } else {
+        Object.keys(CURRENT_MONSTER_LIST).forEach(mobName => {
+            let hpAtRank = CURRENT_MONSTER_LIST[mobName][activeIdx];
+            let row = document.createElement('tr');
+            
+            if(mobName === selectedKey) {
+                row.style.background = "rgba(0, 242, 234, 0.15)";
+                row.style.borderLeft = "4px solid var(--accent)";
+            }
+
+            let rawHp = parseBig(hpAtRank);
+            let onePct = rawHp * 0.01;
+            let col2 = (rawHp > 0) ? formatBig(onePct) : "-";
+
+            let col3 = "";
+            if (isCalculated && rawHp > 0) {
+                let userDmg = parseBig(document.getElementById('userDmg').value);
+                let timeRound = parseFloat(document.getElementById('timeRound').value) || 25;
+                if (userDmg > 0) {
+                    let r = Math.ceil(onePct / userDmg);
+                    let sec = r * timeRound;
+                    col3 = formatTime(sec);
+                }
+            }
+
+            let displayTime = (isCalculated && col3) ? `<span style="color:var(--danger); font-size:0.85em">${col3}</span>` : `<span style="color:#555">--</span>`;
+
+            row.innerHTML = `
+                <td style="font-weight:bold; color: #fff; font-size:0.9em">${mobName}</td>
+                <td style="color: var(--success); font-family:'Courier New'">${col2}</td>
+                <td>${displayTime}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
 }
 
 document.addEventListener('DOMContentLoaded', loadData);
