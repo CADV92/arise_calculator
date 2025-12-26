@@ -6,24 +6,43 @@ const TRANSLATIONS = {
         sub_tower: "Calculadora Héroe Mítico",
         title_maps: "Calculadora de Mapas",
         sub_maps: "Calculadora de Héroes",
-        btn_mode_tower: "Torre Ascensión",
-        btn_mode_maps: "Mapas Campaña",
+        title_custom: "Calculadora Personalizada",
+        
+        btn_mode_tower: "Torre ASC",
+        btn_mode_maps: "Mapas",
+        btn_mode_custom: "Custom",
+        
         lbl_select_map: "Selecciona el Mapa",
         lbl_boss: "Monstruo / Jefe",
         lbl_hp: "Vida (HP)",
+        lbl_hp_ref: "Vida (Referencia)",
+        lbl_custom_hp: "Ingresa Vida Objetivo (Manual)",
+        lbl_ref_source: "Fuente de Referencia:",
+        lbl_ref_tower: "Torre ASC",
+        lbl_ref_maps: "Jefes de Mapa",
+        btn_ref_show: "▼ Mostrar Jefes",
+        btn_ref_hide: "▲ Ocultar Jefes",
+        
         lbl_dmg: "Tu Daño Estimado",
         lbl_time: "Tiempo por Ronda (s)",
-        lbl_target: "Objetivo",
+        lbl_target: "Objetivo de Cálculo",
+        
         btn_target_1: "1% (Recompensa)",
         btn_target_100: "100% (Matar)",
         btn_calc: "CALCULAR",
+        
         res_goal: "Daño Objetivo:",
-        res_rounds: "Rondas:",
-        res_time: "Tiempo:",
+        res_rounds: "Rondas necesarias:",
+        res_time: "Tiempo estimado:",
         
         btn_toggle_table: "Ver Tabla Detallada",
         btn_summary: "Ver Matriz (Resumen)",
+        
         modalTitleDetails: "Detalles del Nivel",
+        matrix_title_hp: "Matriz: Vida Total (HP)",
+        matrix_title_reward: "Matriz: Recompensa 1%",
+        btn_switch_to_reward: "Cambiar a 1%",
+        btn_switch_to_hp: "Ver Vida Total",
         
         th_rank: "Rango",
         th_hp: "Vida",
@@ -35,6 +54,7 @@ const TRANSLATIONS = {
         
         err_data: "Sin datos.",
         err_dmg: "Daño inválido.",
+        err_custom: "Ingresa un valor válido en Vida Manual.",
         time_y: "a", time_mo: "mes", time_d: "d", time_h: "h", time_m: "m", time_s: "s",
         placeholder_dmg: "Ej: 1.5 B, 100 Sx..."
     },
@@ -43,24 +63,43 @@ const TRANSLATIONS = {
         sub_tower: "Mythic Hero Calculator",
         title_maps: "Arise Map Calculator",
         sub_maps: "Hero Calculator",
-        btn_mode_tower: "Ascension Tower",
-        btn_mode_maps: "Campaign Maps",
+        title_custom: "Custom Calculator",
+        
+        btn_mode_tower: "Tower ASC",
+        btn_mode_maps: "Maps",
+        btn_mode_custom: "Custom",
+        
         lbl_select_map: "Select Map",
         lbl_boss: "Monster / Boss",
         lbl_hp: "Health (HP)",
+        lbl_hp_ref: "Health (Reference)",
+        lbl_custom_hp: "Enter Target HP (Manual)",
+        lbl_ref_source: "Reference Source:",
+        lbl_ref_tower: "Tower ASC",
+        lbl_ref_maps: "Map Bosses",
+        btn_ref_show: "▼ Show Bosses",
+        btn_ref_hide: "▲ Hide Bosses",
+        
         lbl_dmg: "Estimated Damage",
         lbl_time: "Time per Round (s)",
-        lbl_target: "Target",
+        lbl_target: "Target Calculation",
+        
         btn_target_1: "1% (Reward)",
         btn_target_100: "100% (Kill)",
         btn_calc: "CALCULATE",
+        
         res_goal: "Target Dmg:",
-        res_rounds: "Rounds:",
-        res_time: "Time:",
+        res_rounds: "Rounds needed:",
+        res_time: "Est. Time:",
         
         btn_toggle_table: "View Detailed Table",
         btn_summary: "View Matrix (Summary)",
+        
         modalTitleDetails: "Level Details",
+        matrix_title_hp: "Matrix: Total HP",
+        matrix_title_reward: "Matrix: 1% Reward",
+        btn_switch_to_reward: "Switch to 1%",
+        btn_switch_to_hp: "Show Total HP",
 
         th_rank: "Rank",
         th_hp: "HP",
@@ -72,6 +111,7 @@ const TRANSLATIONS = {
         
         err_data: "No data.",
         err_dmg: "Invalid damage.",
+        err_custom: "Enter a valid Custom HP.",
         time_y: "y", time_mo: "mo", time_d: "d", time_h: "h", time_m: "m", time_s: "s",
         placeholder_dmg: "Ex: 1.5 B, 100 Sx..."
     },
@@ -80,24 +120,43 @@ const TRANSLATIONS = {
         sub_tower: "Calcolatrice Eroe Mitico",
         title_maps: "Arise Map Calculator",
         sub_maps: "Calcolatrice Eroe",
-        btn_mode_tower: "Torre Ascensione",
-        btn_mode_maps: "Mappe Campagna",
+        title_custom: "Calcolatrice Personalizzata",
+        
+        btn_mode_tower: "Torre ASC",
+        btn_mode_maps: "Mappe",
+        btn_mode_custom: "Personalizzato",
+        
         lbl_select_map: "Seleziona Mappa",
         lbl_boss: "Mostro / Boss",
         lbl_hp: "Vita (HP)",
+        lbl_hp_ref: "Vita (Riferimento)",
+        lbl_custom_hp: "Inserisci Vita Obiettivo (Manuale)",
+        lbl_ref_source: "Fonte di Riferimento:",
+        lbl_ref_tower: "Torre ASC",
+        lbl_ref_maps: "Boss Mappe",
+        btn_ref_show: "▼ Vedi Boss",
+        btn_ref_hide: "▲ Nascondi Boss",
+        
         lbl_dmg: "Danno Stimato",
         lbl_time: "Tempo per Round (s)",
         lbl_target: "Obiettivo",
+        
         btn_target_1: "1% (Ricompensa)",
         btn_target_100: "100% (Uccidere)",
         btn_calc: "CALCOLA",
+        
         res_goal: "Danno Obiettivo:",
-        res_rounds: "Round:",
-        res_time: "Tempo:",
+        res_rounds: "Round necessari:",
+        res_time: "Tempo stimato:",
         
         btn_toggle_table: "Vedi Tabella Dettagliata",
         btn_summary: "Vedi Matrice (Riepilogo)",
+        
         modalTitleDetails: "Dettagli Livello",
+        matrix_title_hp: "Matrice: Vita Totale",
+        matrix_title_reward: "Matrice: 1% Ricompensa",
+        btn_switch_to_reward: "Cambia a 1%",
+        btn_switch_to_hp: "Vedi Vita Totale",
 
         th_rank: "Rango",
         th_hp: "Vita",
@@ -109,6 +168,7 @@ const TRANSLATIONS = {
         
         err_data: "Nessun dato.",
         err_dmg: "Danno non valido.",
+        err_custom: "Inserisci una vita valida.",
         time_y: "a", time_mo: "mese", time_d: "g", time_h: "h", time_m: "m", time_s: "s",
         placeholder_dmg: "Es: 1.5 B, 100 Sx..."
     }
@@ -117,9 +177,9 @@ const TRANSLATIONS = {
 let currentLang = 'es';
 let targetPercentage = 0.01;
 let currentMode = 'tower'; 
+let referenceMode = 'maps'; 
 let isCalculated = false;
 
-// 14 minutos en segundos
 const TIME_LIMIT_SECONDS = 14 * 60; 
 
 const RANKS = ["E", "D", "C", "B", "A", "S", "SS", "G", "N"];
@@ -138,7 +198,6 @@ const UNITS = [
 let FULL_DB = {}; 
 let CURRENT_MONSTER_LIST = {}; 
 
-// Elementos DOM
 const selectMap = document.getElementById('mapSelect');
 const selectMonster = document.getElementById('monsterSelect');
 const slider = document.getElementById('rankSlider');
@@ -152,15 +211,34 @@ function changeLanguage(lang) {
     currentLang = lang;
     const t = TRANSLATIONS[lang];
 
-    const ids = ['btn_mode_tower','btn_mode_maps','lbl_select_map',
-                 'lbl_boss','lbl_hp','lbl_dmg','lbl_time','lbl_target',
-                 'btn_target_1','btn_target_100','btn_calc','res_goal',
-                 'res_rounds','res_time', 'btn_summary', 'btn_toggle_table', 'modalTitleDetails'];
-                 
+    const ids = [
+        'btn_mode_tower', 'btn_mode_maps', 'btn_mode_custom',
+        'lbl_select_map', 'lbl_boss', 'lbl_hp', 'lbl_dmg', 'lbl_time', 'lbl_target',
+        'lbl_custom_hp', 'lbl_ref_source', 'lbl_ref_tower', 'lbl_ref_maps',
+        'btn_target_1', 'btn_target_100', 'btn_calc', 
+        'res_lbl_goal', 'res_lbl_rounds', 'res_lbl_time',
+        'btn_summary', 'btn_toggle_table', 'modalTitleDetails'
+    ];
+    
+    document.getElementById('res_lbl_goal').innerText = t.res_goal;
+    document.getElementById('res_lbl_rounds').innerText = t.res_rounds;
+    document.getElementById('res_lbl_time').innerText = t.res_time;
+
     ids.forEach(id => {
         const el = document.getElementById(id);
-        if(el) el.innerText = t[id];
+        if(el && t[id]) el.innerText = t[id];
     });
+
+    const labelHP = document.getElementById('lbl_hp');
+    if (currentMode === 'custom') labelHP.innerText = t.lbl_hp_ref;
+    else labelHP.innerText = t.lbl_hp;
+
+    // Actualizar texto del botón toggle si existe
+    const btnRef = document.getElementById('btnRefToggle');
+    const isRefVisible = document.getElementById('databaseSection').style.display !== 'none';
+    if(btnRef) {
+        btnRef.innerText = isRefVisible ? t.btn_ref_hide : t.btn_ref_show;
+    }
 
     updateTitles();
     updateTableHeaders();
@@ -170,7 +248,6 @@ function changeLanguage(lang) {
     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
     document.getElementById(`btn-${lang}`).classList.add('active');
     
-    // Si la matriz está abierta (flex), refrescar
     if(document.getElementById('summaryModal').style.display === "flex") {
         renderMatrixTable();
     }
@@ -184,9 +261,12 @@ function updateTitles() {
     if (currentMode === 'tower') {
         lblTitle.innerText = t.title_tower;
         lblSubtitle.innerText = t.sub_tower;
-    } else {
+    } else if (currentMode === 'maps') {
         lblTitle.innerText = t.title_maps;
         lblSubtitle.innerText = t.sub_maps;
+    } else {
+        lblTitle.innerText = t.title_custom;
+        lblSubtitle.innerText = "Manual Input";
     }
 }
 
@@ -197,7 +277,12 @@ function updateTableHeaders() {
     const col3 = document.getElementById('th_col3');
     const col4 = document.getElementById('th_col4');
 
-    if (currentMode === 'tower') {
+    let effectiveMode = currentMode;
+    if (currentMode === 'custom') {
+        effectiveMode = referenceMode; 
+    }
+
+    if (effectiveMode === 'tower') {
         col1.innerText = t.th_rank;
         col2.innerText = t.th_hp;
         col3.innerText = t.th_name;
@@ -221,16 +306,99 @@ function setMode(mode, btnElement) {
 
     updateTitles();
 
-    const mapGroup = document.getElementById('groupMapSelect');
+    const databaseSection = document.getElementById('databaseSection');
+    const customSection = document.getElementById('customSection');
+    const groupMapSelect = document.getElementById('groupMapSelect');
+    const refTypeSelector = document.getElementById('refTypeSelector');
+    const btnRefToggle = document.getElementById('btnRefToggle');
+    const t = TRANSLATIONS[currentLang];
+    
+    customSection.style.display = 'none';
+    refTypeSelector.style.display = 'none'; // Ocultar radio buttons
     
     if (mode === 'tower') {
+        databaseSection.style.display = 'block';
+        groupMapSelect.style.display = 'none';
+        CURRENT_MONSTER_LIST = FULL_DB.tower;
+        populateMonsterSelect();
+        document.getElementById('lbl_hp').innerText = t.lbl_hp;
+    
+    } else if (mode === 'maps') {
+        databaseSection.style.display = 'block';
+        groupMapSelect.style.display = 'block';
+        populateMapSelect();
+        onMapChange(); 
+        document.getElementById('lbl_hp').innerText = t.lbl_hp;
+    
+    } else if (mode === 'custom') {
+        customSection.style.display = 'block';
+        // En Custom OCULTAMOS la base de datos por defecto
+        databaseSection.style.display = 'none';
+        refTypeSelector.style.display = 'block'; // Mostrar radio buttons cuando se despliegue
+        
+        btnRefToggle.innerText = t.btn_ref_show;
+        document.getElementById('lbl_hp').innerText = t.lbl_hp_ref;
+        
+        // Inicializar referencia según radio button
+        const selectedRef = document.querySelector('input[name="refSource"]:checked').value;
+        updateCustomRef(selectedRef);
+    }
+    
+    updateTableHeaders();
+    updateUI();
+}
+
+function toggleReference() {
+    const dbSection = document.getElementById('databaseSection');
+    const btn = document.getElementById('btnRefToggle');
+    const t = TRANSLATIONS[currentLang];
+
+    if (dbSection.style.display === 'none') {
+        dbSection.style.display = 'block';
+        btn.innerText = t.btn_ref_hide;
+    } else {
+        dbSection.style.display = 'none';
+        btn.innerText = t.btn_ref_show;
+    }
+}
+
+// LOGICA REFERENCIA CUSTOM (JEFES PLANOS)
+function updateCustomRef(source) {
+    referenceMode = source;
+    const mapGroup = document.getElementById('groupMapSelect');
+    
+    if (source === 'tower') {
         mapGroup.style.display = 'none';
         CURRENT_MONSTER_LIST = FULL_DB.tower;
         populateMonsterSelect();
     } else {
-        mapGroup.style.display = 'block';
-        populateMapSelect();
-        onMapChange();
+        // MODO CUSTOM - MAPAS (SOLO JEFES)
+        mapGroup.style.display = 'none'; 
+        
+        let aggregatedBosses = {};
+        
+        // Recorrer mapas y sacar solo los BOSS
+        Object.keys(FULL_DB.maps).forEach(mapKey => {
+            // "Map 12: ..." -> "12"
+            let mapNumMatch = mapKey.match(/Map\s+(\d+)/i);
+            let mapNum = mapNumMatch ? mapNumMatch[1] : "?";
+            
+            let mapData = FULL_DB.maps[mapKey];
+            Object.keys(mapData).forEach(mobName => {
+                if (mobName.toUpperCase().includes("BOSS")) {
+                    // "6. BOSS: Monarca" -> "Monarca"
+                    let parts = mobName.split("BOSS:");
+                    let bossName = parts.length > 1 ? parts[1].trim() : mobName;
+                    
+                    // Clave: "12. Monarca"
+                    let newKey = `${mapNum}. ${bossName}`;
+                    aggregatedBosses[newKey] = mapData[mobName];
+                }
+            });
+        });
+        
+        CURRENT_MONSTER_LIST = aggregatedBosses;
+        populateMonsterSelect();
     }
     updateTableHeaders();
     updateUI();
@@ -245,10 +413,8 @@ function setTarget(pct, btnElement) {
 
 // --- 3. MODALES Y MATRIZ ---
 
-// Modal 1: Tabla Detallada
 function openDetails() {
     renderTableRows(selectMonster.value, parseInt(slider.value)); 
-    // CORRECCIÓN: Usar FLEX
     document.getElementById('detailsModal').style.display = "flex";
 }
 
@@ -256,13 +422,11 @@ function closeDetails() {
     document.getElementById('detailsModal').style.display = "none";
 }
 
-// Modal 2: Matriz Resumen
 let showRewardMode = false;
 
 function openSummary() {
     showRewardMode = false; 
     renderMatrixTable();
-    // CORRECCIÓN: Usar FLEX
     document.getElementById('summaryModal').style.display = "flex";
 }
 
@@ -275,30 +439,25 @@ function toggleMatrixMode() {
     renderMatrixTable();
 }
 
-// MATRIZ CON COLORES
 function renderMatrixTable() {
     const matrixTable = document.getElementById('matrixTable');
     const modalTitle = document.getElementById('modalTitle');
     const btnSwitch = document.getElementById('btn_matrix_switch');
+    const t = TRANSLATIONS[currentLang];
     
     if (!CURRENT_MONSTER_LIST) return;
 
     let userDmg = parseBig(document.getElementById('userDmg').value);
     let timeRound = parseFloat(document.getElementById('timeRound').value) || 25;
 
-    // Actualizar Textos
     if (showRewardMode) {
-        modalTitle.innerText = (currentLang === 'es') ? "Matriz: Recompensa 1%" : 
-                               (currentLang === 'it') ? "Matrice: 1% Ricompensa" : "Matrix: 1% Reward";
-        btnSwitch.innerText = (currentLang === 'es') ? "Ver Vida Total (HP)" : 
-                              (currentLang === 'it') ? "Vedi Vita Totale" : "Show Total HP";
+        modalTitle.innerText = t.matrix_title_reward;
+        btnSwitch.innerText = t.btn_switch_to_hp;
         btnSwitch.style.borderColor = "var(--success)";
         btnSwitch.style.color = "var(--success)";
     } else {
-        modalTitle.innerText = (currentLang === 'es') ? "Matriz: Vida Total (HP)" : 
-                               (currentLang === 'it') ? "Matrice: Vita Totale" : "Matrix: Total HP";
-        btnSwitch.innerText = (currentLang === 'es') ? "Ver 1% (Reward)" : 
-                              (currentLang === 'it') ? "Vedi 1% (Reward)" : "Show 1% (Reward)";
+        modalTitle.innerText = t.matrix_title_hp;
+        btnSwitch.innerText = t.btn_switch_to_reward;
         btnSwitch.style.borderColor = "var(--gold)";
         btnSwitch.style.color = "var(--gold)";
     }
@@ -319,7 +478,6 @@ function renderMatrixTable() {
             } else {
                 let numHp = parseBig(valRaw);
                 let targetHpForCalc = numHp;
-                
                 let displayVal = valRaw;
 
                 if (showRewardMode) {
@@ -468,7 +626,9 @@ function updateUI() {
     document.getElementById('rankBadge').innerText = RANKS[idx];
     const rankSub = document.getElementById('rankName');
     
-    if (currentMode === 'tower') {
+    let effectiveMode = (currentMode === 'custom') ? referenceMode : currentMode;
+    
+    if (effectiveMode === 'tower') {
         rankSub.innerText = RANK_NAMES[idx];
         rankSub.style.display = 'block'; 
     } else {
@@ -478,23 +638,33 @@ function updateUI() {
 
     displayHP.value = hpVal ? hpVal : "---";
     
-    if(isCalculated) {
+    if(isCalculated && currentMode !== 'custom') {
         calculate();
     }
 }
 
 function calculate() {
     let t = TRANSLATIONS[currentLang];
-    let key = selectMonster.value;
-    let idx = parseInt(slider.value);
-    let hpStr = CURRENT_MONSTER_LIST[key][idx];
+    let totalHP = 0;
 
-    if(!hpStr) { 
-        if(!isCalculated) alert(t.err_data); 
-        return; 
+    if (currentMode === 'custom') {
+        let customInput = document.getElementById('customHPInput').value;
+        if (!customInput) {
+            alert(t.err_custom);
+            return;
+        }
+        totalHP = parseBig(customInput);
+    } else {
+        let key = selectMonster.value;
+        let idx = parseInt(slider.value);
+        let hpStr = CURRENT_MONSTER_LIST[key][idx];
+        if(!hpStr) { 
+            if(!isCalculated) alert(t.err_data); 
+            return; 
+        }
+        totalHP = parseBig(hpStr);
     }
 
-    let totalHP = parseBig(hpStr);
     let userDmg = parseBig(document.getElementById('userDmg').value);
     let time = parseFloat(document.getElementById('timeRound').value) || 25;
 
@@ -514,9 +684,8 @@ function calculate() {
     document.getElementById('outRounds').innerText = rounds.toLocaleString();
     document.getElementById('outTime').innerText = formatTime(totalSeconds);
 
-    // CORRECCIÓN: Checkear FLEX en lugar de BLOCK
     if(document.getElementById('detailsModal').style.display === "flex") {
-        renderTableRows(key, idx);
+        renderTableRows(selectMonster.value, parseInt(slider.value));
     }
     if(document.getElementById('summaryModal').style.display === "flex") {
         renderMatrixTable();
@@ -529,8 +698,10 @@ function renderTableRows(selectedKey, activeIdx) {
     
     let userDmg = parseBig(document.getElementById('userDmg').value);
     let timeRound = parseFloat(document.getElementById('timeRound').value) || 25;
+    
+    let effectiveMode = (currentMode === 'custom') ? referenceMode : currentMode;
 
-    if (currentMode === 'tower') {
+    if (effectiveMode === 'tower') {
         if (!CURRENT_MONSTER_LIST[selectedKey]) return;
         let data = CURRENT_MONSTER_LIST[selectedKey];
         data.forEach((val, i) => {
@@ -576,7 +747,7 @@ function renderTableRows(selectedKey, activeIdx) {
                     timeClass = "time-bad";
                 }
             }
-            let displayTime = (isCalculated && colTime) ? `<span class="${timeClass}" style="font-size:0.85em">${colTime}</span>` : `<span style="color:#555">--</span>`;
+            let displayTime = (colTime) ? `<span class="${timeClass}" style="font-size:0.85em">${colTime}</span>` : `<span style="color:#555">--</span>`;
 
             row.innerHTML = `
                 <td style="font-weight:bold; color: #fff; font-size:0.9em">${mobName}</td>
@@ -589,7 +760,6 @@ function renderTableRows(selectedKey, activeIdx) {
     }
 }
 
-// CERRAR CON ESCAPE
 document.addEventListener('keydown', function(event) {
     if (event.key === "Escape") {
         closeDetails();

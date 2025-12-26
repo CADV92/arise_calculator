@@ -19,39 +19,68 @@
         <div class="subtitle" id="lbl_subtitle">Mythic Hero Calculator</div>
         
         <div class="mode-selector">
-            <button class="mode-btn active" onclick="setMode('tower', this)" id="btn_mode_tower">Ascension Tower</button>
-            <button class="mode-btn" onclick="setMode('maps', this)" id="btn_mode_maps">Campaign Maps</button>
+            <button class="mode-btn active" onclick="setMode('tower', this)" id="btn_mode_tower">Tower</button>
+            <button class="mode-btn" onclick="setMode('maps', this)" id="btn_mode_maps">Maps</button>
+            <button class="mode-btn" onclick="setMode('custom', this)" id="btn_mode_custom">Custom</button>
         </div>
 
-        <div class="control-group" id="groupMapSelect" style="display: none;">
-            <label id="lbl_select_map">Selecciona Mapa</label>
-            <select id="mapSelect" onchange="onMapChange()"></select>
-        </div>
-
-        <div class="control-group">
-            <label id="lbl_boss">Monstruo / Jefe</label>
-            <select id="monsterSelect" onchange="updateUI()"></select>
-        </div>
-
-        <div class="control-group">
-            <div class="rank-badge" id="rankBadge">E</div>
-            <div class="rank-sub" id="rankName">M+</div>
+        <div id="customSection" style="display: none;">
+            <div class="control-group">
+                <label id="lbl_custom_hp" style="color: var(--gold); font-weight: bold;">Ingresa Vida Objetivo (Manual)</label>
+                <input type="text" id="customHPInput" placeholder="Ej: 500 E51..." style="border-color: var(--gold);">
+            </div>
             
-            <div class="slider-wrapper">
-                <input type="range" id="rankSlider" min="0" max="8" step="1" value="0" oninput="updateUI()">
-                <div class="rank-labels">
-                    <span>E</span><span>D</span><span>C</span><span>B</span><span>A</span>
-                    <span>S</span><span>SS</span><span>G</span><span>N</span>
+            <button type="button" id="btnRefToggle" class="ref-toggle-btn" onclick="toggleReference()">
+                ▼ Mostrar Referencia (Tablas)
+            </button>
+        </div>
+
+        <div id="databaseSection">
+            
+            <div id="refTypeSelector" style="display:none; margin-bottom:15px;">
+                <label id="lbl_ref_source" style="font-size: 0.85rem; color: #aaa; margin-bottom:5px;">Fuente de Referencia:</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="refSource" value="tower" onchange="updateCustomRef('tower')">
+                        <span id="lbl_ref_tower">Torre</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="refSource" value="maps" checked onchange="updateCustomRef('maps')">
+                        <span id="lbl_ref_maps">Jefes Mapas</span>
+                    </label>
                 </div>
             </div>
-        </div>
 
-        <div class="control-group">
-            <label id="lbl_hp">Vida (HP)</label>
-            <input type="text" id="bossHP" readonly style="color:#aaa; cursor:not-allowed; font-weight:bold;">
-        </div>
+            <div class="control-group" id="groupMapSelect" style="display: none;">
+                <label id="lbl_select_map">Selecciona Mapa</label>
+                <select id="mapSelect" onchange="onMapChange()"></select>
+            </div>
 
-        <hr style="border:0; border-top:1px solid #334155; margin: 25px 0;">
+            <div class="control-group">
+                <label id="lbl_boss">Monstruo / Jefe</label>
+                <select id="monsterSelect" onchange="updateUI()"></select>
+            </div>
+
+            <div class="control-group">
+                <div class="rank-badge" id="rankBadge">E</div>
+                <div class="rank-sub" id="rankName">M+</div>
+                
+                <div class="slider-wrapper">
+                    <input type="range" id="rankSlider" min="0" max="8" step="1" value="0" oninput="updateUI()">
+                    <div class="rank-labels">
+                        <span>E</span><span>D</span><span>C</span><span>B</span><span>A</span>
+                        <span>S</span><span>SS</span><span>G</span><span>N</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label id="lbl_hp">Vida (HP)</label>
+                <input type="text" id="bossHP" readonly style="color:#aaa; cursor:not-allowed; font-weight:bold;">
+            </div>
+            
+            <hr style="border:0; border-top:1px dashed #334155; margin: 20px 0;">
+        </div>
 
         <div class="control-group">
             <label id="lbl_dmg">Tu Daño Estimado</label>
@@ -118,17 +147,14 @@
     <div id="summaryModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeSummary()">&times;</span>
-            
             <div class="modal-header">
                 <h2 id="modalTitle">Resumen de Vidas</h2>
-                <button class="toggle-btn btn-summary" id="btn_matrix_switch" onclick="toggleMatrixMode()" style="width: auto; margin: 0;">
+                <button class="toggle-btn btn-summary" id="btn_matrix_switch" onclick="toggleMatrixMode()" style="width: auto; margin: 0; padding: 8px 15px;">
                     Cambiar a 1%
                 </button>
             </div>
-
             <div class="matrix-container">
-                <table id="matrixTable">
-                    </table>
+                <table id="matrixTable"></table>
             </div>
         </div>
     </div>
