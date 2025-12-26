@@ -383,3 +383,97 @@ input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; bac
     height: 18px;
     cursor: pointer;
 }
+
+/* --- BOTÓN ENVIAR A TIMER --- */
+.btn-timer-link {
+    margin-top: 15px;
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+.btn-timer-link:hover {
+    background: var(--accent);
+    color: var(--bg-dark);
+}
+
+/* --- ALARMA FLOTANTE (FLOATING TIMER) --- */
+.floating-timer {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 200px;
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    z-index: 2000;
+    backdrop-filter: blur(10px);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.timer-header {
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-sec);
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.close-timer {
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 0.8rem;
+}
+.close-timer:hover { color: var(--danger); }
+
+.timer-display {
+    font-family: 'Courier New', monospace;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    margin: 10px 0;
+    text-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+/* Estado cuando queda poco tiempo */
+.timer-urgent { color: var(--danger) !important; text-shadow: 0 0 10px var(--danger); animation: pulse 1s infinite; }
+
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+
+.timer-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.timer-controls button {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+#btnTimerToggle { background: var(--success); color: #000; }
+#btnTimerReset { background: rgba(255,255,255,0.1); color: #fff; }
+
+/* Estado activo del botón de pausa */
+.btn-pause { background: var(--gold) !important; color: #000 !important; }

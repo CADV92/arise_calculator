@@ -36,7 +36,6 @@
         </div>
 
         <div id="databaseSection">
-            
             <div id="refTypeSelector" style="display:none; margin-bottom:15px;">
                 <label id="lbl_ref_source" style="font-size: 0.85rem; color: #aaa; margin-bottom:5px;">Fuente de Referencia:</label>
                 <div class="radio-group">
@@ -74,7 +73,7 @@
                 </div>
             </div>
 
-            <div class="control-group">
+            <div class="control-group" id="groupBossHP">
                 <label id="lbl_hp">Vida (HP)</label>
                 <input type="text" id="bossHP" readonly style="color:#aaa; cursor:not-allowed; font-weight:bold;">
             </div>
@@ -114,6 +113,7 @@
                 <span id="res_lbl_time">Tiempo estimado:</span>
                 <span class="res-value time-val" id="outTime">0m 0s</span>
             </div>
+            <button class="btn-timer-link" onclick="sendToTimer()">⏱ Usar en Alarma</button>
         </div>
         
         <div class="action-buttons">
@@ -158,6 +158,20 @@
             </div>
         </div>
     </div>
+
+    <div id="floatingTimer" class="floating-timer">
+        <div class="timer-header">
+            <span>⏱ Alarm</span>
+            <span class="close-timer" onclick="closeTimer()">&times;</span>
+        </div>
+        <div class="timer-display" id="timerDisplay">00:00:00</div>
+        <div class="timer-controls">
+            <button id="btnTimerToggle" onclick="toggleTimerState()">Start</button>
+            <button id="btnTimerReset" onclick="resetTimer()">Reset</button>
+        </div>
+    </div>
+
+    <audio id="alarmSound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" preload="auto"></audio>
 
     <script src="monsters.js"></script>
     <script src="script.js"></script>

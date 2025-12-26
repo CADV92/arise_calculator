@@ -8,20 +8,19 @@ const TRANSLATIONS = {
         sub_maps: "Calculadora de Héroes",
         title_custom: "Calculadora Personalizada",
         
-        btn_mode_tower: "Torre ASC",
+        btn_mode_tower: "Torre",
         btn_mode_maps: "Mapas",
         btn_mode_custom: "Custom",
         
         lbl_select_map: "Selecciona el Mapa",
         lbl_boss: "Monstruo / Jefe",
         lbl_hp: "Vida (HP)",
-        lbl_hp_ref: "Vida (Referencia)",
         lbl_custom_hp: "Ingresa Vida Objetivo (Manual)",
         lbl_ref_source: "Fuente de Referencia:",
-        lbl_ref_tower: "Torre ASC",
+        lbl_ref_tower: "Torre",
         lbl_ref_maps: "Jefes de Mapa",
-        btn_ref_show: "▼ Mostrar Jefes",
-        btn_ref_hide: "▲ Ocultar Jefes",
+        btn_ref_show: "▼ Mostrar Referencia (Tablas)",
+        btn_ref_hide: "▲ Ocultar Referencia",
         
         lbl_dmg: "Tu Daño Estimado",
         lbl_time: "Tiempo por Ronda (s)",
@@ -29,11 +28,12 @@ const TRANSLATIONS = {
         
         btn_target_1: "1% (Recompensa)",
         btn_target_100: "100% (Matar)",
-        btn_calc: "CALCULAR",
+        btn_calc: "CALCULATE",
         
         res_goal: "Daño Objetivo:",
         res_rounds: "Rondas necesarias:",
         res_time: "Tiempo estimado:",
+        btn_timer_link: "⏱ Usar en Alarma",
         
         btn_toggle_table: "Ver Tabla Detallada",
         btn_summary: "Ver Matriz (Resumen)",
@@ -52,6 +52,11 @@ const TRANSLATIONS = {
         th_reward: "1% (Reward)",
         th_time: "Tiempo Est.",
         
+        timer_start: "Iniciar",
+        timer_pause: "Pausar",
+        timer_reset: "Reset",
+        timer_done: "¡TIEMPO!",
+        
         err_data: "Sin datos.",
         err_dmg: "Daño inválido.",
         err_custom: "Ingresa un valor válido en Vida Manual.",
@@ -65,20 +70,19 @@ const TRANSLATIONS = {
         sub_maps: "Hero Calculator",
         title_custom: "Custom Calculator",
         
-        btn_mode_tower: "Tower ASC",
+        btn_mode_tower: "Tower",
         btn_mode_maps: "Maps",
         btn_mode_custom: "Custom",
         
         lbl_select_map: "Select Map",
         lbl_boss: "Monster / Boss",
         lbl_hp: "Health (HP)",
-        lbl_hp_ref: "Health (Reference)",
         lbl_custom_hp: "Enter Target HP (Manual)",
         lbl_ref_source: "Reference Source:",
-        lbl_ref_tower: "Tower ASC",
+        lbl_ref_tower: "Tower",
         lbl_ref_maps: "Map Bosses",
-        btn_ref_show: "▼ Show Bosses",
-        btn_ref_hide: "▲ Hide Bosses",
+        btn_ref_show: "▼ Show Reference (Tables)",
+        btn_ref_hide: "▲ Hide Reference",
         
         lbl_dmg: "Estimated Damage",
         lbl_time: "Time per Round (s)",
@@ -91,6 +95,7 @@ const TRANSLATIONS = {
         res_goal: "Target Dmg:",
         res_rounds: "Rounds needed:",
         res_time: "Est. Time:",
+        btn_timer_link: "⏱ Use in Alarm",
         
         btn_toggle_table: "View Detailed Table",
         btn_summary: "View Matrix (Summary)",
@@ -109,6 +114,11 @@ const TRANSLATIONS = {
         th_reward: "Reward (1%)",
         th_time: "Est. Time",
         
+        timer_start: "Start",
+        timer_pause: "Pause",
+        timer_reset: "Reset",
+        timer_done: "DONE!",
+        
         err_data: "No data.",
         err_dmg: "Invalid damage.",
         err_custom: "Enter a valid Custom HP.",
@@ -122,20 +132,19 @@ const TRANSLATIONS = {
         sub_maps: "Calcolatrice Eroe",
         title_custom: "Calcolatrice Personalizzata",
         
-        btn_mode_tower: "Torre ASC",
+        btn_mode_tower: "Torre",
         btn_mode_maps: "Mappe",
         btn_mode_custom: "Personalizzato",
         
         lbl_select_map: "Seleziona Mappa",
         lbl_boss: "Mostro / Boss",
         lbl_hp: "Vita (HP)",
-        lbl_hp_ref: "Vita (Riferimento)",
         lbl_custom_hp: "Inserisci Vita Obiettivo (Manuale)",
         lbl_ref_source: "Fonte di Riferimento:",
-        lbl_ref_tower: "Torre ASC",
+        lbl_ref_tower: "Torre",
         lbl_ref_maps: "Boss Mappe",
-        btn_ref_show: "▼ Vedi Boss",
-        btn_ref_hide: "▲ Nascondi Boss",
+        btn_ref_show: "▼ Vedi Riferimento (Tabelle)",
+        btn_ref_hide: "▲ Nascondi Riferimento",
         
         lbl_dmg: "Danno Stimato",
         lbl_time: "Tempo per Round (s)",
@@ -148,6 +157,7 @@ const TRANSLATIONS = {
         res_goal: "Danno Obiettivo:",
         res_rounds: "Round necessari:",
         res_time: "Tempo stimato:",
+        btn_timer_link: "⏱ Usa in Allarme",
         
         btn_toggle_table: "Vedi Tabella Dettagliata",
         btn_summary: "Vedi Matrice (Riepilogo)",
@@ -166,6 +176,11 @@ const TRANSLATIONS = {
         th_reward: "1% (Ricompensa)",
         th_time: "Tempo Stim.",
         
+        timer_start: "Avvia",
+        timer_pause: "Pausa",
+        timer_reset: "Reset",
+        timer_done: "FINITO!",
+        
         err_data: "Nessun dato.",
         err_dmg: "Danno non valido.",
         err_custom: "Inserisci una vita valida.",
@@ -179,6 +194,7 @@ let targetPercentage = 0.01;
 let currentMode = 'tower'; 
 let referenceMode = 'maps'; 
 let isCalculated = false;
+let calculatedSeconds = 0; 
 
 const TIME_LIMIT_SECONDS = 14 * 60; 
 
@@ -223,23 +239,22 @@ function changeLanguage(lang) {
     document.getElementById('res_lbl_goal').innerText = t.res_goal;
     document.getElementById('res_lbl_rounds').innerText = t.res_rounds;
     document.getElementById('res_lbl_time').innerText = t.res_time;
+    
+    const timerBtn = document.querySelector('.btn-timer-link');
+    if(timerBtn) timerBtn.innerText = t.btn_timer_link;
 
     ids.forEach(id => {
         const el = document.getElementById(id);
         if(el && t[id]) el.innerText = t[id];
     });
 
-    const labelHP = document.getElementById('lbl_hp');
-    if (currentMode === 'custom') labelHP.innerText = t.lbl_hp_ref;
-    else labelHP.innerText = t.lbl_hp;
-
-    // Actualizar texto del botón toggle si existe
     const btnRef = document.getElementById('btnRefToggle');
     const isRefVisible = document.getElementById('databaseSection').style.display !== 'none';
     if(btnRef) {
         btnRef.innerText = isRefVisible ? t.btn_ref_hide : t.btn_ref_show;
     }
-
+    
+    updateTimerButtonText();
     updateTitles();
     updateTableHeaders();
     
@@ -309,37 +324,37 @@ function setMode(mode, btnElement) {
     const databaseSection = document.getElementById('databaseSection');
     const customSection = document.getElementById('customSection');
     const groupMapSelect = document.getElementById('groupMapSelect');
+    const groupBossHP = document.getElementById('groupBossHP');
     const refTypeSelector = document.getElementById('refTypeSelector');
     const btnRefToggle = document.getElementById('btnRefToggle');
     const t = TRANSLATIONS[currentLang];
     
     customSection.style.display = 'none';
-    refTypeSelector.style.display = 'none'; // Ocultar radio buttons
+    refTypeSelector.style.display = 'none';
     
     if (mode === 'tower') {
         databaseSection.style.display = 'block';
         groupMapSelect.style.display = 'none';
+        groupBossHP.style.display = 'block'; // Mostrar HP Referencia en modo normal
         CURRENT_MONSTER_LIST = FULL_DB.tower;
         populateMonsterSelect();
-        document.getElementById('lbl_hp').innerText = t.lbl_hp;
     
     } else if (mode === 'maps') {
         databaseSection.style.display = 'block';
         groupMapSelect.style.display = 'block';
+        groupBossHP.style.display = 'block'; // Mostrar HP Referencia en modo normal
         populateMapSelect();
         onMapChange(); 
-        document.getElementById('lbl_hp').innerText = t.lbl_hp;
     
     } else if (mode === 'custom') {
         customSection.style.display = 'block';
         // En Custom OCULTAMOS la base de datos por defecto
         databaseSection.style.display = 'none';
-        refTypeSelector.style.display = 'block'; // Mostrar radio buttons cuando se despliegue
+        groupBossHP.style.display = 'none'; // OCULTAR HP Referencia en modo Custom
+        refTypeSelector.style.display = 'block'; 
         
         btnRefToggle.innerText = t.btn_ref_show;
-        document.getElementById('lbl_hp').innerText = t.lbl_hp_ref;
         
-        // Inicializar referencia según radio button
         const selectedRef = document.querySelector('input[name="refSource"]:checked').value;
         updateCustomRef(selectedRef);
     }
@@ -362,7 +377,6 @@ function toggleReference() {
     }
 }
 
-// LOGICA REFERENCIA CUSTOM (JEFES PLANOS)
 function updateCustomRef(source) {
     referenceMode = source;
     const mapGroup = document.getElementById('groupMapSelect');
@@ -372,25 +386,17 @@ function updateCustomRef(source) {
         CURRENT_MONSTER_LIST = FULL_DB.tower;
         populateMonsterSelect();
     } else {
-        // MODO CUSTOM - MAPAS (SOLO JEFES)
         mapGroup.style.display = 'none'; 
         
         let aggregatedBosses = {};
-        
-        // Recorrer mapas y sacar solo los BOSS
         Object.keys(FULL_DB.maps).forEach(mapKey => {
-            // "Map 12: ..." -> "12"
             let mapNumMatch = mapKey.match(/Map\s+(\d+)/i);
             let mapNum = mapNumMatch ? mapNumMatch[1] : "?";
-            
             let mapData = FULL_DB.maps[mapKey];
             Object.keys(mapData).forEach(mobName => {
                 if (mobName.toUpperCase().includes("BOSS")) {
-                    // "6. BOSS: Monarca" -> "Monarca"
                     let parts = mobName.split("BOSS:");
                     let bossName = parts.length > 1 ? parts[1].trim() : mobName;
-                    
-                    // Clave: "12. Monarca"
                     let newKey = `${mapNum}. ${bossName}`;
                     aggregatedBosses[newKey] = mapData[mobName];
                 }
@@ -638,6 +644,11 @@ function updateUI() {
 
     displayHP.value = hpVal ? hpVal : "---";
     
+    // FEATURE: COPIAR HP AL INPUT CUSTOM AUTOMÁTICAMENTE
+    if (currentMode === 'custom' && hpVal) {
+        document.getElementById('customHPInput').value = hpVal;
+    }
+    
     if(isCalculated && currentMode !== 'custom') {
         calculate();
     }
@@ -678,6 +689,7 @@ function calculate() {
     let targetAmount = totalHP * targetPercentage;
     let rounds = Math.ceil(targetAmount / userDmg);
     let totalSeconds = rounds * time;
+    calculatedSeconds = totalSeconds; // Guardar para el timer
 
     document.getElementById('results').style.display = "block";
     document.getElementById('out1Pct').innerText = formatBig(targetAmount);
@@ -760,10 +772,108 @@ function renderTableRows(selectedKey, activeIdx) {
     }
 }
 
+// --- 7. ALARMA FLOTANTE ---
+
+let timerInterval;
+let remainingTime = 0;
+let isTimerRunning = false;
+
+function sendToTimer() {
+    if (calculatedSeconds <= 0) return;
+    remainingTime = calculatedSeconds;
+    updateTimerDisplay();
+    document.getElementById('floatingTimer').style.display = "block";
+    resetTimer(false); 
+}
+
+function closeTimer() {
+    stopTimer();
+    document.getElementById('floatingTimer').style.display = "none";
+}
+
+function toggleTimerState() {
+    if (isTimerRunning) {
+        stopTimer();
+    } else {
+        startTimer();
+    }
+}
+
+function startTimer() {
+    if (remainingTime <= 0) return;
+    isTimerRunning = true;
+    updateTimerButtonText();
+    
+    document.getElementById('alarmSound').load();
+
+    timerInterval = setInterval(() => {
+        remainingTime--;
+        updateTimerDisplay();
+        
+        if (remainingTime <= 0) {
+            stopTimer();
+            timerFinished();
+        }
+    }, 1000);
+}
+
+function stopTimer() {
+    isTimerRunning = false;
+    clearInterval(timerInterval);
+    updateTimerButtonText();
+}
+
+function resetTimer(hide = false) {
+    stopTimer();
+    remainingTime = calculatedSeconds;
+    updateTimerDisplay();
+    document.getElementById('timerDisplay').classList.remove('timer-urgent');
+    if(hide) closeTimer();
+}
+
+function updateTimerDisplay() {
+    let h = Math.floor(remainingTime / 3600);
+    let m = Math.floor((remainingTime % 3600) / 60);
+    let s = remainingTime % 60;
+    
+    let str = 
+        (h < 10 ? "0" + h : h) + ":" + 
+        (m < 10 ? "0" + m : m) + ":" + 
+        (s < 10 ? "0" + s : s);
+        
+    document.getElementById('timerDisplay').innerText = str;
+    
+    if (remainingTime <= 30 && remainingTime > 0) {
+        document.getElementById('timerDisplay').classList.add('timer-urgent');
+    }
+}
+
+function timerFinished() {
+    const t = TRANSLATIONS[currentLang];
+    document.getElementById('timerDisplay').innerText = t.timer_done;
+    document.getElementById('alarmSound').play().catch(e => console.log("Audio play failed", e));
+    alert(t.timer_done);
+}
+
+function updateTimerButtonText() {
+    const t = TRANSLATIONS[currentLang];
+    const btn = document.getElementById('btnTimerToggle');
+    if (isTimerRunning) {
+        btn.innerText = t.timer_pause;
+        btn.classList.add('btn-pause');
+    } else {
+        btn.innerText = t.timer_start;
+        btn.classList.remove('btn-pause');
+    }
+    document.getElementById('btnTimerReset').innerText = t.timer_reset;
+}
+
+
 document.addEventListener('keydown', function(event) {
     if (event.key === "Escape") {
         closeDetails();
         closeSummary();
+        closeTimer();
     }
 });
 
