@@ -18,7 +18,7 @@ const TRANSLATIONS = {
         lbl_hp_ref: "Vida (Referencia)",
         lbl_custom_hp: "Ingresa Vida Objetivo (Manual)",
         lbl_ref_source: "Fuente de Referencia:",
-        lbl_ref_tower: "Torre",
+        lbl_ref_tower: "Torre ASC",
         lbl_ref_maps: "Jefes de Mapa",
         btn_ref_show: "▼ Mostrar Referencia (Tablas)",
         btn_ref_hide: "▲ Ocultar Referencia",
@@ -57,7 +57,8 @@ const TRANSLATIONS = {
         timer_start: "Iniciar",
         timer_pause: "Pausar",
         timer_reset: "Reset",
-        timer_done: "¡TIEMPO!",
+        timer_done: "¡TIEMPO TERMINADO!",
+        timer_alert: "¡ALERTA DE FARMEO!",
         lbl_vol: "Volumen:",
         lbl_tone: "Tono:",
         
@@ -77,7 +78,7 @@ const TRANSLATIONS = {
         btn_mode_tower: "Tower", btn_mode_maps: "Maps", btn_mode_custom: "Custom",
         lbl_select_map: "Select Map", lbl_boss: "Monster / Boss", lbl_hp: "Health (HP)",
         lbl_hp_ref: "Health (Reference)", lbl_custom_hp: "Enter Target HP (Manual)",
-        lbl_ref_source: "Reference Source:", lbl_ref_tower: "Tower", lbl_ref_maps: "Map Bosses",
+        lbl_ref_source: "Reference Source:", lbl_ref_tower: "Tower ASC", lbl_ref_maps: "Map Bosses",
         btn_ref_show: "▼ Show Reference (Tables)", btn_ref_hide: "▲ Hide Reference",
         lbl_dmg: "Estimated Damage", lbl_time: "Time per Round (s)", lbl_target: "Target Calculation",
         btn_target_1: "1% (Reward)", btn_target_100: "100% (Kill)", btn_calc: "CALCULATE",
@@ -86,7 +87,7 @@ const TRANSLATIONS = {
         modalTitleDetails: "Level Details", matrix_title_hp: "Matrix: Total HP", matrix_title_reward: "Matrix: 1% Reward",
         btn_switch_to_reward: "Switch to 1%", btn_switch_to_hp: "Show Total HP",
         th_rank: "Rank", th_hp: "HP", th_name: "Subtitle", th_mob: "Monster", th_total: "Total HP", th_reward: "Reward (1%)", th_time: "Est. Time",
-        timer_start: "Start", timer_pause: "Pause", timer_reset: "Reset", timer_done: "DONE!",
+        timer_start: "Start", timer_pause: "Pause", timer_reset: "Reset", timer_done: "DONE!", timer_alert: "PRE-ALERT!",
         lbl_vol: "Volume:", lbl_tone: "Tone:",
         err_data: "No data.", err_dmg: "Invalid damage.", err_custom: "Enter a valid Custom HP.",
         time_y: "y", time_mo: "mo", time_d: "d", time_h: "h", time_m: "m", time_s: "s", placeholder_dmg: "Ex: 1.5 B, 100 Sx..."
@@ -110,7 +111,7 @@ const TRANSLATIONS = {
         modalTitleDetails: "Dettagli Livello", matrix_title_hp: "Matrice: Vita Totale", matrix_title_reward: "Matrice: 1% Ricompensa",
         btn_switch_to_reward: "Cambia a 1%", btn_switch_to_hp: "Vedi Vita Totale",
         th_rank: "Rango", th_hp: "Vita", th_name: "Sottotitolo", th_mob: "Mostro", th_total: "HP Totale", th_reward: "1% (Ricompensa)", th_time: "Tempo Stim.",
-        timer_start: "Avvia", timer_pause: "Pausa", timer_reset: "Reset", timer_done: "FINITO!",
+        timer_start: "Avvia", timer_pause: "Pausa", timer_reset: "Reset", timer_done: "FINITO!", timer_alert: "PRE-ALLARME!",
         lbl_vol: "Volume:", lbl_tone: "Tono:",
         err_data: "Nessun dato.", err_dmg: "Danno non valido.", err_custom: "Inserisci una vita valida.",
         time_y: "a", time_mo: "mese", time_d: "g", time_h: "h", time_m: "m", time_s: "s", placeholder_dmg: "Es: 1.5 B, 100 Sx..."
@@ -140,10 +141,10 @@ const UNITS = [
 ];
 
 const SOUNDS = {
-    'scifi': "https://actions.google.com/sounds/v1/alarms/spaceship_alarm.ogg",
     'digital': "https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg",
     'mech': "https://actions.google.com/sounds/v1/alarms/mechanical_clock_ring.ogg",
-    'bugle': "https://actions.google.com/sounds/v1/alarms/bugle_tune.ogg"
+    'bugle': "https://actions.google.com/sounds/v1/alarms/bugle_tune.ogg",
+    'scifi': "https://actions.google.com/sounds/v1/alarms/spaceship_alarm.ogg"
 };
 
 let FULL_DB = {}; 
@@ -290,7 +291,7 @@ function setMode(mode, btnElement) {
     
     } else if (mode === 'custom') {
         customSection.style.display = 'block';
-        databaseSection.style.display = 'none';
+        databaseSection.style.display = 'none'; // Oculto por defecto
         groupBossHP.style.display = 'none'; 
         refTypeSelector.style.display = 'block'; 
         
@@ -470,12 +471,13 @@ function init() {
             changeLanguage('en'); 
         }
         
-        // Sincroniza el audio con el valor 0.75 del slider
+        // VOLUMEN INICIAL
         const volSlider = document.getElementById('volumeControl');
         const audio = document.getElementById('alarmSound');
         if (volSlider && audio) {
             audio.volume = volSlider.value;
         }
+
     } else {
         alert("Error: MONSTERS_DATA no encontrada.");
     }
@@ -724,8 +726,8 @@ function renderTableRows(selectedKey, activeIdx) {
 // --- 7. ALARMA FLOTANTE MEJORADA Y CORREGIDA (TIEMPO REAL) ---
 
 let timerInterval;
-let targetEndTime = 0; // Usaremos TIMESTAMP para evitar congelamiento
-let remainingTime = 0; // Solo para display y lógica de inicio
+let targetEndTime = 0; 
+let remainingTime = 0; 
 let isTimerRunning = false;
 let firedAlerts = new Set(); 
 
@@ -765,7 +767,7 @@ function testSound() {
 
 function sendToTimer() {
     if (calculatedSeconds <= 0) return;
-    remainingTime = calculatedSeconds; // Guardamos la duración original
+    remainingTime = calculatedSeconds; 
     updateTimerDisplay(remainingTime);
     document.getElementById('floatingTimer').style.display = "block";
     resetTimer(false); 
@@ -790,17 +792,15 @@ function startTimer() {
     isTimerRunning = true;
     updateTimerButtonText();
     
-    // Calcular TIEMPO OBJETIVO REAL (Corrección de congelamiento)
     targetEndTime = Date.now() + (remainingTime * 1000);
     
     document.getElementById('alarmSound').load();
 
     timerInterval = setInterval(() => {
         const now = Date.now();
-        // Calcular diferencia real con la hora objetivo
         const diff = Math.ceil((targetEndTime - now) / 1000);
         
-        remainingTime = diff; // Actualizar variable global para consistencia
+        remainingTime = diff; 
         updateTimerDisplay(diff);
         
         checkPreAlerts(diff);
@@ -814,15 +814,13 @@ function startTimer() {
     }, 1000);
 }
 
-// Comprueba si hemos CRUZADO un umbral de alerta
-// Usamos <= para asegurar que si el navegador se durmió y despertó después del segundo exacto, igual suene.
 function checkPreAlerts(currentSeconds) {
     for (let id in preAlerts) {
         let alertTime = preAlerts[id];
-        // Si está marcado Y estamos en el rango de alerta (o nos pasamos un poco) Y no ha sonado
+        // Revisamos el estado LIVE del checkbox
         if (document.getElementById(id).checked && 
             currentSeconds <= alertTime && 
-            currentSeconds > alertTime - 5 && // Ventana de 5s por si acaso
+            currentSeconds > alertTime - 5 && 
             !firedAlerts.has(alertTime)) {
             
             triggerAlarm("ALERT");
@@ -842,6 +840,8 @@ function triggerAlarm(type) {
     const t = TRANSLATIONS[currentLang];
     if (type === "DONE") {
         document.getElementById('timerDisplay').innerText = t.timer_done;
+        document.getElementById('timerHpText').innerText = "0%";
+        document.getElementById('timerHpBar').style.width = "0%";
     }
 }
 
@@ -856,8 +856,6 @@ function stopAlarmSound() {
 function stopTimer() {
     isTimerRunning = false;
     clearInterval(timerInterval);
-    // Al pausar, guardamos el tiempo restante actual para poder reanudar correctamente
-    // (remainingTime ya se actualiza en el intervalo, así que está listo)
     updateTimerButtonText();
 }
 
@@ -865,13 +863,15 @@ function resetTimer(hide = false) {
     stopTimer();
     stopAlarmSound();
     firedAlerts.clear(); 
-    remainingTime = calculatedSeconds; // Volver al tiempo original
+    remainingTime = calculatedSeconds; 
     updateTimerDisplay(remainingTime);
     if(hide) closeTimer();
 }
 
+// --- ACTUALIZACIÓN VISUAL (RELOJ + BARRA HP) ---
 function updateTimerDisplay(seconds) {
     if(seconds < 0) seconds = 0;
+    
     let h = Math.floor(seconds / 3600);
     let m = Math.floor((seconds % 3600) / 60);
     let s = seconds % 60;
@@ -883,6 +883,22 @@ function updateTimerDisplay(seconds) {
         
     if(document.getElementById('timerDisplay').innerText !== TRANSLATIONS[currentLang].timer_done) {
         document.getElementById('timerDisplay').innerText = str;
+    }
+
+    if (calculatedSeconds > 0) {
+        let percentage = (seconds / calculatedSeconds) * 100;
+        let hpBar = document.getElementById('timerHpBar');
+        let hpText = document.getElementById('timerHpText');
+        
+        hpBar.style.width = percentage + "%";
+        hpText.innerText = Math.floor(percentage) + "%";
+        
+        hpBar.className = "hp-bar-fill"; 
+        if (percentage <= 20) {
+            hpBar.classList.add("hp-critical");
+        } else if (percentage <= 50) {
+            hpBar.classList.add("hp-warning");
+        }
     }
 }
 
