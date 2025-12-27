@@ -469,6 +469,13 @@ function init() {
         } else {
             changeLanguage('en'); 
         }
+        
+        // Sincroniza el audio con el valor 0.75 del slider
+        const volSlider = document.getElementById('volumeControl');
+        const audio = document.getElementById('alarmSound');
+        if (volSlider && audio) {
+            audio.volume = volSlider.value;
+        }
     } else {
         alert("Error: MONSTERS_DATA no encontrada.");
     }

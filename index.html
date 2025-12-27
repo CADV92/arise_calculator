@@ -87,7 +87,7 @@
         </div>
         <div class="control-group">
             <label id="lbl_time">Tiempo por Ronda (Segundos)</label>
-            <input type="number" id="timeRound" value="25">
+            <input type="number" id="timeRound" value="30">
         </div>
 
         <div class="control-group">
@@ -189,15 +189,15 @@
             <div class="sound-controls">
                 <div class="setting-row">
                     <label id="lbl_vol">Volumen:</label>
-                    <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="0.5" oninput="updateVolume(this.value)">
+                    <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="0.75" oninput="updateVolume(this.value)">
                 </div>
                 <div class="setting-row">
                     <label id="lbl_tone">Tono:</label>
                     <select id="soundSelector" onchange="changeSound(this.value)">
-                        <option value="scifi">Sci-Fi</option>
                         <option value="digital">Digital</option>
                         <option value="mech">Mecánico</option>
                         <option value="bugle">Trompeta</option>
+                        <option value="scifi" selected>Sci-Fi (Default)</option>
                     </select>
                 </div>
                 <button onclick="testSound()" style="width:100%; margin-top:5px; padding:5px; font-size:0.75rem; background:#444; border:none; color:white; border-radius:4px; cursor:pointer;">
@@ -207,7 +207,7 @@
         </div>
     </div>
 
-    <audio id="alarmSound" src="https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg" preload="auto"></audio>
+    <audio id="alarmSound" src="https://actions.google.com/sounds/v1/alarms/spaceship_alarm.ogg" preload="auto"></audio>
 
     <script src="monsters.js"></script>
     <script src="script.js"></script>
