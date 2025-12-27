@@ -2,7 +2,6 @@
 
 const TRANSLATIONS = {
     es: {
-        // ... (Tus traducciones anteriores se mantienen igual) ...
         title_tower: "Calculadora de Ascensión",
         sub_tower: "Calculadora Héroe Mítico",
         title_maps: "Calculadora de Mapas",
@@ -54,11 +53,13 @@ const TRANSLATIONS = {
         th_reward: "1% (Reward)",
         th_time: "Tiempo Est.",
         
+        // Timer
         timer_start: "Iniciar",
         timer_pause: "Pausar",
         timer_reset: "Reset",
         timer_done: "¡TIEMPO!",
-        timer_alert: "¡ALERTA PREVIA!",
+        lbl_vol: "Volumen:",
+        lbl_tone: "Tono:",
         
         err_data: "Sin datos.",
         err_dmg: "Daño inválido.",
@@ -67,12 +68,12 @@ const TRANSLATIONS = {
         placeholder_dmg: "Ej: 1.5 B, 100 Sx..."
     },
     en: {
-        // ... (Mantén traducciones EN) ...
         title_tower: "Ascension Calculator",
         sub_tower: "Mythic Hero Calculator",
         title_maps: "Arise Map Calculator",
         sub_maps: "Hero Calculator",
         title_custom: "Custom Calculator",
+        
         btn_mode_tower: "Tower", btn_mode_maps: "Maps", btn_mode_custom: "Custom",
         lbl_select_map: "Select Map", lbl_boss: "Monster / Boss", lbl_hp: "Health (HP)",
         lbl_hp_ref: "Health (Reference)", lbl_custom_hp: "Enter Target HP (Manual)",
@@ -85,17 +86,18 @@ const TRANSLATIONS = {
         modalTitleDetails: "Level Details", matrix_title_hp: "Matrix: Total HP", matrix_title_reward: "Matrix: 1% Reward",
         btn_switch_to_reward: "Switch to 1%", btn_switch_to_hp: "Show Total HP",
         th_rank: "Rank", th_hp: "HP", th_name: "Subtitle", th_mob: "Monster", th_total: "Total HP", th_reward: "Reward (1%)", th_time: "Est. Time",
-        timer_start: "Start", timer_pause: "Pause", timer_reset: "Reset", timer_done: "DONE!", timer_alert: "PRE-ALERT!",
+        timer_start: "Start", timer_pause: "Pause", timer_reset: "Reset", timer_done: "DONE!",
+        lbl_vol: "Volume:", lbl_tone: "Tone:",
         err_data: "No data.", err_dmg: "Invalid damage.", err_custom: "Enter a valid Custom HP.",
         time_y: "y", time_mo: "mo", time_d: "d", time_h: "h", time_m: "m", time_s: "s", placeholder_dmg: "Ex: 1.5 B, 100 Sx..."
     },
     it: {
-        // ... (Mantén traducciones IT) ...
         title_tower: "Calcolatrice Ascensione",
         sub_tower: "Calcolatrice Eroe Mitico",
         title_maps: "Arise Map Calculator",
         sub_maps: "Calcolatrice Eroe",
         title_custom: "Calcolatrice Personalizzata",
+        
         btn_mode_tower: "Torre", btn_mode_maps: "Mappe", btn_mode_custom: "Personalizzato",
         lbl_select_map: "Seleziona Mappa", lbl_boss: "Mostro / Boss", lbl_hp: "Vita (HP)",
         lbl_hp_ref: "Vita (Riferimento)", lbl_custom_hp: "Inserisci Vita Obiettivo (Manuale)",
@@ -108,7 +110,8 @@ const TRANSLATIONS = {
         modalTitleDetails: "Dettagli Livello", matrix_title_hp: "Matrice: Vita Totale", matrix_title_reward: "Matrice: 1% Ricompensa",
         btn_switch_to_reward: "Cambia a 1%", btn_switch_to_hp: "Vedi Vita Totale",
         th_rank: "Rango", th_hp: "Vita", th_name: "Sottotitolo", th_mob: "Mostro", th_total: "HP Totale", th_reward: "1% (Ricompensa)", th_time: "Tempo Stim.",
-        timer_start: "Avvia", timer_pause: "Pausa", timer_reset: "Reset", timer_done: "FINITO!", timer_alert: "PRE-ALLARME!",
+        timer_start: "Avvia", timer_pause: "Pausa", timer_reset: "Reset", timer_done: "FINITO!",
+        lbl_vol: "Volume:", lbl_tone: "Tono:",
         err_data: "Nessun dato.", err_dmg: "Danno non valido.", err_custom: "Inserisci una vita valida.",
         time_y: "a", time_mo: "mese", time_d: "g", time_h: "h", time_m: "m", time_s: "s", placeholder_dmg: "Es: 1.5 B, 100 Sx..."
     }
@@ -136,6 +139,14 @@ const UNITS = [
     {s:"E75", p:75}, {s:"E78", p:78}, {s:"E81", p:81}, {s:"E84", p:84}
 ];
 
+// LISTA DE SONIDOS ONLINE (URLs estables de Google Actions)
+const SOUNDS = {
+    'digital': "https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg",
+    'mech': "https://actions.google.com/sounds/v1/alarms/mechanical_clock_ring.ogg",
+    'bugle': "https://actions.google.com/sounds/v1/alarms/bugle_tune.ogg",
+    'scifi': "https://actions.google.com/sounds/v1/alarms/spaceship_alarm.ogg"
+};
+
 let FULL_DB = {}; 
 let CURRENT_MONSTER_LIST = {}; 
 
@@ -158,7 +169,8 @@ function changeLanguage(lang) {
         'lbl_custom_hp', 'lbl_ref_source', 'lbl_ref_tower', 'lbl_ref_maps',
         'btn_target_1', 'btn_target_100', 'btn_calc', 
         'res_lbl_goal', 'res_lbl_rounds', 'res_lbl_time',
-        'btn_summary', 'btn_toggle_table', 'modalTitleDetails'
+        'btn_summary', 'btn_toggle_table', 'modalTitleDetails',
+        'lbl_vol', 'lbl_tone'
     ];
     
     document.getElementById('res_lbl_goal').innerText = t.res_goal;
@@ -279,7 +291,6 @@ function setMode(mode, btnElement) {
     
     } else if (mode === 'custom') {
         customSection.style.display = 'block';
-        // En Custom OCULTAMOS la base de datos por defecto
         databaseSection.style.display = 'none';
         groupBossHP.style.display = 'none'; 
         refTypeSelector.style.display = 'block'; 
@@ -709,9 +720,8 @@ function renderTableRows(selectedKey, activeIdx) {
 let timerInterval;
 let remainingTime = 0;
 let isTimerRunning = false;
-let firedAlerts = new Set(); // Para no repetir la alarma en el mismo segundo
+let firedAlerts = new Set(); 
 
-// Tiempos de alerta (en segundos) que podemos marcar
 const preAlerts = {
     'chk_20m': 20 * 60,
     'chk_10m': 10 * 60,
@@ -722,6 +732,29 @@ const preAlerts = {
 function toggleTimerSettings() {
     const panel = document.getElementById('timerSettingsPanel');
     panel.style.display = (panel.style.display === 'none') ? 'block' : 'none';
+}
+
+function updateVolume(val) {
+    const audio = document.getElementById('alarmSound');
+    audio.volume = val;
+}
+
+function changeSound(soundType) {
+    const audio = document.getElementById('alarmSound');
+    if(SOUNDS[soundType]) {
+        audio.src = SOUNDS[soundType];
+        // Si estaba sonando, lo reiniciamos
+        if(!audio.paused && audio.loop) {
+            audio.play();
+        }
+    }
+}
+
+function testSound() {
+    const audio = document.getElementById('alarmSound');
+    audio.currentTime = 0;
+    audio.loop = false; // Solo una vez para test
+    audio.play().catch(e => console.log("Error audio:", e));
 }
 
 function sendToTimer() {
@@ -751,14 +784,12 @@ function startTimer() {
     isTimerRunning = true;
     updateTimerButtonText();
     
-    // Preparar audio (para navegadores móviles)
     document.getElementById('alarmSound').load();
 
     timerInterval = setInterval(() => {
         remainingTime--;
         updateTimerDisplay();
         
-        // CHECK PRE-ALERTAS
         checkPreAlerts();
 
         if (remainingTime <= 0) {
@@ -771,7 +802,6 @@ function startTimer() {
 function checkPreAlerts() {
     for (let id in preAlerts) {
         let alertTime = preAlerts[id];
-        // Si el checkbox está marcado Y el tiempo coincide Y no ha sonado ya
         if (document.getElementById(id).checked && remainingTime === alertTime && !firedAlerts.has(alertTime)) {
             triggerAlarm("ALERT");
             firedAlerts.add(alertTime);
@@ -781,20 +811,15 @@ function checkPreAlerts() {
 
 function triggerAlarm(type) {
     const audio = document.getElementById('alarmSound');
-    audio.loop = true; // SONIDO PROLONGADO (BUCLE)
+    audio.loop = true; 
     audio.play().catch(e => console.log("Audio block:", e));
     
-    // Mostrar botón de detener
     document.getElementById('btnStopAlarm').style.display = 'block';
-    
-    // Efecto visual
     document.getElementById('timerDisplay').classList.add('timer-ringing');
     
     const t = TRANSLATIONS[currentLang];
     if (type === "DONE") {
         document.getElementById('timerDisplay').innerText = t.timer_done;
-    } else {
-        // Es una pre-alerta, no cambiamos el texto del tiempo, solo suena
     }
 }
 
@@ -815,7 +840,7 @@ function stopTimer() {
 function resetTimer(hide = false) {
     stopTimer();
     stopAlarmSound();
-    firedAlerts.clear(); // Limpiar alertas disparadas
+    firedAlerts.clear(); 
     remainingTime = calculatedSeconds;
     updateTimerDisplay();
     if(hide) closeTimer();
@@ -832,7 +857,6 @@ function updateTimerDisplay() {
         (m < 10 ? "0" + m : m) + ":" + 
         (s < 10 ? "0" + s : s);
         
-    // Solo actualizamos el texto si NO dice "TIEMPO!" (para no sobrescribir el mensaje final)
     if(document.getElementById('timerDisplay').innerText !== TRANSLATIONS[currentLang].timer_done) {
         document.getElementById('timerDisplay').innerText = str;
     }

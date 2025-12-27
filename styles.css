@@ -550,3 +550,119 @@ input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; bac
     50% { opacity: 0.3; }
     100% { opacity: 1; }
 }
+
+/* --- AJUSTES EN EL PANEL DE CONFIGURACIÓN DEL TIMER --- */
+
+.sound-controls {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #444;
+}
+
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+    color: var(--text-sec);
+}
+
+/* Slider de Volumen Mini */
+#volumeControl {
+    width: 60%;
+    margin: 0;
+    height: 4px;
+}
+#volumeControl::-webkit-slider-thumb {
+    width: 14px;
+    height: 14px;
+    margin-top: -5px;
+}
+
+/* Select de Sonido Mini */
+#soundSelector {
+    width: 65%;
+    padding: 4px;
+    font-size: 0.75rem;
+    background: rgba(0,0,0,0.3);
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 4px;
+}
+
+/* Botones Pre-alerta */
+.alert-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+}
+.alert-options label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    margin: 0;
+}
+.alert-options input[type="checkbox"] {
+    accent-color: var(--gold);
+    width: 14px;
+    height: 14px;
+    margin: 0;
+}
+
+/* Estilos previos de la alarma */
+.floating-timer {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 220px; /* Ligeramente más ancho */
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    z-index: 2000;
+    backdrop-filter: blur(10px);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+.timer-header { display: flex; justify-content: space-between; color: var(--text-sec); font-size: 0.8rem; margin-bottom: 10px; font-weight: bold; text-transform: uppercase; }
+.close-timer { cursor: pointer; font-size: 1.2rem; line-height: 0.8rem; }
+.close-timer:hover { color: var(--danger); }
+
+.timer-display {
+    font-family: 'Courier New', monospace;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    margin: 10px 0;
+    text-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+.timer-urgent { color: var(--danger) !important; text-shadow: 0 0 10px var(--danger); animation: pulse 1s infinite; }
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+
+.timer-controls { display: flex; gap: 10px; }
+.timer-controls button { flex: 1; padding: 8px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.8rem; }
+#btnTimerToggle { background: var(--success); color: #000; }
+#btnTimerReset { background: rgba(255,255,255,0.1); color: #fff; }
+.btn-pause { background: var(--gold) !important; color: #000 !important; }
+
+.btn-stop-sound { width: 100%; background: var(--danger); color: white; border: none; padding: 10px; margin-bottom: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; animation: shake 0.5s infinite; }
+@keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-2px); } 50% { transform: translateX(2px); } 75% { transform: translateX(-2px); } 100% { transform: translateX(0); } }
+.timer-ringing { color: var(--gold) !important; text-shadow: 0 0 15px var(--gold); animation: pulseOrange 0.5s infinite; }
+@keyframes pulseOrange { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+.btn-timer-link { margin-top: 15px; width: 100%; padding: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--accent); color: var(--accent); border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: bold; transition: all 0.2s; }
+.btn-timer-link:hover { background: var(--accent); color: var(--bg-dark); }
+
+/* Toggle Panel */
+.timer-settings { margin-top: 10px; padding-top: 10px; border-top: 1px solid #444; font-size: 0.8rem; color: #ccc; animation: fadeIn 0.2s; }
+.settings-title { margin-bottom: 5px; font-weight: bold; color: var(--accent); }
+.ref-toggle-btn { background: transparent; border: 1px dashed #334155; color: var(--text-sec); width: 100%; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; margin-bottom: 20px; transition: all 0.3s; }
+.ref-toggle-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(0, 242, 234, 0.05); }

@@ -178,12 +178,31 @@
         </div>
 
         <div id="timerSettingsPanel" class="timer-settings" style="display:none;">
-            <div class="settings-title">Pre-Alertas (Aviso cambio equipo):</div>
+            <div class="settings-title">Pre-Alertas:</div>
             <div class="alert-options">
-                <label><input type="checkbox" id="chk_20m" value="1200"> 20 min</label>
-                <label><input type="checkbox" id="chk_10m" value="600"> 10 min</label>
-                <label><input type="checkbox" id="chk_5m" value="300"> 5 min</label>
-                <label><input type="checkbox" id="chk_1m" value="60"> 1 min</label>
+                <label><input type="checkbox" id="chk_20m" value="1200"> 20m</label>
+                <label><input type="checkbox" id="chk_10m" value="600"> 10m</label>
+                <label><input type="checkbox" id="chk_5m" value="300"> 5m</label>
+                <label><input type="checkbox" id="chk_1m" value="60"> 1m</label>
+            </div>
+
+            <div class="sound-controls">
+                <div class="setting-row">
+                    <label id="lbl_vol">Volumen:</label>
+                    <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="0.5" oninput="updateVolume(this.value)">
+                </div>
+                <div class="setting-row">
+                    <label id="lbl_tone">Tono:</label>
+                    <select id="soundSelector" onchange="changeSound(this.value)">
+                        <option value="digital">Digital (Default)</option>
+                        <option value="mech">Mecánico</option>
+                        <option value="bugle">Trompeta</option>
+                        <option value="scifi">Sci-Fi</option>
+                    </select>
+                </div>
+                <button onclick="testSound()" style="width:100%; margin-top:5px; padding:5px; font-size:0.75rem; background:#444; border:none; color:white; border-radius:4px; cursor:pointer;">
+                    ▶ Probar Sonido
+                </button>
             </div>
         </div>
     </div>
@@ -193,5 +212,4 @@
     <script src="monsters.js"></script>
     <script src="script.js"></script>
 </body>
-</html>
 </html>
