@@ -161,19 +161,37 @@
 
     <div id="floatingTimer" class="floating-timer">
         <div class="timer-header">
-            <span>⏱ Alarm</span>
+            <span>⏱ Alarma Farm</span>
             <span class="close-timer" onclick="closeTimer()">&times;</span>
         </div>
+
         <div class="timer-display" id="timerDisplay">00:00:00</div>
+
+        <button id="btnStopAlarm" class="btn-stop-sound" onclick="stopAlarmSound()" style="display:none;">
+            🔕 DETENER SONIDO
+        </button>
+
         <div class="timer-controls">
-            <button id="btnTimerToggle" onclick="toggleTimerState()">Start</button>
+            <button id="btnTimerToggle" onclick="toggleTimerState()">Iniciar</button>
             <button id="btnTimerReset" onclick="resetTimer()">Reset</button>
+            <button id="btnTimerSettings" onclick="toggleTimerSettings()" style="max-width: 30px;">⚙️</button>
+        </div>
+
+        <div id="timerSettingsPanel" class="timer-settings" style="display:none;">
+            <div class="settings-title">Pre-Alertas (Aviso cambio equipo):</div>
+            <div class="alert-options">
+                <label><input type="checkbox" id="chk_20m" value="1200"> 20 min</label>
+                <label><input type="checkbox" id="chk_10m" value="600"> 10 min</label>
+                <label><input type="checkbox" id="chk_5m" value="300"> 5 min</label>
+                <label><input type="checkbox" id="chk_1m" value="60"> 1 min</label>
+            </div>
         </div>
     </div>
 
-    <audio id="alarmSound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" preload="auto"></audio>
+    <audio id="alarmSound" src="https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg" preload="auto"></audio>
 
     <script src="monsters.js"></script>
     <script src="script.js"></script>
 </body>
+</html>
 </html>

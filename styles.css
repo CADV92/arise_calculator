@@ -477,3 +477,76 @@ input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; bac
 
 /* Estado activo del botón de pausa */
 .btn-pause { background: var(--gold) !important; color: #000 !important; }
+
+/* Panel de Configuración dentro del Timer */
+.timer-settings {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #444;
+    font-size: 0.8rem;
+    color: #ccc;
+    animation: fadeIn 0.2s;
+}
+
+.settings-title {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: var(--accent);
+}
+
+.alert-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+}
+
+.alert-options label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    margin: 0; /* Override del margin global */
+}
+
+.alert-options input[type="checkbox"] {
+    accent-color: var(--gold);
+    width: 14px;
+    height: 14px;
+    margin: 0;
+}
+
+/* Botón Detener Sonido (Muy visible) */
+.btn-stop-sound {
+    width: 100%;
+    background: var(--danger);
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    animation: shake 0.5s infinite;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    50% { transform: translateX(2px); }
+    75% { transform: translateX(-2px); }
+    100% { transform: translateX(0); }
+}
+
+/* Estado visual cuando suena una pre-alerta */
+.timer-ringing {
+    color: var(--gold) !important;
+    text-shadow: 0 0 15px var(--gold);
+    animation: pulseOrange 0.5s infinite;
+}
+
+@keyframes pulseOrange {
+    0% { opacity: 1; }
+    50% { opacity: 0.3; }
+    100% { opacity: 1; }
+}

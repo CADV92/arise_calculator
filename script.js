@@ -2,6 +2,7 @@
 
 const TRANSLATIONS = {
     es: {
+        // ... (Tus traducciones anteriores se mantienen igual) ...
         title_tower: "Calculadora de Ascensión",
         sub_tower: "Calculadora Héroe Mítico",
         title_maps: "Calculadora de Mapas",
@@ -15,6 +16,7 @@ const TRANSLATIONS = {
         lbl_select_map: "Selecciona el Mapa",
         lbl_boss: "Monstruo / Jefe",
         lbl_hp: "Vida (HP)",
+        lbl_hp_ref: "Vida (Referencia)",
         lbl_custom_hp: "Ingresa Vida Objetivo (Manual)",
         lbl_ref_source: "Fuente de Referencia:",
         lbl_ref_tower: "Torre",
@@ -56,6 +58,7 @@ const TRANSLATIONS = {
         timer_pause: "Pausar",
         timer_reset: "Reset",
         timer_done: "¡TIEMPO!",
+        timer_alert: "¡ALERTA PREVIA!",
         
         err_data: "Sin datos.",
         err_dmg: "Daño inválido.",
@@ -64,128 +67,50 @@ const TRANSLATIONS = {
         placeholder_dmg: "Ej: 1.5 B, 100 Sx..."
     },
     en: {
+        // ... (Mantén traducciones EN) ...
         title_tower: "Ascension Calculator",
         sub_tower: "Mythic Hero Calculator",
         title_maps: "Arise Map Calculator",
         sub_maps: "Hero Calculator",
         title_custom: "Custom Calculator",
-        
-        btn_mode_tower: "Tower",
-        btn_mode_maps: "Maps",
-        btn_mode_custom: "Custom",
-        
-        lbl_select_map: "Select Map",
-        lbl_boss: "Monster / Boss",
-        lbl_hp: "Health (HP)",
-        lbl_custom_hp: "Enter Target HP (Manual)",
-        lbl_ref_source: "Reference Source:",
-        lbl_ref_tower: "Tower",
-        lbl_ref_maps: "Map Bosses",
-        btn_ref_show: "▼ Show Reference (Tables)",
-        btn_ref_hide: "▲ Hide Reference",
-        
-        lbl_dmg: "Estimated Damage",
-        lbl_time: "Time per Round (s)",
-        lbl_target: "Target Calculation",
-        
-        btn_target_1: "1% (Reward)",
-        btn_target_100: "100% (Kill)",
-        btn_calc: "CALCULATE",
-        
-        res_goal: "Target Dmg:",
-        res_rounds: "Rounds needed:",
-        res_time: "Est. Time:",
-        btn_timer_link: "⏱ Use in Alarm",
-        
-        btn_toggle_table: "View Detailed Table",
-        btn_summary: "View Matrix (Summary)",
-        
-        modalTitleDetails: "Level Details",
-        matrix_title_hp: "Matrix: Total HP",
-        matrix_title_reward: "Matrix: 1% Reward",
-        btn_switch_to_reward: "Switch to 1%",
-        btn_switch_to_hp: "Show Total HP",
-
-        th_rank: "Rank",
-        th_hp: "HP",
-        th_name: "Subtitle",
-        th_mob: "Monster",
-        th_total: "Total HP",
-        th_reward: "Reward (1%)",
-        th_time: "Est. Time",
-        
-        timer_start: "Start",
-        timer_pause: "Pause",
-        timer_reset: "Reset",
-        timer_done: "DONE!",
-        
-        err_data: "No data.",
-        err_dmg: "Invalid damage.",
-        err_custom: "Enter a valid Custom HP.",
-        time_y: "y", time_mo: "mo", time_d: "d", time_h: "h", time_m: "m", time_s: "s",
-        placeholder_dmg: "Ex: 1.5 B, 100 Sx..."
+        btn_mode_tower: "Tower", btn_mode_maps: "Maps", btn_mode_custom: "Custom",
+        lbl_select_map: "Select Map", lbl_boss: "Monster / Boss", lbl_hp: "Health (HP)",
+        lbl_hp_ref: "Health (Reference)", lbl_custom_hp: "Enter Target HP (Manual)",
+        lbl_ref_source: "Reference Source:", lbl_ref_tower: "Tower", lbl_ref_maps: "Map Bosses",
+        btn_ref_show: "▼ Show Reference (Tables)", btn_ref_hide: "▲ Hide Reference",
+        lbl_dmg: "Estimated Damage", lbl_time: "Time per Round (s)", lbl_target: "Target Calculation",
+        btn_target_1: "1% (Reward)", btn_target_100: "100% (Kill)", btn_calc: "CALCULATE",
+        res_goal: "Target Dmg:", res_rounds: "Rounds needed:", res_time: "Est. Time:", btn_timer_link: "⏱ Use in Alarm",
+        btn_toggle_table: "View Detailed Table", btn_summary: "View Matrix (Summary)",
+        modalTitleDetails: "Level Details", matrix_title_hp: "Matrix: Total HP", matrix_title_reward: "Matrix: 1% Reward",
+        btn_switch_to_reward: "Switch to 1%", btn_switch_to_hp: "Show Total HP",
+        th_rank: "Rank", th_hp: "HP", th_name: "Subtitle", th_mob: "Monster", th_total: "Total HP", th_reward: "Reward (1%)", th_time: "Est. Time",
+        timer_start: "Start", timer_pause: "Pause", timer_reset: "Reset", timer_done: "DONE!", timer_alert: "PRE-ALERT!",
+        err_data: "No data.", err_dmg: "Invalid damage.", err_custom: "Enter a valid Custom HP.",
+        time_y: "y", time_mo: "mo", time_d: "d", time_h: "h", time_m: "m", time_s: "s", placeholder_dmg: "Ex: 1.5 B, 100 Sx..."
     },
     it: {
+        // ... (Mantén traducciones IT) ...
         title_tower: "Calcolatrice Ascensione",
         sub_tower: "Calcolatrice Eroe Mitico",
         title_maps: "Arise Map Calculator",
         sub_maps: "Calcolatrice Eroe",
         title_custom: "Calcolatrice Personalizzata",
-        
-        btn_mode_tower: "Torre",
-        btn_mode_maps: "Mappe",
-        btn_mode_custom: "Personalizzato",
-        
-        lbl_select_map: "Seleziona Mappa",
-        lbl_boss: "Mostro / Boss",
-        lbl_hp: "Vita (HP)",
-        lbl_custom_hp: "Inserisci Vita Obiettivo (Manuale)",
-        lbl_ref_source: "Fonte di Riferimento:",
-        lbl_ref_tower: "Torre",
-        lbl_ref_maps: "Boss Mappe",
-        btn_ref_show: "▼ Vedi Riferimento (Tabelle)",
-        btn_ref_hide: "▲ Nascondi Riferimento",
-        
-        lbl_dmg: "Danno Stimato",
-        lbl_time: "Tempo per Round (s)",
-        lbl_target: "Obiettivo",
-        
-        btn_target_1: "1% (Ricompensa)",
-        btn_target_100: "100% (Uccidere)",
-        btn_calc: "CALCOLA",
-        
-        res_goal: "Danno Obiettivo:",
-        res_rounds: "Round necessari:",
-        res_time: "Tempo stimato:",
-        btn_timer_link: "⏱ Usa in Allarme",
-        
-        btn_toggle_table: "Vedi Tabella Dettagliata",
-        btn_summary: "Vedi Matrice (Riepilogo)",
-        
-        modalTitleDetails: "Dettagli Livello",
-        matrix_title_hp: "Matrice: Vita Totale",
-        matrix_title_reward: "Matrice: 1% Ricompensa",
-        btn_switch_to_reward: "Cambia a 1%",
-        btn_switch_to_hp: "Vedi Vita Totale",
-
-        th_rank: "Rango",
-        th_hp: "Vita",
-        th_name: "Sottotitolo",
-        th_mob: "Mostro",
-        th_total: "HP Totale",
-        th_reward: "1% (Ricompensa)",
-        th_time: "Tempo Stim.",
-        
-        timer_start: "Avvia",
-        timer_pause: "Pausa",
-        timer_reset: "Reset",
-        timer_done: "FINITO!",
-        
-        err_data: "Nessun dato.",
-        err_dmg: "Danno non valido.",
-        err_custom: "Inserisci una vita valida.",
-        time_y: "a", time_mo: "mese", time_d: "g", time_h: "h", time_m: "m", time_s: "s",
-        placeholder_dmg: "Es: 1.5 B, 100 Sx..."
+        btn_mode_tower: "Torre", btn_mode_maps: "Mappe", btn_mode_custom: "Personalizzato",
+        lbl_select_map: "Seleziona Mappa", lbl_boss: "Mostro / Boss", lbl_hp: "Vita (HP)",
+        lbl_hp_ref: "Vita (Riferimento)", lbl_custom_hp: "Inserisci Vita Obiettivo (Manuale)",
+        lbl_ref_source: "Fonte di Riferimento:", lbl_ref_tower: "Torre", lbl_ref_maps: "Boss Mappe",
+        btn_ref_show: "▼ Vedi Riferimento (Tabelle)", btn_ref_hide: "▲ Nascondi Riferimento",
+        lbl_dmg: "Danno Stimato", lbl_time: "Tempo per Round (s)", lbl_target: "Obiettivo",
+        btn_target_1: "1% (Ricompensa)", btn_target_100: "100% (Uccidere)", btn_calc: "CALCOLA",
+        res_goal: "Danno Obiettivo:", res_rounds: "Round necessari:", res_time: "Tempo stimato:", btn_timer_link: "⏱ Usa in Allarme",
+        btn_toggle_table: "Vedi Tabella Dettagliata", btn_summary: "Vedi Matrice (Riepilogo)",
+        modalTitleDetails: "Dettagli Livello", matrix_title_hp: "Matrice: Vita Totale", matrix_title_reward: "Matrice: 1% Ricompensa",
+        btn_switch_to_reward: "Cambia a 1%", btn_switch_to_hp: "Vedi Vita Totale",
+        th_rank: "Rango", th_hp: "Vita", th_name: "Sottotitolo", th_mob: "Mostro", th_total: "HP Totale", th_reward: "1% (Ricompensa)", th_time: "Tempo Stim.",
+        timer_start: "Avvia", timer_pause: "Pausa", timer_reset: "Reset", timer_done: "FINITO!", timer_alert: "PRE-ALLARME!",
+        err_data: "Nessun dato.", err_dmg: "Danno non valido.", err_custom: "Inserisci una vita valida.",
+        time_y: "a", time_mo: "mese", time_d: "g", time_h: "h", time_m: "m", time_s: "s", placeholder_dmg: "Es: 1.5 B, 100 Sx..."
     }
 };
 
@@ -247,6 +172,10 @@ function changeLanguage(lang) {
         const el = document.getElementById(id);
         if(el && t[id]) el.innerText = t[id];
     });
+
+    const labelHP = document.getElementById('lbl_hp');
+    if (currentMode === 'custom') labelHP.innerText = t.lbl_hp_ref;
+    else labelHP.innerText = t.lbl_hp;
 
     const btnRef = document.getElementById('btnRefToggle');
     const isRefVisible = document.getElementById('databaseSection').style.display !== 'none';
@@ -335,25 +264,28 @@ function setMode(mode, btnElement) {
     if (mode === 'tower') {
         databaseSection.style.display = 'block';
         groupMapSelect.style.display = 'none';
-        groupBossHP.style.display = 'block'; // Mostrar HP Referencia en modo normal
+        groupBossHP.style.display = 'block'; 
         CURRENT_MONSTER_LIST = FULL_DB.tower;
         populateMonsterSelect();
+        document.getElementById('lbl_hp').innerText = t.lbl_hp;
     
     } else if (mode === 'maps') {
         databaseSection.style.display = 'block';
         groupMapSelect.style.display = 'block';
-        groupBossHP.style.display = 'block'; // Mostrar HP Referencia en modo normal
+        groupBossHP.style.display = 'block'; 
         populateMapSelect();
         onMapChange(); 
+        document.getElementById('lbl_hp').innerText = t.lbl_hp;
     
     } else if (mode === 'custom') {
         customSection.style.display = 'block';
         // En Custom OCULTAMOS la base de datos por defecto
         databaseSection.style.display = 'none';
-        groupBossHP.style.display = 'none'; // OCULTAR HP Referencia en modo Custom
+        groupBossHP.style.display = 'none'; 
         refTypeSelector.style.display = 'block'; 
         
         btnRefToggle.innerText = t.btn_ref_show;
+        document.getElementById('lbl_hp').innerText = t.lbl_hp_ref;
         
         const selectedRef = document.querySelector('input[name="refSource"]:checked').value;
         updateCustomRef(selectedRef);
@@ -772,11 +704,25 @@ function renderTableRows(selectedKey, activeIdx) {
     }
 }
 
-// --- 7. ALARMA FLOTANTE ---
+// --- 7. ALARMA FLOTANTE MEJORADA ---
 
 let timerInterval;
 let remainingTime = 0;
 let isTimerRunning = false;
+let firedAlerts = new Set(); // Para no repetir la alarma en el mismo segundo
+
+// Tiempos de alerta (en segundos) que podemos marcar
+const preAlerts = {
+    'chk_20m': 20 * 60,
+    'chk_10m': 10 * 60,
+    'chk_5m': 5 * 60,
+    'chk_1m': 60
+};
+
+function toggleTimerSettings() {
+    const panel = document.getElementById('timerSettingsPanel');
+    panel.style.display = (panel.style.display === 'none') ? 'block' : 'none';
+}
 
 function sendToTimer() {
     if (calculatedSeconds <= 0) return;
@@ -788,6 +734,7 @@ function sendToTimer() {
 
 function closeTimer() {
     stopTimer();
+    stopAlarmSound();
     document.getElementById('floatingTimer').style.display = "none";
 }
 
@@ -804,17 +751,59 @@ function startTimer() {
     isTimerRunning = true;
     updateTimerButtonText();
     
+    // Preparar audio (para navegadores móviles)
     document.getElementById('alarmSound').load();
 
     timerInterval = setInterval(() => {
         remainingTime--;
         updateTimerDisplay();
         
+        // CHECK PRE-ALERTAS
+        checkPreAlerts();
+
         if (remainingTime <= 0) {
             stopTimer();
-            timerFinished();
+            triggerAlarm("DONE");
         }
     }, 1000);
+}
+
+function checkPreAlerts() {
+    for (let id in preAlerts) {
+        let alertTime = preAlerts[id];
+        // Si el checkbox está marcado Y el tiempo coincide Y no ha sonado ya
+        if (document.getElementById(id).checked && remainingTime === alertTime && !firedAlerts.has(alertTime)) {
+            triggerAlarm("ALERT");
+            firedAlerts.add(alertTime);
+        }
+    }
+}
+
+function triggerAlarm(type) {
+    const audio = document.getElementById('alarmSound');
+    audio.loop = true; // SONIDO PROLONGADO (BUCLE)
+    audio.play().catch(e => console.log("Audio block:", e));
+    
+    // Mostrar botón de detener
+    document.getElementById('btnStopAlarm').style.display = 'block';
+    
+    // Efecto visual
+    document.getElementById('timerDisplay').classList.add('timer-ringing');
+    
+    const t = TRANSLATIONS[currentLang];
+    if (type === "DONE") {
+        document.getElementById('timerDisplay').innerText = t.timer_done;
+    } else {
+        // Es una pre-alerta, no cambiamos el texto del tiempo, solo suena
+    }
+}
+
+function stopAlarmSound() {
+    const audio = document.getElementById('alarmSound');
+    audio.pause();
+    audio.currentTime = 0;
+    document.getElementById('btnStopAlarm').style.display = 'none';
+    document.getElementById('timerDisplay').classList.remove('timer-ringing');
 }
 
 function stopTimer() {
@@ -825,13 +814,15 @@ function stopTimer() {
 
 function resetTimer(hide = false) {
     stopTimer();
+    stopAlarmSound();
+    firedAlerts.clear(); // Limpiar alertas disparadas
     remainingTime = calculatedSeconds;
     updateTimerDisplay();
-    document.getElementById('timerDisplay').classList.remove('timer-urgent');
     if(hide) closeTimer();
 }
 
 function updateTimerDisplay() {
+    if(remainingTime < 0) remainingTime = 0;
     let h = Math.floor(remainingTime / 3600);
     let m = Math.floor((remainingTime % 3600) / 60);
     let s = remainingTime % 60;
@@ -841,18 +832,10 @@ function updateTimerDisplay() {
         (m < 10 ? "0" + m : m) + ":" + 
         (s < 10 ? "0" + s : s);
         
-    document.getElementById('timerDisplay').innerText = str;
-    
-    if (remainingTime <= 30 && remainingTime > 0) {
-        document.getElementById('timerDisplay').classList.add('timer-urgent');
+    // Solo actualizamos el texto si NO dice "TIEMPO!" (para no sobrescribir el mensaje final)
+    if(document.getElementById('timerDisplay').innerText !== TRANSLATIONS[currentLang].timer_done) {
+        document.getElementById('timerDisplay').innerText = str;
     }
-}
-
-function timerFinished() {
-    const t = TRANSLATIONS[currentLang];
-    document.getElementById('timerDisplay').innerText = t.timer_done;
-    document.getElementById('alarmSound').play().catch(e => console.log("Audio play failed", e));
-    alert(t.timer_done);
 }
 
 function updateTimerButtonText() {
@@ -867,7 +850,6 @@ function updateTimerButtonText() {
     }
     document.getElementById('btnTimerReset').innerText = t.timer_reset;
 }
-
 
 document.addEventListener('keydown', function(event) {
     if (event.key === "Escape") {
