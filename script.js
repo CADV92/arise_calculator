@@ -139,12 +139,11 @@ const UNITS = [
     {s:"E75", p:75}, {s:"E78", p:78}, {s:"E81", p:81}, {s:"E84", p:84}
 ];
 
-// LISTA DE SONIDOS ONLINE (URLs estables de Google Actions)
 const SOUNDS = {
+    'scifi': "https://actions.google.com/sounds/v1/alarms/spaceship_alarm.ogg",
     'digital': "https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg",
     'mech': "https://actions.google.com/sounds/v1/alarms/mechanical_clock_ring.ogg",
-    'bugle': "https://actions.google.com/sounds/v1/alarms/bugle_tune.ogg",
-    'scifi': "https://actions.google.com/sounds/v1/alarms/spaceship_alarm.ogg"
+    'bugle': "https://actions.google.com/sounds/v1/alarms/bugle_tune.ogg"
 };
 
 let FULL_DB = {}; 
@@ -715,10 +714,11 @@ function renderTableRows(selectedKey, activeIdx) {
     }
 }
 
-// --- 7. ALARMA FLOTANTE MEJORADA ---
+// --- 7. ALARMA FLOTANTE MEJORADA Y CORREGIDA (TIEMPO REAL) ---
 
 let timerInterval;
-let remainingTime = 0;
+let targetEndTime = 0; // Usaremos TIMESTAMP para evitar congelamiento
+let remainingTime = 0; // Solo para display y lógica de inicio
 let isTimerRunning = false;
 let firedAlerts = new Set(); 
 
@@ -743,7 +743,6 @@ function changeSound(soundType) {
     const audio = document.getElementById('alarmSound');
     if(SOUNDS[soundType]) {
         audio.src = SOUNDS[soundType];
-        // Si estaba sonando, lo reiniciamos
         if(!audio.paused && audio.loop) {
             audio.play();
         }
@@ -753,14 +752,14 @@ function changeSound(soundType) {
 function testSound() {
     const audio = document.getElementById('alarmSound');
     audio.currentTime = 0;
-    audio.loop = false; // Solo una vez para test
+    audio.loop = false; 
     audio.play().catch(e => console.log("Error audio:", e));
 }
 
 function sendToTimer() {
     if (calculatedSeconds <= 0) return;
-    remainingTime = calculatedSeconds;
-    updateTimerDisplay();
+    remainingTime = calculatedSeconds; // Guardamos la duración original
+    updateTimerDisplay(remainingTime);
     document.getElementById('floatingTimer').style.display = "block";
     resetTimer(false); 
 }
@@ -784,25 +783,41 @@ function startTimer() {
     isTimerRunning = true;
     updateTimerButtonText();
     
+    // Calcular TIEMPO OBJETIVO REAL (Corrección de congelamiento)
+    targetEndTime = Date.now() + (remainingTime * 1000);
+    
     document.getElementById('alarmSound').load();
 
     timerInterval = setInterval(() => {
-        remainingTime--;
-        updateTimerDisplay();
+        const now = Date.now();
+        // Calcular diferencia real con la hora objetivo
+        const diff = Math.ceil((targetEndTime - now) / 1000);
         
-        checkPreAlerts();
+        remainingTime = diff; // Actualizar variable global para consistencia
+        updateTimerDisplay(diff);
+        
+        checkPreAlerts(diff);
 
-        if (remainingTime <= 0) {
+        if (diff <= 0) {
             stopTimer();
+            remainingTime = 0;
+            updateTimerDisplay(0);
             triggerAlarm("DONE");
         }
     }, 1000);
 }
 
-function checkPreAlerts() {
+// Comprueba si hemos CRUZADO un umbral de alerta
+// Usamos <= para asegurar que si el navegador se durmió y despertó después del segundo exacto, igual suene.
+function checkPreAlerts(currentSeconds) {
     for (let id in preAlerts) {
         let alertTime = preAlerts[id];
-        if (document.getElementById(id).checked && remainingTime === alertTime && !firedAlerts.has(alertTime)) {
+        // Si está marcado Y estamos en el rango de alerta (o nos pasamos un poco) Y no ha sonado
+        if (document.getElementById(id).checked && 
+            currentSeconds <= alertTime && 
+            currentSeconds > alertTime - 5 && // Ventana de 5s por si acaso
+            !firedAlerts.has(alertTime)) {
+            
             triggerAlarm("ALERT");
             firedAlerts.add(alertTime);
         }
@@ -834,6 +849,8 @@ function stopAlarmSound() {
 function stopTimer() {
     isTimerRunning = false;
     clearInterval(timerInterval);
+    // Al pausar, guardamos el tiempo restante actual para poder reanudar correctamente
+    // (remainingTime ya se actualiza en el intervalo, así que está listo)
     updateTimerButtonText();
 }
 
@@ -841,16 +858,16 @@ function resetTimer(hide = false) {
     stopTimer();
     stopAlarmSound();
     firedAlerts.clear(); 
-    remainingTime = calculatedSeconds;
-    updateTimerDisplay();
+    remainingTime = calculatedSeconds; // Volver al tiempo original
+    updateTimerDisplay(remainingTime);
     if(hide) closeTimer();
 }
 
-function updateTimerDisplay() {
-    if(remainingTime < 0) remainingTime = 0;
-    let h = Math.floor(remainingTime / 3600);
-    let m = Math.floor((remainingTime % 3600) / 60);
-    let s = remainingTime % 60;
+function updateTimerDisplay(seconds) {
+    if(seconds < 0) seconds = 0;
+    let h = Math.floor(seconds / 3600);
+    let m = Math.floor((seconds % 3600) / 60);
+    let s = seconds % 60;
     
     let str = 
         (h < 10 ? "0" + h : h) + ":" + 
