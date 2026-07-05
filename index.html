@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ascension & Maps Calculator</title>
+    <title>Arise Ascension & Maps Calculator</title>
+    <meta name="description" content="Calculadora de HP, daño, rondas y alarma para Torre, Mapas y valores personalizados.">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
     <div class="lang-switcher">
-        <button onclick="changeLanguage('es')" class="lang-btn active" id="btn-es">ES</button>
-        <button onclick="changeLanguage('en')" class="lang-btn" id="btn-en">EN</button>
-        <button onclick="changeLanguage('it')" class="lang-btn" id="btn-it">IT</button>
+        <button type="button" onclick="changeLanguage('es')" class="lang-btn active" id="btn-es">ES</button>
+        <button type="button" onclick="changeLanguage('en')" class="lang-btn" id="btn-en">EN</button>
+        <button type="button" onclick="changeLanguage('it')" class="lang-btn" id="btn-it">IT</button>
     </div>
 
     <div class="card">
@@ -19,9 +20,9 @@
         <div class="subtitle" id="lbl_subtitle">Mythic Hero Calculator</div>
         
         <div class="mode-selector">
-            <button class="mode-btn active" onclick="setMode('tower', this)" id="btn_mode_tower">Tower</button>
-            <button class="mode-btn" onclick="setMode('maps', this)" id="btn_mode_maps">Maps</button>
-            <button class="mode-btn" onclick="setMode('custom', this)" id="btn_mode_custom">Custom</button>
+            <button type="button" class="mode-btn active" onclick="setMode('tower', this)" id="btn_mode_tower">Tower</button>
+            <button type="button" class="mode-btn" onclick="setMode('maps', this)" id="btn_mode_maps">Maps</button>
+            <button type="button" class="mode-btn" onclick="setMode('custom', this)" id="btn_mode_custom">Custom</button>
         </div>
 
         <div id="customSection" style="display: none;">
@@ -93,14 +94,14 @@
         <div class="control-group">
             <label id="lbl_target">Objetivo de Cálculo</label>
             <div class="target-selector">
-                <button class="target-btn active" onclick="setTarget(0.01, this)" id="btn_target_1">1% (Reward)</button>
-                <button class="target-btn" onclick="setTarget(1, this)" id="btn_target_100">100% (Kill)</button>
+                <button type="button" class="target-btn active" onclick="setTarget(0.01, this)" id="btn_target_1">1% (Reward)</button>
+                <button type="button" class="target-btn" onclick="setTarget(1, this)" id="btn_target_100">100% (Kill)</button>
             </div>
         </div>
 
-        <button class="btn-calc" onclick="calculate()" id="btn_calc">Calcular</button>
+        <button type="button" class="btn-calc" onclick="calculate()" id="btn_calc">Calcular</button>
 
-        <div class="results-box" id="results">
+        <div class="results-box" id="results" aria-live="polite">
             <div class="res-item">
                 <span id="res_lbl_goal">Daño Objetivo:</span>
                 <span class="res-value" id="out1Pct">0</span>
@@ -113,12 +114,12 @@
                 <span id="res_lbl_time">Tiempo estimado:</span>
                 <span class="res-value time-val" id="outTime">0m 0s</span>
             </div>
-            <button class="btn-timer-link" onclick="sendToTimer()">⏱ Usar en Alarma</button>
+            <button type="button" class="btn-timer-link" onclick="sendToTimer()">⏱ Usar en Alarma</button>
         </div>
         
         <div class="action-buttons">
-            <button class="toggle-btn" onclick="openDetails()" id="btn_toggle_table">Ver Tabla Detallada</button>
-            <button class="toggle-btn btn-summary" onclick="openSummary()" id="btn_summary">Ver Matriz (Resumen)</button>
+            <button type="button" class="toggle-btn" onclick="openDetails()" id="btn_toggle_table">Ver Tabla Detallada</button>
+            <button type="button" class="toggle-btn btn-summary" onclick="openSummary()" id="btn_summary">Ver Matriz (Resumen)</button>
         </div>
     </div>
 
@@ -149,7 +150,7 @@
             <span class="close-modal" onclick="closeSummary()">&times;</span>
             <div class="modal-header">
                 <h2 id="modalTitle">Resumen de Vidas</h2>
-                <button class="toggle-btn btn-summary" id="btn_matrix_switch" onclick="toggleMatrixMode()" style="width: auto; margin: 0; padding: 8px 15px;">
+                <button type="button" class="toggle-btn btn-summary" id="btn_matrix_switch" onclick="toggleMatrixMode()" style="width: auto; margin: 0; padding: 8px 15px;">
                     Cambiar a 1%
                 </button>
             </div>
@@ -165,21 +166,21 @@
             <span class="close-timer" onclick="closeTimer()">&times;</span>
         </div>
 
-        <div class="timer-display" id="timerDisplay">00:00:00</div>
+        <div class="timer-display" id="timerDisplay" aria-live="polite">00:00:00</div>
 
         <div class="hp-bar-container">
             <div class="hp-bar-fill" id="timerHpBar"></div>
             <span class="hp-text" id="timerHpText">100%</span>
         </div>
 
-        <button id="btnStopAlarm" class="btn-stop-sound" onclick="stopAlarmSound()" style="display:none;">
+        <button type="button" id="btnStopAlarm" class="btn-stop-sound" onclick="stopAlarmSound()" style="display:none;">
             🔕 DETENER SONIDO
         </button>
 
         <div class="timer-controls">
-            <button id="btnTimerToggle" onclick="toggleTimerState()">Iniciar</button>
-            <button id="btnTimerReset" onclick="resetTimer()">Reset</button>
-            <button id="btnTimerSettings" onclick="toggleTimerSettings()" style="max-width: 30px;">⚙️</button>
+            <button type="button" id="btnTimerToggle" onclick="toggleTimerState()">Iniciar</button>
+            <button type="button" id="btnTimerReset" onclick="resetTimer()">Reset</button>
+            <button type="button" id="btnTimerSettings" onclick="toggleTimerSettings()" style="max-width: 30px;">⚙️</button>
         </div>
 
         <div id="timerSettingsPanel" class="timer-settings" style="display:none;">
@@ -205,7 +206,7 @@
                         <option value="scifi" selected>Sci-Fi (Default)</option>
                     </select>
                 </div>
-                <button onclick="testSound()" style="width:100%; margin-top:5px; padding:5px; font-size:0.75rem; background:#444; border:none; color:white; border-radius:4px; cursor:pointer;">
+                <button type="button" onclick="testSound()" style="width:100%; margin-top:5px; padding:5px; font-size:0.75rem; background:#444; border:none; color:white; border-radius:4px; cursor:pointer;">
                     ▶ Probar Sonido
                 </button>
             </div>
