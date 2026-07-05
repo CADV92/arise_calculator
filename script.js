@@ -29,7 +29,7 @@ const TRANSLATIONS = {
         
         btn_target_1: "1% (Recompensa)",
         btn_target_100: "100% (Matar)",
-        btn_calc: "CALCULATE",
+        btn_calc: "CALCULAR",
         
         res_goal: "Daño Objetivo:",
         res_rounds: "Rondas necesarias:",
@@ -65,6 +65,7 @@ const TRANSLATIONS = {
         err_data: "Sin datos.",
         err_dmg: "Daño inválido.",
         err_custom: "Ingresa un valor válido en Vida Manual.",
+        err_time: "Tiempo por ronda inválido.",
         time_y: "a", time_mo: "mes", time_d: "d", time_h: "h", time_m: "m", time_s: "s",
         placeholder_dmg: "Ej: 1.5 B, 100 Sx..."
     },
@@ -81,7 +82,7 @@ const TRANSLATIONS = {
         lbl_ref_source: "Reference Source:", lbl_ref_tower: "Tower ASC", lbl_ref_maps: "Map Bosses",
         btn_ref_show: "▼ Show Reference (Tables)", btn_ref_hide: "▲ Hide Reference",
         lbl_dmg: "Estimated Damage", lbl_time: "Time per Round (s)", lbl_target: "Target Calculation",
-        btn_target_1: "1% (Reward)", btn_target_100: "100% (Kill)", btn_calc: "CALCULATE",
+        btn_target_1: "1% (Reward)", btn_target_100: "100% (Kill)", btn_calc: "CALCULAR",
         res_goal: "Target Dmg:", res_rounds: "Rounds needed:", res_time: "Est. Time:", btn_timer_link: "⏱ Use in Alarm",
         btn_toggle_table: "View Detailed Table", btn_summary: "View Matrix (Summary)",
         modalTitleDetails: "Level Details", matrix_title_hp: "Matrix: Total HP", matrix_title_reward: "Matrix: 1% Reward",
@@ -89,7 +90,7 @@ const TRANSLATIONS = {
         th_rank: "Rank", th_hp: "HP", th_name: "Subtitle", th_mob: "Monster", th_total: "Total HP", th_reward: "Reward (1%)", th_time: "Est. Time",
         timer_start: "Start", timer_pause: "Pause", timer_reset: "Reset", timer_done: "DONE!", timer_alert: "PRE-ALERT!",
         lbl_vol: "Volume:", lbl_tone: "Tone:",
-        err_data: "No data.", err_dmg: "Invalid damage.", err_custom: "Enter a valid Custom HP.",
+        err_data: "No data.", err_dmg: "Invalid damage.", err_custom: "Enter a valid Custom HP.", err_time: "Invalid round time.",
         time_y: "y", time_mo: "mo", time_d: "d", time_h: "h", time_m: "m", time_s: "s", placeholder_dmg: "Ex: 1.5 B, 100 Sx..."
     },
     it: {
@@ -113,7 +114,7 @@ const TRANSLATIONS = {
         th_rank: "Rango", th_hp: "Vita", th_name: "Sottotitolo", th_mob: "Mostro", th_total: "HP Totale", th_reward: "1% (Ricompensa)", th_time: "Tempo Stim.",
         timer_start: "Avvia", timer_pause: "Pausa", timer_reset: "Reset", timer_done: "FINITO!", timer_alert: "PRE-ALLARME!",
         lbl_vol: "Volume:", lbl_tone: "Tono:",
-        err_data: "Nessun dato.", err_dmg: "Danno non valido.", err_custom: "Inserisci una vita valida.",
+        err_data: "Nessun dato.", err_dmg: "Danno non valido.", err_custom: "Inserisci una vita valida.", err_time: "Tempo per round non valido.",
         time_y: "a", time_mo: "mese", time_d: "g", time_h: "h", time_m: "m", time_s: "s", placeholder_dmg: "Es: 1.5 B, 100 Sx..."
     }
 };
@@ -134,10 +135,15 @@ const UNITS = [
     {s:"K",  p:3}, {s:"M",  p:6}, {s:"B",  p:9}, {s:"T",  p:12}, 
     {s:"Qa", p:15}, {s:"Qi", p:18}, {s:"Sx", p:21}, {s:"Sp", p:24}, 
     {s:"Oc", p:27}, {s:"No", p:30}, {s:"Dc", p:33}, {s:"Ud", p:36}, 
-    {s:"Dd", p:39}, {s:"Td", p:42}, {s:"E45", p:45}, {s:"E48", p:48}, 
-    {s:"E51", p:51}, {s:"E54", p:54}, {s:"E57", p:57}, {s:"E60", p:60}, 
-    {s:"E63", p:63}, {s:"E66", p:66}, {s:"E69", p:69}, {s:"E72", p:72}, 
-    {s:"E75", p:75}, {s:"E78", p:78}, {s:"E81", p:81}, {s:"E84", p:84}
+    {s:"Dd", p:39}, {s:"Td", p:42},
+    // Alias observado en algunos datos nuevos. Se trata como E45 para que no se calcule como número plano.
+    {s:"Bd", p:45},
+    {s:"E45", p:45}, {s:"E48", p:48}, {s:"E51", p:51}, {s:"E54", p:54},
+    {s:"E57", p:57}, {s:"E60", p:60}, {s:"E63", p:63}, {s:"E66", p:66},
+    {s:"E69", p:69}, {s:"E72", p:72}, {s:"E75", p:75}, {s:"E78", p:78},
+    {s:"E81", p:81}, {s:"E84", p:84}, {s:"E87", p:87}, {s:"E90", p:90},
+    {s:"E93", p:93}, {s:"E96", p:96}, {s:"E99", p:99}, {s:"E102", p:102},
+    {s:"E105", p:105}, {s:"E108", p:108}
 ];
 
 const SOUNDS = {
@@ -155,6 +161,43 @@ const selectMonster = document.getElementById('monsterSelect');
 const slider = document.getElementById('rankSlider');
 const displayHP = document.getElementById('bossHP');
 const tableBody = document.getElementById('tableBody');
+
+function getCurrentRankCount() {
+    if (!CURRENT_MONSTER_LIST || Object.keys(CURRENT_MONSTER_LIST).length === 0) return RANKS.length;
+    return Math.max(...Object.values(CURRENT_MONSTER_LIST).map(list => Array.isArray(list) ? list.length : 0), RANKS.length);
+}
+
+function getRankLabel(index) {
+    return RANKS[index] || `R${index + 1}`;
+}
+
+function getRankName(index) {
+    return RANK_NAMES[index] || "";
+}
+
+function renderRankLabels() {
+    const labels = document.querySelector('.rank-labels');
+    if (!labels) return;
+    const count = getCurrentRankCount();
+    labels.innerHTML = "";
+    for (let i = 0; i < count; i++) {
+        const span = document.createElement('span');
+        span.innerText = getRankLabel(i);
+        labels.appendChild(span);
+    }
+}
+
+function syncSliderRange() {
+    const count = getCurrentRankCount();
+    const maxIndex = Math.max(count - 1, 0);
+    slider.max = maxIndex.toString();
+    if (parseInt(slider.value, 10) > maxIndex) slider.value = maxIndex.toString();
+    renderRankLabels();
+}
+
+function isPositiveFinite(value) {
+    return Number.isFinite(value) && value > 0;
+}
 
 // --- 2. SISTEMA DE IDIOMAS Y MODOS ---
 
@@ -258,7 +301,8 @@ function setMode(mode, btnElement) {
     document.getElementById('results').style.display = "none";
     
     document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-    btnElement.classList.add('active');
+    const activeButton = btnElement || document.getElementById(`btn_mode_${mode}`);
+    if (activeButton) activeButton.classList.add('active');
 
     updateTitles();
 
@@ -311,11 +355,15 @@ function toggleReference() {
     const btn = document.getElementById('btnRefToggle');
     const t = TRANSLATIONS[currentLang];
 
+    const groupBossHP = document.getElementById('groupBossHP');
+
     if (dbSection.style.display === 'none') {
         dbSection.style.display = 'block';
+        if (currentMode === 'custom') groupBossHP.style.display = 'block';
         btn.innerText = t.btn_ref_hide;
     } else {
         dbSection.style.display = 'none';
+        if (currentMode === 'custom') groupBossHP.style.display = 'none';
         btn.innerText = t.btn_ref_show;
     }
 }
@@ -356,7 +404,7 @@ function updateCustomRef(source) {
 function setTarget(pct, btnElement) {
     targetPercentage = pct;
     document.querySelectorAll('.target-btn').forEach(b => b.classList.remove('active'));
-    btnElement.classList.add('active');
+    if (btnElement) btnElement.classList.add('active');
     if(isCalculated) calculate();
 }
 
@@ -397,7 +445,8 @@ function renderMatrixTable() {
     if (!CURRENT_MONSTER_LIST) return;
 
     let userDmg = parseBig(document.getElementById('userDmg').value);
-    let timeRound = parseFloat(document.getElementById('timeRound').value) || 25;
+    let timeRound = parseFloat(document.getElementById('timeRound').value);
+    if (!isPositiveFinite(timeRound)) timeRound = 25;
 
     if (showRewardMode) {
         modalTitle.innerText = t.matrix_title_reward;
@@ -411,15 +460,16 @@ function renderMatrixTable() {
         btnSwitch.style.color = "var(--gold)";
     }
 
+    const rankCount = getCurrentRankCount();
     let html = `<thead><tr><th style="background:#1e293b; color:#fff;">Monster</th>`;
-    RANKS.forEach(r => html += `<th>${r}</th>`);
+    for (let i = 0; i < rankCount; i++) html += `<th>${getRankLabel(i)}</th>`;
     html += `</tr></thead><tbody>`;
 
     Object.keys(CURRENT_MONSTER_LIST).forEach(mobName => {
         let hpList = CURRENT_MONSTER_LIST[mobName];
         html += `<tr><td>${mobName}</td>`;
         
-        for (let i = 0; i < RANKS.length; i++) {
+        for (let i = 0; i < rankCount; i++) {
             let valRaw = hpList[i];
             
             if (!valRaw || valRaw.trim() === "") {
@@ -435,7 +485,7 @@ function renderMatrixTable() {
                 }
 
                 let cellClass = "";
-                if (userDmg > 0) {
+                if (isPositiveFinite(userDmg) && isPositiveFinite(targetHpForCalc)) {
                     let rounds = Math.ceil(targetHpForCalc / userDmg);
                     let seconds = rounds * timeRound;
                     if (seconds <= TIME_LIMIT_SECONDS) {
@@ -507,42 +557,57 @@ function populateMonsterSelect() {
         opt.innerText = k;
         selectMonster.appendChild(opt);
     });
+    syncSliderRange();
     updateUI(false); 
 }
 
 // --- 5. LÓGICA MATEMÁTICA ---
 function parseBig(str) {
-    if(!str) return 0;
-    str = str.toString().trim().toUpperCase();
-    if(str.includes("E")) {
-        let parts = str.split("E");
-        let base = (parts[0] === "" || parts[0] === "1") ? 1 : parseFloat(parts[0]);
-        let exp = parseFloat(parts[1]);
+    if (!str) return 0;
+    const original = str.toString().trim();
+    if (!original) return 0;
+
+    const normalized = original
+        .replace(/,/g, ".")
+        .replace(/\s+/g, "")
+        .toUpperCase();
+
+    const scientificMatch = normalized.match(/^([+-]?(?:\d+(?:\.\d+)?|\.\d+)?)E([+-]?\d+)$/);
+    if (scientificMatch) {
+        const base = scientificMatch[1] === "" || scientificMatch[1] === "+" ? 1 : parseFloat(scientificMatch[1]);
+        const exp = parseInt(scientificMatch[2], 10);
         return base * Math.pow(10, exp);
     }
-    let sortedUnits = [...UNITS].sort((a,b) => b.s.length - a.s.length);
-    for(let u of sortedUnits) {
-        if(str.endsWith(u.s.toUpperCase())) {
-            let val = parseFloat(str.replace(u.s.toUpperCase(), ""));
+
+    const sortedUnits = [...UNITS].sort((a, b) => b.s.length - a.s.length);
+    for (let u of sortedUnits) {
+        const unit = u.s.toUpperCase();
+        if (normalized.endsWith(unit)) {
+            const rawNumber = normalized.slice(0, -unit.length);
+            const val = rawNumber === "" || rawNumber === "+" ? 1 : parseFloat(rawNumber);
             return val * Math.pow(10, u.p);
         }
     }
-    return parseFloat(str);
+
+    return parseFloat(normalized);
 }
 
 function formatBig(num) {
-    if(num <= 0) return "0";
+    if (!Number.isFinite(num)) return "∞";
+    if (num <= 0) return "0";
     let log = Math.log10(num);
     let exp = Math.floor(log / 3) * 3; 
     if (exp < 3) return num.toLocaleString('en-US', {maximumFractionDigits: 2});
     let mantissa = num / Math.pow(10, exp);
     if(exp >= 45) return `${mantissa.toFixed(2)} E${exp}`;
-    let unit = UNITS.find(u => u.p === exp);
+    let unit = UNITS.find(u => u.p === exp && !u.s.startsWith("E"));
     if (unit) return `${mantissa.toFixed(2)} ${unit.s}`;
     return num.toExponential(2);
 }
 
 function formatTime(totalSeconds) {
+    if (!Number.isFinite(totalSeconds)) return "∞";
+    totalSeconds = Math.max(0, totalSeconds);
     const t = TRANSLATIONS[currentLang];
     const SEC_MIN = 60, SEC_HOUR = 3600, SEC_DAY = 86400, SEC_MONTH = 2592000, SEC_YEAR = 31536000;
     
@@ -554,7 +619,7 @@ function formatTime(totalSeconds) {
     rem = rem % SEC_DAY;
     let h = Math.floor(rem / SEC_HOUR);
     let m = Math.floor((rem % SEC_HOUR) / SEC_MIN);
-    let s = Math.ceil(rem % SEC_MIN);
+    let sec = Math.ceil(rem % SEC_MIN);
     
     let timeString = "";
     if(years > 0) timeString += `${years}${t.time_y} `;
@@ -562,7 +627,7 @@ function formatTime(totalSeconds) {
     if(days > 0 || months > 0 || years > 0) timeString += `${days}${t.time_d} `;
     if(h > 0 || days > 0 || months > 0 || years > 0) timeString += `${h}${t.time_h} `;
     if(m > 0 || h > 0 || days > 0 || months > 0 || years > 0) timeString += `${m}${t.time_m} `;
-    timeString += `${s}${t.time_s}`;
+    timeString += `${sec}${t.time_s}`;
     return timeString;
 }
 
@@ -580,13 +645,13 @@ function updateUI() {
 
     let hpVal = CURRENT_MONSTER_LIST[key][idx];
 
-    document.getElementById('rankBadge').innerText = RANKS[idx];
+    document.getElementById('rankBadge').innerText = getRankLabel(idx);
     const rankSub = document.getElementById('rankName');
     
     let effectiveMode = (currentMode === 'custom') ? referenceMode : currentMode;
     
     if (effectiveMode === 'tower') {
-        rankSub.innerText = RANK_NAMES[idx];
+        rankSub.innerText = getRankName(idx);
         rankSub.style.display = 'block'; 
     } else {
         rankSub.innerText = "";
@@ -616,23 +681,36 @@ function calculate() {
             return;
         }
         totalHP = parseBig(customInput);
+        if (!isPositiveFinite(totalHP)) {
+            alert(t.err_custom);
+            return;
+        }
     } else {
         let key = selectMonster.value;
-        let idx = parseInt(slider.value);
+        let idx = parseInt(slider.value, 10);
         let hpStr = CURRENT_MONSTER_LIST[key][idx];
         if(!hpStr) { 
             if(!isCalculated) alert(t.err_data); 
             return; 
         }
         totalHP = parseBig(hpStr);
+        if (!isPositiveFinite(totalHP)) {
+            alert(t.err_data);
+            return;
+        }
     }
 
     let userDmg = parseBig(document.getElementById('userDmg').value);
-    let time = parseFloat(document.getElementById('timeRound').value) || 25;
+    let time = parseFloat(document.getElementById('timeRound').value);
 
-    if(userDmg <= 0) { 
+    if(!isPositiveFinite(userDmg)) { 
         if(!isCalculated) alert(t.err_dmg); 
         return; 
+    }
+
+    if(!isPositiveFinite(time)) {
+        alert(t.err_time || t.err_dmg);
+        return;
     }
 
     isCalculated = true;
@@ -640,15 +718,15 @@ function calculate() {
     let targetAmount = totalHP * targetPercentage;
     let rounds = Math.ceil(targetAmount / userDmg);
     let totalSeconds = rounds * time;
-    calculatedSeconds = totalSeconds; // Guardar para el timer
+    calculatedSeconds = totalSeconds;
 
     document.getElementById('results').style.display = "block";
     document.getElementById('out1Pct').innerText = formatBig(targetAmount);
-    document.getElementById('outRounds').innerText = rounds.toLocaleString();
+    document.getElementById('outRounds').innerText = Number.isFinite(rounds) ? rounds.toLocaleString() : "∞";
     document.getElementById('outTime').innerText = formatTime(totalSeconds);
 
     if(document.getElementById('detailsModal').style.display === "flex") {
-        renderTableRows(selectMonster.value, parseInt(slider.value));
+        renderTableRows(selectMonster.value, parseInt(slider.value, 10));
     }
     if(document.getElementById('summaryModal').style.display === "flex") {
         renderMatrixTable();
@@ -660,7 +738,8 @@ function renderTableRows(selectedKey, activeIdx) {
     tableBody.innerHTML = "";
     
     let userDmg = parseBig(document.getElementById('userDmg').value);
-    let timeRound = parseFloat(document.getElementById('timeRound').value) || 25;
+    let timeRound = parseFloat(document.getElementById('timeRound').value);
+    if (!isPositiveFinite(timeRound)) timeRound = 25;
     
     let effectiveMode = (currentMode === 'custom') ? referenceMode : currentMode;
 
@@ -674,9 +753,9 @@ function renderTableRows(selectedKey, activeIdx) {
                 row.style.borderLeft = "4px solid var(--accent)";
             }
             row.innerHTML = `
-                <td style="font-weight:bold; color: ${i===activeIdx?'var(--accent)':'#aaa'}">${RANKS[i]}</td>
+                <td style="font-weight:bold; color: ${i===activeIdx?'var(--accent)':'#aaa'}">${getRankLabel(i)}</td>
                 <td style="color: #fff; font-weight: 500;">${val ? val : '-'}</td>
-                <td style="font-size:0.8em; color:#ffd700">${RANK_NAMES[i]}</td>
+                <td style="font-size:0.8em; color:#ffd700">${getRankName(i)}</td>
             `;
             tableBody.appendChild(row);
         });
@@ -693,13 +772,13 @@ function renderTableRows(selectedKey, activeIdx) {
             let rawHp = parseBig(hpAtRank);
             let onePct = rawHp * 0.01;
             
-            let colTotal = (rawHp > 0) ? formatBig(rawHp) : "-";
-            let colReward = (rawHp > 0) ? formatBig(onePct) : "-";
+            let colTotal = isPositiveFinite(rawHp) ? formatBig(rawHp) : "-";
+            let colReward = isPositiveFinite(rawHp) ? formatBig(onePct) : "-";
             
             let colTime = "";
             let timeClass = "";
 
-            if (isCalculated && rawHp > 0 && userDmg > 0) {
+            if (isCalculated && isPositiveFinite(rawHp) && isPositiveFinite(userDmg)) {
                 let r = Math.ceil(onePct / userDmg);
                 let sec = r * timeRound;
                 colTime = formatTime(sec);
@@ -881,9 +960,7 @@ function updateTimerDisplay(seconds) {
         (m < 10 ? "0" + m : m) + ":" + 
         (s < 10 ? "0" + s : s);
         
-    if(document.getElementById('timerDisplay').innerText !== TRANSLATIONS[currentLang].timer_done) {
-        document.getElementById('timerDisplay').innerText = str;
-    }
+    document.getElementById('timerDisplay').innerText = str;
 
     if (calculatedSeconds > 0) {
         let percentage = (seconds / calculatedSeconds) * 100;
