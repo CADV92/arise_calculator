@@ -128,7 +128,7 @@ let calculatedSeconds = 0;
 
 const TIME_LIMIT_SECONDS = 14 * 60; 
 
-const RANKS = ["E", "D", "C", "B", "A", "S", "SS", "G", "N"];
+const RANKS = ["E", "D", "C", "B", "A", "S", "SS", "G", "N", "M+"];
 const RANK_NAMES = ["M+", "GM", "MM", "M++", "XM", "GOD", "ULT", "OMG", "ARC"];
 
 const UNITS = [
